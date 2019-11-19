@@ -1,0 +1,28 @@
+{
+  "name": "parkingwaze",
+  "version": "1.0.0",
+  "description": "ParkingWazeApp",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleoneill/parkingWaze.git"
+  },
+  "author": "Alexis Oneill, Alicia Sandoval, Monica Ocampo, Yazmin Carrillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aleoneill/parkingWaze/issues"
+  },
+  "homepage": "https://github.com/aleoneill/parkingWaze#readme",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.4",
+    "request": "^2.88.0",
+    "save": "^2.4.0"
+  }
+}
