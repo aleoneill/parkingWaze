@@ -12,7 +12,7 @@ app.get("/", function(req, res) {
         database: 'l2gh8fug1cqr96dc'
     });
     
-    res.send("index.html"); 
+    res.render("index.html"); 
 });
 
 // server listener 
