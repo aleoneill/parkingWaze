@@ -1,3 +1,57 @@
 <% include partials/header %>
+<script>
+  
+  /* npm i jquery-timepicker */
+  
+  (function($) {
+        $(function() {
+            $('input.timepicker').timepicker();
+        });
+    })(jQuery);
 
+    $('.timepicker').timepicker({
+        timeFormat: 'h:mm p',
+        interval: 60,
+        minTime: '10',
+        maxTime: '6:00pm',
+        defaultTime: '11',
+        startTime: '10:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+</script>
+<h2>What time are you arriving to campus?</h2>
+<form id="arrival">
+    <input type="text" class="timepicker" name="time"/>
+</form>
+<h2>Location of next class:</h2>
+<select>
+    <option value="">Select One</option>
+    <option value="bit">Business and Information Technology (BIT)</option>
+    <option value="library">Library</option>
+    <option value="cahss">College of Arts, Humanities, and Social Sciences (CAHSS)</option>
+    <option value="gym">Otter Sports Center (Gym)</option>
+    <option value="vpa">Visual and Public Arts (VPA)</option>
+    <option value="valley">Valley Hall</option>
+    <option value="ocean">Ocean Hall</option>
+    <option value="chapman">Chapman</option>
+    <option value="harbor-coast-pacific">Harbor Hall/Coast Hall/Pacific Hall</option>
+    <option value="music">Music Hall</option>
+    <option value="language">World Languages North/South</option>
+    <option value="oak">Oaks Hall</option>
+    <option value="cart">Cinematic Arts & Technology</option>
+</select>
+<h2>How long are you planning on staying?</h2>
+<form id="departure">
+    <input type="text" class="timepicker" name="time"/>
+</form>
+<script>
+    var arrival = $("#arrival");
+    var departure = $("#departure");
+    var location = $("#location option:selected").text();
+
+    // mysql call - grab closest 3 lots
+</script>
 <% include partials/footer %>
