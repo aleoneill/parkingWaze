@@ -1,0 +1,45 @@
+body {
+    text-align: center;
+    width: 100%;
+    font-family: 'proxima-nova', sans-serif;
+    background-color: #5DBCD2;
+}
+
+.header {
+    padding: 60px;
+    text-align: center;
+    color: white;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.login {
+    height: 300px;
+    width: 20%;
+    margin: auto;
+    border-style: solid;
+    padding: 10px;
+}
+
+.new {
+    height: 150px;
+    border-style: solid;
+    padding: 10px;
+    margin: auto;
+    width: 70%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+    position: static;
+}
+
+a {
+    color: white;
+}
