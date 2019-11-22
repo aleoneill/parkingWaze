@@ -1,0 +1,65 @@
+<% include partials/header %>
+
+<div class="header">
+    <h1>Welcome to Parking Waze!</h1>
+</div>
+
+<div class="login">
+    <br><a href="login.html">Login</a><br><br> OR <br>
+    <br><a href="map.html">Continue as Guest</a><br><br>
+    <div class="new">
+        <h4>Don't have an account?</h4>
+        <a href="newuser.html">Create an account!</a>
+    </div>
+</div>
+
+<!--<div class="wrapper fadeInDown">-->
+<!--    <div id="formContent">-->
+        <!-- Login Form -->
+<!--        <form>-->
+<!--            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">-->
+<!--            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">-->
+<!--            <input type="submit" class="fadeIn fourth" value="Log In">-->
+<!--            <div id="message" class="alert alert-danger hidden" role="alert">-->
+<!--                This is a danger alert check! -->
+<!--            </div>-->
+<!--        </form>-->
+
+        <!-- Remind Passowrd -->
+<!--        <div id="formFooter">-->
+<!--            <a class="underlineHover" href="#">Forgot Password?</a>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<% include partials/footer %>
+<!--<script>-->
+<!--    $(function() {-->
+<!--        $("#message")-->
+<!--        $("#loginButton").on("click", function(e) {-->
+        <!--do not submit until i am ready -->
+<!--        e.preventDefault(); -->
+        
+<!--        $.ajax({ -->
+<!--            type: "POST", -->
+<!--            url: "/auth/login", -->
+<!--            datatype: "json", -->
+<!--            contentType: "application/json", -->
+<!--            data: JSON.stringify({-->
+<!--                "username": $("#login").val(), -->
+<!--                "password": $("#password").val()-->
+<!--            }), -->
+<!--            success: function(data, status) {-->
+<!--                console.log(); -->
+<!--                if(resule.successful) {-->
+<!--                    window.location.href = '/auth/dashboard'; -->
+<!--                } else {-->
+<!--                    $("#message").html(""); -->
+<!--                }-->
+<!--            }-->
+<!--        }); -->
+<!--    }-->
+<!--    })(); -->
+<!--</script>-->
+

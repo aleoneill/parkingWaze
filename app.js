@@ -1,8 +1,20 @@
 const express = require("express"); 
 const mysql = require('mysql');
+const session = require('express-session');
 const app = express(); 
+
 app.engine('html', require('ejs').renderFile); 
 app.use(express.static("public"));
+
+app.get('/login', function(req, res) {
+    res.render("login.html", {
+        title: 'Login'
+    });
+});
+
+app.post('/login', function() {
+    
+}); 
 
 app.get("/", function(req, res) {
     const connection = mysql.createConnection({
