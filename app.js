@@ -3,13 +3,14 @@ const mysql = require('mysql');
 const session = require('express-session');
 const app = express();
 
+// view engine setup
 app.engine('html', require('ejs').renderFile);
 app.use(express.static("public"));
 
-// Enable sessions
+app.set('trust proxy', 1); // trust first proxy
 app.use(session({
-  secret: '6wOBwJBStY'
-}));
+    secret: 'password'
+})); 
 
 app.get('/', function(req, res, next) {
     res.render("login.html");
@@ -20,9 +21,12 @@ app.post('/', function(req, res, next) {
     let message = '';
     
     // TODO: replace with MySQL SELECT and hashing/salting...
-    if (req.body.username === 'hello' && req.body.password === 'world') {
+    // Hey Monica, this is what im having trouble with... req.body does not work 
+    // it was working on my in class example but I'm not sure what's the problem 
+    console.log("Req body...", req.body.username); 
+    if (req.params.username === 'hello' && req.params.password === 'world') {
         successful = true;
-        req.session.username = req.body.username; 
+        req.session.username = req.params.username; 
     } else {
         // delete the user as punishment!
         delete req.session.username;
@@ -34,17 +38,6 @@ app.post('/', function(req, res, next) {
         successful: successful,
         message: message
     });// Do something to login... 
-});
-
-app.get('/logout', function(req, res, next) {
-    if (req.session && req.session.username && req.session.username.length) {
-        delete req.session.username;
-    }
-
-    res.json({
-        successful: true,
-        message: ''
-    });
 });
 
 app.get('/map', function(req, res, next) {
@@ -63,7 +56,7 @@ app.get('/map', function(req, res, next) {
     }
     else {
         delete req.session.username;
-        res.redirect('/');
+        // res.redirect('/'); COMMENTING OUT SO PEOPLE CAN STILL GO TO /MAP WITHOUT BEING REDIRECTED
     }
 });
 
