@@ -19,15 +19,12 @@ app.post('/', function(req, res, next) {
     let successful = false;
     let message = '';
     
-    console.log(req.username); 
     // TODO: replace with MySQL SELECT and hashing/salting...
-    if (req.username === 'hello' && req.password === 'world') {
-        console.log("success should equal true!"); 
+    if (req.body.username === 'hello' && req.body.password === 'world') {
         successful = true;
-        req.session.username = req.username;
+        req.session.username = req.body.username; 
     } else {
         // delete the user as punishment!
-        console.log("success equals false"); 
         delete req.session.username;
         message = 'Wrong username or password!'
     }
@@ -36,7 +33,7 @@ app.post('/', function(req, res, next) {
     res.json({
         successful: successful,
         message: message
-    });
+    });// Do something to login... 
 });
 
 app.get('/logout', function(req, res, next) {
