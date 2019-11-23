@@ -11,20 +11,23 @@ app.use(session({
   secret: '6wOBwJBStY'
 }));
 
-app.get('/', function(req, res) {
+app.get('/', function(req, res, next) {
     res.render("login.html");
 });
 
-app.post('/', function(req, res) {
+app.post('/', function(req, res, next) {
     let successful = false;
     let message = '';
     
+    console.log(req.username); 
     // TODO: replace with MySQL SELECT and hashing/salting...
-    if (req.body.username === "hello" && req.body.password === "world") {
+    if (req.username === 'hello' && req.password === 'world') {
+        console.log("success should equal true!"); 
         successful = true;
-        req.session.username = req.body.username;
+        req.session.username = req.username;
     } else {
         // delete the user as punishment!
+        console.log("success equals false"); 
         delete req.session.username;
         message = 'Wrong username or password!'
     }
@@ -36,7 +39,7 @@ app.post('/', function(req, res) {
     });
 });
 
-app.get('/logout', function(req, res) {
+app.get('/logout', function(req, res, next) {
     if (req.session && req.session.username && req.session.username.length) {
         delete req.session.username;
     }

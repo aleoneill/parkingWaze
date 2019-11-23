@@ -14,10 +14,9 @@ $(document).ready(function() {
             success: function(result, status) {
                 if (result.successful) {
                     window.location.href = '/map'; // This will navigate to wherever i say...
-                }
-                else {
+                } else {
                     // Show an error message or something and stay here
-                    $('#message').html(result.message);
+                    $('#message').html(result.message).css("color", "red");
                     $('#message').show();
                 }
             }
