@@ -1,8 +1,7 @@
 <% include partials/header %>
+
 <script>
-  
   /* npm i jquery-timepicker */
-  
   (function($) {
         $(function() {
             $('input.timepicker').timepicker();
@@ -22,6 +21,7 @@
     });
 
 </script>
+
 <h2>What time are you arriving to campus?</h2>
 <form id="arrival">
     <input type="text" class="timepicker" name="time"/>
@@ -47,6 +47,7 @@
 <form id="departure">
     <input type="text" class="timepicker" name="time"/>
 </form>
+
 <script>
     var arrival = $("#arrival");
     var departure = $("#departure");
@@ -54,4 +55,5 @@
 
     // mysql call - grab closest 3 lots
 </script>
+
 <% include partials/footer %>

@@ -7,56 +7,19 @@
     <div id="formContent">
         <!-- Login Form -->
         <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="username">
             <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-            <button id="loginButton" class="btn btn-primary fadeIn fourth mb-2">Login</button>
+            <button id="loginButton" class="button fadeIn fourth">Login</button>
             <div id="message" class="alert alert-danger hidden m-2" role="alert"></div>
         </form>
 
         <!-- Remind Password -->
         <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a><br><br>
-            <a class="underlineHover" href="map.html">Continue as Guest</a><br>
+            <!--<a class="underlineHover" href="#">Forgot Password?</a> or -->
+            <a id="continue" class="underlineHover" href="/map">Continue as Guest</a><br>
         </div>
     </div>
 </div><br><br>
 
 <% include partials/footer %>
-
-<script>
-    $(document).ready(function() {
-        $('#loginButton').on('click', function(e) {
-            e.preventDefault(); // Do not submit until I am ready
-            
-            $.ajax({
-                type: "POST",
-                url: "/auth/login",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    "username": $("#login").val(),
-                    "password": $("#password").val()
-                }),
-                success: function(result, status) {
-                    console.log("got login status back", result);
-                    if (result.successful) {
-                        window.location.href = '/auth/dashboard';  // This will navigate to wherever i say...
-                    }
-                    else {
-                        // Show an error message or something and stay here
-                        $('#message').html(result.message);
-                        $('#message').show();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    err = eval("error: (" + xhr.responseText + ")");
-                    console.error(err);
-                },
-                complete: function(data, status) { //optional, used for debugging purposes
-                    console.log(status);
-                }
-            });
-        })
-    });
-</script>
 
