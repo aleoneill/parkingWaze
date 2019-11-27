@@ -9,7 +9,7 @@
     </head>
     
 <script>
-  /* npm i jquery-timepicker */
+  /* npm i jquery-timepicker...already installed timepicker*/
   (function($) {
         $(function() {
             $('input.timepicker').timepicker();
@@ -53,6 +53,8 @@
 </select>
 
 <h2>How long are you planning on staying?</h2>
+<form id="departure">-->
+<input type="text" class="timepicker" name="time"/>
         <select>
             <option value = "">Select One</option>
             <option value = "30">30 min.</option>
@@ -65,7 +67,7 @@
 <!--<h2>How long are you planning on staying?</h2>-->
 <!--<form id="departure">-->
 <!--    <input type="text" class="timepicker" name="time"/>-->
-<!--</form>-->
+<!--</form>...How can we implement to use a dropdown menu instead of having user input their time...?--->
 
 <script>
     var arrival = $("#arrival");
