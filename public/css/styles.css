@@ -152,6 +152,10 @@ input[type=text]:placeholder {
     display: none;
 }
 
+.timepicker {
+    width: 60%;
+}
+
 .button {
     padding: 8px 20px;
     margin: 5px;
