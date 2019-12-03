@@ -8,46 +8,17 @@
         <!-- Login Form -->
         <form>
             <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password">
+            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password">
             <input type="submit" id="loginButton" class="button fadeIn fourth" value="Log In">
             <div id="message" class="alert alert-danger hidden m-2" role="alert"></div>
         </form>
 
         <!-- Remind Password -->
         <div id="formFooter">
-            <!--<a class="underlineHover" href="#">Forgot Password?</a> or -->
+            <a class="underlineHover" href="#">Forgot Password?</a> or 
             <a id="continue" class="underlineHover" href="/map">Continue as Guest</a><br>
         </div>
     </div>
 </div><br><br>
-
-<script>
-    $(document).ready(function() {
-    $('#loginButton').on('click', function(e) {
-        e.preventDefault(); // Do not submit until I am ready
-
-        $.ajax({
-            type: "POST",
-            url: "/",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify({
-                "username": $("#login").val(),
-                "password": $("#password").val()
-            }),
-            success: function(result, status) {
-                if (result.result) {
-                    window.location.href = '/map'; // This will navigate to wherever i say...
-                }
-                else {
-                    // Show an error message or something and stay here
-                    $('#message').html(result.message).css("color", "red");
-                    $('#message').show();
-                }
-            }
-        });
-    });
-});
-</script>
 
 <% include partials/footer %>
