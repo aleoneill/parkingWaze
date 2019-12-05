@@ -51,7 +51,7 @@ a {
 }
 
 /* FORM TYPOGRAPHY*/
-input[type=text] {
+input {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
