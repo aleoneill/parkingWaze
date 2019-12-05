@@ -61,7 +61,32 @@ app.get('/map', function(req, res, next) {
     }
 });
 
-// running server
+app.get('/user', function(req, res) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+
+    connection.connect();
+
+    var body = req.body;
+
+    // connection.query(`INSERT INTO author VALUES (${body.id}, '${body.FirstName}', '${body.LastName}', '${body.dob}', '${body.dod}')`,
+        // function(error, results) {
+        //     if (error) throw error;
+        //
+        //     console.log(body);
+        //     res.render('new.html', {
+        //         title: 'Parking Waze',
+        //         unique_id: parseInt(body.id, 10) + 1
+        //     });
+        // });
+    res.render("new.html");
+});
+
+
 // app.listen("5000", "0.0.0.0", function() {
 //     console.log("Express Server is Running...")
 // });

@@ -128,6 +128,14 @@ input[type=text]:placeholder {
     animation-delay: 1s;
 }
 
+.fadeIn.fifth {
+    animation-delay: 1.2s;
+}
+
+.fadeIn.sixth {
+    animation-delay: 1.4s;
+}
+
 /* Simple CSS3 Fade-in Animation */
 .underlineHover:after {
     display: block;
