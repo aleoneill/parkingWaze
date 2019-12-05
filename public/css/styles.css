@@ -160,7 +160,13 @@ input[type=text]:placeholder {
 .timepicker {
     width: 60%;
 }
-
+#arrival{
+    height: 300px;
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    padding: 10px;
+}
 .button {
     padding: 8px 20px;
     margin: 5px;
