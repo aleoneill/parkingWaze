@@ -5,14 +5,93 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Login Form -->
-        <form>
-            <input type="text" id="id" class="fadeIn second" name="id" placeholder="School ID">
-            <input type="password" id="name" class="fadeIn third" name="name" placeholder="Full Name"><br>
-            <input type="text" id="username" class="fadeIn fourth" name="login" placeholder="Username">
-            <input type="password" id="password" class="fadeIn fifth" name="password" placeholder="Password"><br>
+        <form action="/user" method="post">
+            <br>
+            <label for="id">School ID</label>
+            <input type="text" id="id" class="fadeIn second" name="id" required>
+            <div id="idMessage">
+                <h3>ID must be:</h3>
+                <p id="idlength" class="invalid"><b>7</b> characters long</p>
+            </div>
+            <script>
+                var id = document.getElementById("id");
+
+                // When the user clicks on the password field, show the message box
+                id.onfocus = function() {
+                    document.getElementById("idMessage").style.display = "block";
+                }
+
+                // When the user clicks outside of the password field, hide the message box
+                id.onblur = function() {
+                    document.getElementById("idMessage").style.display = "none";
+                }
+                // When the user starts to type something inside the password field
+                id.onkeyup = function() {
+                    // Validate numbers
+                    var numbers = /[0-9]/g;
+                    if (password.value.match(numbers)) {
+                        number.classList.remove("invalid");
+                        number.classList.add("valid");
+                    } else {
+                        number.classList.remove("valid");
+                        number.classList.add("invalid");
+                    }
+                }
+            </script>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" class="fadeIn third" name="name" required><br>
+            <label for="username">Username</label>
+            <input type="text" id="username" class="fadeIn fourth" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" class="fadeIn fifth" name="password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+<!--            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"-->
+            <script>
+                var password = document.getElementById("password");
+                var letter = document.getElementById("letter");
+                var number = document.getElementById("number");
+
+                // When the user clicks on the password field, show the message box
+                password.onfocus = function() {
+                    document.getElementById("passwordMessage").style.display = "block";
+                }
+
+                // When the user clicks outside of the password field, hide the message box
+                password.onblur = function() {
+                    document.getElementById("passwordMessage").style.display = "none";
+                }
+
+                // When the user starts to type something inside the password field
+                password.onkeyup = function() {
+                    // Validate lowercase letters
+                    var lowerCaseLetters = /[a-z]/g;
+                    if (password.value.match(lowerCaseLetters)) {
+                        letter.classList.remove("invalid");
+                        letter.classList.add("valid");
+                    } else {
+                        letter.classList.remove("valid");
+                        letter.classList.add("invalid");
+                    }
+
+                    // Validate numbers
+                    var numbers = /[0-9]/g;
+                    if (password.value.match(numbers)) {
+                        number.classList.remove("invalid");
+                        number.classList.add("valid");
+                    } else {
+                        number.classList.remove("valid");
+                        number.classList.add("invalid");
+                    }
+                }
+            </script>
+            <div id="passwordMessage">
+                <h3>Password must contain the following:</h3>
+                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                <p id="number" class="invalid">A <b>number</b></p>
+            </div>
+            <br>
             <input type="submit" id="loginButton" class="button fadeIn sixth" value="Create Account">
-            <div id="message" class="alert alert-danger hidden m-2" role="alert"></div>
         </form>
     </div>
 </div>
 <% include partials/footer %>
+
