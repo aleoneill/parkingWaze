@@ -26,12 +26,12 @@ app.post('/', function(req, res, next) {
     let message = '';
     
     if (req.body.username === 'hello' && req.body.password === 'world') {
-        successful = true;
+            successful = true;
         req.session.username = req.body.username; 
     } else {
         // delete the user as punishment!
         delete req.session.username;
-        message = 'Wrong username or password!'
+        message = 'Wrong username or password'
     }
     
     // Return success or failure
@@ -62,6 +62,10 @@ app.get('/map', function(req, res, next) {
 });
 
 app.get('/user', function(req, res) {
+    res.render("new.html");
+});
+
+app.post('/user', function(req, res) {
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -72,26 +76,22 @@ app.get('/user', function(req, res) {
     connection.connect();
 
     var body = req.body;
+    console.log("Hi im here");
 
-    // connection.query(`INSERT INTO author VALUES (${body.id}, '${body.FirstName}', '${body.LastName}', '${body.dob}', '${body.dod}')`,
-        // function(error, results) {
-        //     if (error) throw error;
-        //
-        //     console.log(body);
-        //     res.render('new.html', {
-        //         title: 'Parking Waze',
-        //         unique_id: parseInt(body.id, 10) + 1
-        //     });
-        // });
-    res.render("new.html");
+    connection.query(`INSERT INTO user VALUES (${body.id}, '${body.name}', '${body.username}', '${body.password}')`,
+        function(error, results) {
+            if (error) throw error;
+            console.log(body);
+            res.render('new.html');
+        });
 });
 
+// test locally
+app.listen("5000", "0.0.0.0", function() {
+    console.log("Express Server is Running...")
+});
 
-// app.listen("5000", "0.0.0.0", function() {
-//     console.log("Express Server is Running...")
+// // server listener - heroku ready
+// app.listen(process.env.PORT, process.env.IP, function() {
+//     console.log("Running Express Server...");
 // });
-
-// server listener
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Running Express Server...");
-});
