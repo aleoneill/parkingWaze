@@ -1,37 +1,8 @@
-<!---<% include partials/header %> Have to figure out why header and footer aren't connecting to map.html--->
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Parking Waze</title>
-         <link rel="stylesheet" href="/css/styles.css" />
-        <!--<script src="https://code.jquery.com/jquery-3.1.0.js"></script>-->
-    </head>
-    <header>
-        Parking Waze
-    </header>
-    
-<script>
-//npm timepicker has been installed already 
-  (function($) {
-        $(function() {
-            $('input.timepicker').timepicker();
-        });
-    })(jQuery);
-
-    $('.timepicker').timepicker({
-        timeFormat: 'h:mm p',
-        interval: 60,
-        minTime: '10',
-        maxTime: '6:00pm',
-        defaultTime: '11',
-        startTime: '10:00',
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
-    });
-
-</script>
 <% include partials/header %>
+
+<div class="header">
+    <h1>Welcome to Parking Waze!</h1>
+</div>
 
 <h2>What time are you arriving to campus?</h2>
 <form id="arrival">

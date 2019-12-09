@@ -76,7 +76,6 @@ app.post('/user', function(req, res) {
     connection.connect();
 
     var body = req.body;
-    console.log("Hi im here");
 
     connection.query(`INSERT INTO user VALUES (${body.id}, '${body.name}', '${body.username}', '${body.password}')`,
         function(error, results) {
@@ -87,11 +86,15 @@ app.post('/user', function(req, res) {
 });
 
 // test locally
-app.listen("5000", "0.0.0.0", function() {
-    console.log("Express Server is Running...")
-});
+// app.listen("5000", "0.0.0.0", function() {
+//     console.log("Express Server is Running...")
+// });
 
+<<<<<<< HEAD
 // server listener - heroku ready
+=======
+// // server listener - heroku ready
+>>>>>>> c2b751c9a6b7d52802521f646669dd669713e808
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Running Express Server...");
 });
