@@ -26,7 +26,7 @@ app.post('/', function(req, res, next) {
     let message = '';
     
     if (req.body.username === 'hello' && req.body.password === 'world') {
-            successful = true;
+        successful = true;
         req.session.username = req.body.username; 
     } else {
         // delete the user as punishment!
@@ -65,7 +65,10 @@ app.get('/user', function(req, res) {
     res.render("new.html");
 });
 
-app.post('/user', function(req, res) {
+app.post('/user', function(req, res, next) {
+    let successful = true;
+    let message = '';
+    
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -74,15 +77,37 @@ app.post('/user', function(req, res) {
     });
 
     connection.connect();
-
-    var body = req.body;
-
-    connection.query(`INSERT INTO user VALUES (${body.id}, '${body.name}', '${body.username}', '${body.password}')`,
-        function(error, results) {
+    
+    connection.query(
+        `SELECT id, username, email FROM users
+        WHERE id = '${req.body.idNumber}' or username = '${req.body.username}' or email = '${req.body.email}' `, 
+        function(error, results, fields) {
             if (error) throw error;
-            console.log(body);
-            res.render('new.html');
-        });
+            
+            if(!results.length) {
+                connection.query(
+                    `INSERT INTO users
+                    (username, id, email, password, fullname)
+                    VALUES ('${req.body.username}', '${req.body.idNumber}', '${req.body.email}', 
+                    '${req.body.password}', '${req.body.fullName}')`, 
+                    function(error, results, fields) {
+                        if (error) throw error;
+                        else connection.end(); 
+                        res.json({
+                            successful: true,
+                            message: ''
+                        });
+                    }   
+                );
+            } else {
+                connection.end(); 
+                res.json({
+                    successful: true,
+                    message: ''
+                });
+            }
+        }
+    );
 });
 
 // test locally

@@ -64,11 +64,3 @@ $('#continue').on('click', function(e){
         },
     });
 });
-
-$("#submitNewUserButton").on("click", function() {
-   let idNumber = $("#id").val();
-   
-   if(idNumber.length != 7) {
-       $("#idMessage").css("color", "red").css("display", "block"); 
-   }
-});

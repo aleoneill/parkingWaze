@@ -1,15 +1,19 @@
 <% include partials/header %>
 
     <div class="header">
-        <h1>Welcome to Parking Waze!</h1>
+        <h1>Create New Account</h1>
     </div>
     <div class="wrapper fadeInDown">
         <div id="formContent">
             <!-- Login Form -->
-            <form action="/user" method="post"><br>
+            <form><br>
+                <!-- FULL NAME SECTION -->
+                <label for="email">Email</label>
+                <input type="text" id="email" class="fadeIn third" name="email" required><br>
+                
                 <!-- ID SECTION -->
-                <label for="id">School ID</label>
-                <input type="text" id="id" class="fadeIn second" name="id" required>
+                <label for="schoolID">School ID</label>
+                <input type="text" id="schoolID" class="fadeIn second" name="schoolID" required>
                 <div id="idMessage" style="display:none; color:green;">
                     ID must be 7 digits long<br><br>
                 </div>
@@ -20,16 +24,16 @@
                 <!--</div>-->
 
                 <!-- FULL NAME SECTION -->
-                <label for="name">Full Name</label>
-                <input type="text" id="name" class="fadeIn third" name="name" required><br>
-                
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="fadeIn third" name="fullName" required><br>
+
                 <!-- USERNAME SECTION -->
-                <label for="username">Username</label>
-                <input type="text" id="username" class="fadeIn fourth" name="username" required>
-                
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" class="fadeIn fourth" name="newUsername" required>
+
                 <!-- PASSWORD SECTION -->
-                <label for="password">Password</label>
-                <input type="password" id="password" class="fadeIn fifth" name="password" title="" required>
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" class="fadeIn fifth" name="newPassword" required>
                 <div id="passwordMessage" style="display:none; color:green;">
                     Must contain at least one number, one uppercase letter,<br> one lowercase letter, and must be at least 8 character long<br><br>
                 </div><br><br>
@@ -39,42 +43,43 @@
                 <!--    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>-->
                 <!--    <p id="number" class="invalid">A <b>number</b></p>-->
                 <!--</div>-->
-                
+
                 <!-- SUBMIT BUTTON -->
-                <input type="submit" id="loginButton" class="button fadeIn sixth" value="Create Account"><br><br>
+                <input type="submit" id="createAccountButton" class="button fadeIn sixth" value="Create Account"><br><br>
+                <span id="errorMessage"></span>
             </form>
         </div>
     </div>
 
     <script>
-        var id = document.getElementById("id");
-        var password = document.getElementById("password");
+        var id = document.getElementById("schoolID");
+        var password = document.getElementById("newPassword");
         var letter = document.getElementById("letter");
         var number = document.getElementById("number");
-        
+
         // When the user clicks on the id field, show the message box
         id.onfocus = function() {
             document.getElementById("idMessage").style.display = "block";
         }
-        
+
         // When the user clicks outside of the id field, hide the message box
         id.onblur = function() {
             document.getElementById("idMessage").style.display = "none";
         }
-        
+
         // When the user starts to type something inside the password field
-        id.onkeyup = function() {
-            // Validate numbers
-            var number = /[0-9]/g;
-            if (id.value.match(number)) {
-                number.classList.remove("invalid");
-                number.classList.add("valid");
-            }
-            else {
-                number.classList.remove("valid");
-                number.classList.add("invalid");
-            }
-        }
+        // id.onkeyup = function() {
+        //     // Validate numbers
+        //     var number = /[0-9]/g;
+        //     if (id.value.match(number)) {
+        //         number.classList.remove("invalid");
+        //         number.classList.add("valid");
+        //     }
+        //     else {
+        //         number.classList.remove("valid");
+        //         number.classList.add("invalid");
+        //     }
+        // }
 
         // When the user clicks on the password field, show the message box
         password.onfocus = function() {
@@ -87,29 +92,83 @@
         }
 
         // When the user starts to type something inside the password field
-        password.onkeyup = function() {
-            // Validate lowercase letters
-            var lowerCaseLetters = /[a-z]/g;
-            if (password.value.match(lowerCaseLetters)) {
-                letter.classList.remove("invalid");
-                letter.classList.add("valid");
+        // password.onkeyup = function() {
+        //     // Validate lowercase letters
+        //     var lowerCaseLetters = /[a-z]/g;
+        //     if (password.value.match(lowerCaseLetters)) {
+        //         letter.classList.remove("invalid");
+        //         letter.classList.add("valid");
+        //     }
+        //     else {
+        //         letter.classList.remove("valid");
+        //         letter.classList.add("invalid");
+        //     }
+
+        //     // Validate numbers
+        //     var numbers = /[0-9]/g;
+        //     if (password.value.match(numbers)) {
+        //         number.classList.remove("invalid");
+        //         number.classList.add("valid");
+        //     }
+        //     else {
+        //         number.classList.remove("valid");
+        //         number.classList.add("invalid");
+        //     }
+        // }
+
+        $("#createAccountButton").on("click", function(e) {
+            e.preventDefault(); // Do not submit until I am ready
+            let email = $("#email").val(); 
+            let idNumber = $("#schoolID").val();
+            let fullName = $("#fullName").val();
+            let username = $("#newUsername").val();
+            let password = $("#newPassword").val();
+
+            if(email == "") {
+                $("#errorMessage").html("Email is required").css("color", "red"); 
             }
-            else {
-                letter.classList.remove("valid");
-                letter.classList.add("invalid");
+            if (idNumber.length != 7) {
+                $("#idMessage").css("display", "block");
+                $("#idMessage").css("color", "red");
+            }
+            if (fullName == "") {
+                $("#errorMessage").html("Name is required").css("color", "red");
+            }
+            if (username == "") {
+                $("#errorMessage").html("Username is required").css("color", "red");
+            }
+            if (!password.length >= 8) {
+                $("#passwordMessage").css("display", "block");
+                $("#passwordMessage").css("color", "red");
             }
 
-            // Validate numbers
-            var numbers = /[0-9]/g;
-            if (password.value.match(numbers)) {
-                number.classList.remove("invalid");
-                number.classList.add("valid");
-            }
-            else {
-                number.classList.remove("valid");
-                number.classList.add("invalid");
-            }
-        }
+            $.ajax({
+                type: "POST",
+                url: "/user",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "email": email, 
+                    "idNumber": idNumber, 
+                    "fullName": fullName, 
+                    "username": username, 
+                    "password": password
+                }),
+                success: function(result, status) {
+                    if (result.successful) {
+                        window.location.href = '/map'; // This will navigate to wherever i say...
+                    }
+                    else {
+                        // Show an error message or something and stay here
+                        $('#errorMessage').html(result.message).css("color", "red");
+                        $('#errorMessage').show();
+                    }
+                },
+                error: function(xhr, status, message) {
+                    console.log("error: ", xhr.responseText);
+                }
+            });
+        });
     </script>
 
     <% include partials/footer %>
