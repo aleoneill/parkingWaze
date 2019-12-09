@@ -1,14 +1,16 @@
 <% include partials/header %>
 
 <div class="header">
-    <h1>Welcome to Parking Waze!</h1>
+    <h1>Parking Waze</h1>
 </div>
 
-<h2>What time are you arriving to campus?</h2>
+<h2>Time of Arrival on Campus?</h2>
 <form id="arrival">
-    <input type="text" class="timepicker" name="time" />
+    <input type="text" class="timepicker" name="time" /> 
 </form>
 <h2>Location of Next Class:</h2>
+<div class="buildings">
+      <div class="select">
 <select>
     <option value="">Select One</option>
     <option value="bit">Business and Information Technology (BIT)</option>
@@ -25,8 +27,11 @@
     <option value="oak">Oaks Hall</option>
     <option value="cart">Cinematic Arts & Technology</option>
 </select>
-
-<h2>How long are you planning on staying?</h2>
+</div>
+</div>
+<div class="length">
+    <div class="select">
+<h2>How Long Are You Planning on Staying?</h2>
 <select>
     <option value = "">Select One</option>
     <option value = "30">30 min.</option>
@@ -35,7 +40,10 @@
     <option value = "2">2 hrs.</option>
     <option value = "3">3+ hrs.</option>
 </select><br>
+</div>
+</div>
+<br> 
 
-<input type="continue" id="continueButton" class="button fadeIn sixth" value="Continue">
+<button class="button1"><span>Continue</span></button>
 
 <% include partials/footer %>
