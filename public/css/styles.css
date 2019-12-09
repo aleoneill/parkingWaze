@@ -25,6 +25,7 @@ a {
     text-decoration: none;
 }
 
+/* START OF FORM SECTION */
 /* STRUCTURE */
 .wrapper {
     display: flex;
@@ -156,7 +157,9 @@ input[type=text]:placeholder {
     width: 100%;
 }
 
-/* The message box is shown when the user clicks on the password field */
+/* END OF FORM SECTION */
+
+/* The message box is shown when the user clicks on the password/id field */
 #message {
     display:none;
     background: #f1f1f1;
@@ -205,6 +208,7 @@ input[type=text]:placeholder {
 .timepicker {
     width: 60%;
 }
+
 #arrival{
     height: 300px;
     width: 50%;
@@ -212,6 +216,7 @@ input[type=text]:placeholder {
     border-style: solid;
     padding: 10px;
 }
+
 .button {
     padding: 8px 20px;
     margin: 5px;
