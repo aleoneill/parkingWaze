@@ -90,7 +90,11 @@ app.post('/user', function(req, res) {
 //     console.log("Express Server is Running...")
 // });
 
+<<<<<<< HEAD
+// server listener - heroku ready
+=======
 // // server listener - heroku ready
+>>>>>>> c2b751c9a6b7d52802521f646669dd669713e808
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Running Express Server...");
 });
