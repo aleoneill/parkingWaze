@@ -11,11 +11,15 @@ header {
 }
 
 .buildings {
-  height: 100px;
+  height: 150px;
   font-size: 13px;
   border-radius: 6px;
-  /*overflow: hidden;*/
-  /*position: relative;*/
+  width: 50%;
+  margin: auto;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .buildings .select{
@@ -26,6 +30,7 @@ header {
 .buildings .select select{
   background: white;
   line-height: 1;
+  height: 50px;
   border: 0;
   padding: 0;
   border-radius: 0;
@@ -36,11 +41,15 @@ header {
 }
 
 .length{
-  height: 100px;
+  height: 150px;
   font-size: 13px;
   border-radius: 6px;
-  /*overflow: hidden;*/
-  /*position: relative;*/
+  width: 50%;
+  margin: auto;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .length .select{
@@ -51,6 +60,7 @@ header {
 .length .select select{
   background: white;
   line-height: 1;
+  height: 50px;
   border: 0;
   padding: 0;
   border-radius: 0;
@@ -295,11 +305,11 @@ input[type=text]:placeholder {
 }
 
 .timepicker {
-    width: 60%;
+    width: 50%;
 }
 
 #arrival{
-    height: 180px;
+    height: 120px;
     width: 50%;
     margin: auto;
     border-style: solid;
