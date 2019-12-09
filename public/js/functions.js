@@ -20,31 +20,15 @@ $(document).ready(function() {
                     $('#message').html(result.message).css("color", "red");
                     $('#message').show();
                 }
-            }, 
+            },
             error: function(xhr, status, message) {
-                console.log("error: ", xhr.responseText); 
+                console.log("error: ", xhr.responseText);
             }
         });
     });
-    
-    
-    // time picker automatic dropdown 
-    $('input.timepicker').timepicker({});
-    
-    $('.timepicker').timepicker({
-        timeFormat: 'h:mm p',
-        interval: 60,
-        minTime: '10',
-        maxTime: '6:00pm',
-        defaultTime: '11',
-        startTime: '10:00',
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
-    });
 });
 
-$('#continue').on('click', function(e){
+$('#continue').on('click', function(e) {
     $.ajax({
         type: "POST",
         url: "/",
@@ -56,11 +40,11 @@ $('#continue').on('click', function(e){
         }),
         success: function(result, status) {
             if (result.successful) {
-                window.location.href = '/map';  // This will navigate to wherever i say...
+                window.location.href = '/map'; // This will navigate to wherever i say...
             }
         },
         error: function(xhr, status, error) {
-            console.log("error: ", xhr.responseText); 
+            console.log("error: ", xhr.responseText);
         },
     });
 });

@@ -124,50 +124,52 @@
             let username = $("#newUsername").val();
             let password = $("#newPassword").val();
 
-            if(email == "") {
-                $("#errorMessage").html("Email is required").css("color", "red"); 
-            }
-            if (idNumber.length != 7) {
-                $("#idMessage").css("display", "block");
-                $("#idMessage").css("color", "red");
-            }
-            if (fullName == "") {
-                $("#errorMessage").html("Name is required").css("color", "red");
-            }
-            if (username == "") {
-                $("#errorMessage").html("Username is required").css("color", "red");
-            }
-            if (!password.length >= 8) {
-                $("#passwordMessage").css("display", "block");
-                $("#passwordMessage").css("color", "red");
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/user",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    "email": email, 
-                    "idNumber": idNumber, 
-                    "fullName": fullName, 
-                    "username": username, 
-                    "password": password
-                }),
-                success: function(result, status) {
-                    if (result.successful) {
-                        window.location.href = '/map'; // This will navigate to wherever i say...
-                    }
-                    else {
-                        // Show an error message or something and stay here
-                        $('#errorMessage').html(result.message).css("color", "red");
-                        $('#errorMessage').show();
-                    }
-                },
-                error: function(xhr, status, message) {
-                    console.log("error: ", xhr.responseText);
+            if(email == "" || idNumber.length != 7 || fullName == "" || username == "" || !password.length >= 8) {
+                if(email == "") {
+                    $("#errorMessage").html("Email is required").css("color", "red"); 
                 }
-            });
+                if (idNumber.length != 7) {
+                    $("#idMessage").css("display", "block");
+                    $("#idMessage").css("color", "red");
+                }
+                if (fullName == "") {
+                    $("#errorMessage").html("Name is required").css("color", "red");
+                }
+                if (username == "") {
+                    $("#errorMessage").html("Username is required").css("color", "red");
+                }
+                if (!password.length >= 8) {
+                    $("#passwordMessage").css("display", "block");
+                    $("#passwordMessage").css("color", "red");
+                }
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/user",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "email": email, 
+                        "idNumber": idNumber, 
+                        "fullName": fullName, 
+                        "username": username, 
+                        "password": password
+                    }),
+                    success: function(result, status) {
+                        if (result.successful) {
+                            window.location.href = '/map'; // This will navigate to wherever i say...
+                        }
+                        else {
+                            // Show an error message or something and stay here
+                            $('#errorMessage').html(result.message).css("color", "red");
+                            $('#errorMessage').show();
+                        }
+                    },
+                    error: function(xhr, status, message) {
+                        console.log("error: ", xhr.responseText);
+                    }
+                });
+            }
         });
     </script>
 

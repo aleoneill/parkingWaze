@@ -66,9 +66,6 @@ app.get('/user', function(req, res) {
 });
 
 app.post('/user', function(req, res, next) {
-    let successful = true;
-    let message = '';
-    
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -93,6 +90,8 @@ app.post('/user', function(req, res, next) {
                     function(error, results, fields) {
                         if (error) throw error;
                         else connection.end(); 
+                        
+                        req.session.username = req.body.username; 
                         res.json({
                             successful: true,
                             message: ''
@@ -102,8 +101,8 @@ app.post('/user', function(req, res, next) {
             } else {
                 connection.end(); 
                 res.json({
-                    successful: true,
-                    message: ''
+                    successful: false,
+                    message: 'Invalid: ID, username, or email already in use'
                 });
             }
         }
@@ -115,14 +114,7 @@ app.post('/user', function(req, res, next) {
 //     console.log("Express Server is Running...")
 // });
 
-// <<<<<<< HEAD
-// <<<<<<< HEAD
 // server listener - heroku ready
-
-// // server listener - heroku ready
-// >>>>>>> c2b751c9a6b7d52802521f646669dd669713e808
-// =======
-// >>>>>>> 1a4d50fea4560e3b85a45ece9e1344b348ff623b
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Running Express Server...");
 });

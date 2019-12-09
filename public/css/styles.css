@@ -5,12 +5,19 @@ body {
     background-color: #5DBCD2;
 }
 
-header {
-    font-size: 40px; 
-    color: white; 
+.header {
+    font-size: 40px;
+    color: white;
+}
+
+.header1 {
+    font-size: 40px;
+    color: white;
+    margin-top: 75px;
 }
 
 .buildings {
+<<<<<<< HEAD
   height: 150px;
   font-size: 13px;
   border-radius: 6px;
@@ -20,13 +27,21 @@ header {
   border-width: thin;
   border-radius: 8px;
   padding: 10px;
+=======
+    height: 100px;
+    font-size: 13px;
+    border-radius: 6px;
+    /*overflow: hidden;*/
+    /*position: relative;*/
+>>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
 }
 
-.buildings .select{
-  width: 100%;
-  background-position:50% center;
+.buildings .select {
+    width: 100%;
+    background-position: 50% center;
 }
 
+<<<<<<< HEAD
 .buildings .select select{
   background: white;
   line-height: 1;
@@ -50,13 +65,34 @@ header {
   border-width: thin;
   border-radius: 8px;
   padding: 10px;
+=======
+.buildings .select select {
+    background: white;
+    line-height: 1;
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+    width: 50%;
+    position: relative;
+    z-index: 10;
+    font-size: 1em;
 }
 
-.length .select{
-  width: 100%;
-  background-position:50% center;
+.length {
+    height: 100px;
+    font-size: 13px;
+    border-radius: 6px;
+    /*overflow: hidden;*/
+    /*position: relative;*/
+>>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
 }
 
+.length .select {
+    width: 100%;
+    background-position: 50% center;
+}
+
+<<<<<<< HEAD
 .length .select select{
   background: white;
   line-height: 1;
@@ -68,44 +104,56 @@ header {
   position: relative;
   z-index: 10;
   font-size: 1em;
+=======
+.length .select select {
+    background: white;
+    line-height: 1;
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+    width: 50%;
+    position: relative;
+    z-index: 10;
+    font-size: 1em;
+>>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
 }
 
 .button1 {
-  background-color: white;
-  border: groove;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.5s;
-  cursor: pointer;
-  font-size: 16px;
+    background-color: white;
+    border: groove;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.5s;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .button1 span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
 }
 
 .button1 span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
 }
 
 .button1:hover span {
-  padding-right: 25px;
+    padding-right: 25px;
 }
 
 .button1:hover span:after {
-  opacity: 1;
-  right: 0;
+    opacity: 1;
+    right: 0;
 }
 
 h1 {
@@ -125,7 +173,9 @@ a {
 }
 
 /* START OF FORM SECTION */
+
 /* STRUCTURE */
+
 .wrapper {
     display: flex;
     align-items: center;
@@ -151,6 +201,7 @@ a {
 }
 
 /* FORM TYPOGRAPHY*/
+
 input {
     background-color: #f6f6f6;
     border: none;
@@ -177,7 +228,9 @@ input[type=text]:placeholder {
 }
 
 /* ANIMATIONS */
+
 /* Simple CSS3 Fade-in-down Animation */
+
 .fadeInDown {
     animation-name: fadeInDown;
     animation-duration: 1s;
@@ -196,6 +249,7 @@ input[type=text]:placeholder {
 }
 
 /* Simple CSS3 Fade-in Animation */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -237,6 +291,7 @@ input[type=text]:placeholder {
 }
 
 /* Simple CSS3 Fade-in Animation */
+
 .underlineHover:after {
     display: block;
     left: 0;
@@ -259,8 +314,9 @@ input[type=text]:placeholder {
 /* END OF FORM SECTION */
 
 /* The message box is shown when the user clicks on the password/id field */
+
 #message {
-    display:none;
+    display: none;
     background: #f1f1f1;
     color: #000;
     position: relative;
@@ -274,6 +330,7 @@ input[type=text]:placeholder {
 }
 
 /* Add a green text color and a checkmark when the requirements are right */
+
 .valid {
     color: green;
 }
@@ -285,6 +342,7 @@ input[type=text]:placeholder {
 }
 
 /* Add a red text color and an "x" when the requirements are wrong */
+
 .invalid {
     color: red;
 }
@@ -296,6 +354,7 @@ input[type=text]:placeholder {
 }
 
 /* OTHERS */
+
 *:focus {
     outline: none;
 }
@@ -308,8 +367,13 @@ input[type=text]:placeholder {
     width: 50%;
 }
 
+<<<<<<< HEAD
 #arrival{
     height: 120px;
+=======
+#arrival {
+    height: 100px;
+>>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
     width: 50%;
     margin: auto;
     border-style: solid;
