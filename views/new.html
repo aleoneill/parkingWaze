@@ -7,7 +7,7 @@
         <div id="formContent">
             <!-- Login Form -->
             <form><br>
-                <!-- FULL NAME SECTION -->
+                <!-- EMAIL SECTION -->
                 <label for="email">Email</label>
                 <input type="text" id="email" class="fadeIn third" name="email" required><br>
 
@@ -25,12 +25,6 @@
                 <div id="passwordMessage" style="display:none; color:green;">
                     Must contain at least one number, one uppercase letter,<br> one lowercase letter, and must be at least 8 character long<br><br>
                 </div><br><br>
-                <!-- PASSWORD ERROR MESSAGE -->
-                <!--<div id="passwordMessage" style="display:none;">-->
-                <!--    <h3>Password must contain the following:</h3>-->
-                <!--    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>-->
-                <!--    <p id="number" class="invalid">A <b>number</b></p>-->
-                <!--</div>-->
 
                 <!-- SUBMIT BUTTON -->
                 <input type="submit" id="createAccountButton" class="button fadeIn sixth" value="Create Account"><br><br>
@@ -41,8 +35,6 @@
 
     <script>
         var password = document.getElementById("newPassword");
-        var letter = document.getElementById("letter");
-        var number = document.getElementById("number");
 
         // When the user clicks on the password field, show the message box
         password.onfocus = function() {
@@ -53,31 +45,6 @@
         password.onblur = function() {
             document.getElementById("passwordMessage").style.display = "none";
         }
-
-        // When the user starts to type something inside the password field
-        // password.onkeyup = function() {
-        //     // Validate lowercase letters
-        //     var lowerCaseLetters = /[a-z]/g;
-        //     if (password.value.match(lowerCaseLetters)) {
-        //         letter.classList.remove("invalid");
-        //         letter.classList.add("valid");
-        //     }
-        //     else {
-        //         letter.classList.remove("valid");
-        //         letter.classList.add("invalid");
-        //     }
-
-        //     // Validate numbers
-        //     var numbers = /[0-9]/g;
-        //     if (password.value.match(numbers)) {
-        //         number.classList.remove("invalid");
-        //         number.classList.add("valid");
-        //     }
-        //     else {
-        //         number.classList.remove("valid");
-        //         number.classList.add("invalid");
-        //     }
-        // }
 
         $("#createAccountButton").on("click", function(e) {
             e.preventDefault(); // Do not submit until I am ready

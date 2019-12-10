@@ -102,7 +102,7 @@ app.post('/user', function(req, res, next) {
                 connection.end(); 
                 res.json({
                     successful: false,
-                    message: 'Invalid: ID, username, or email already in use'
+                    message: 'Invalid: username, or email already in use'
                 });
             }
         }
