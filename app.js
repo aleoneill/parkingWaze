@@ -149,11 +149,11 @@ app.get('/user', function(req, res) {
     res.render("user.html");
 });
 
-app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...")
-});
-
-// // server listener - heroku ready
-// app.listen(process.env.PORT, process.env.IP, function() {
-//     console.log("Running Express Server...");
+// app.listen("5000", "0.0.0.0", function() {
+//         console.log("Express Server is Running...")
 // });
+
+// server listener - heroku ready
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log("Running Express Server...");
+});
