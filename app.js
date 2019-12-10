@@ -146,7 +146,13 @@ app.post('/new', function(req, res, next) {
 });
 
 app.get('/user', function(req, res) {
-    res.render("user.html");
+    if (req.session && req.session.username && req.session.username.length) {
+        res.render('user.html');
+    }
+    else {
+        delete req.session.username;
+        res.redirect('/');
+    }
 });
 
 // app.listen("5000", "0.0.0.0", function() {
