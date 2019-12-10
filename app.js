@@ -22,19 +22,6 @@ app.get('/', function(req, res, next) {
 });
 
 app.post('/', function(req, res, next) {
-    let successful = false;
-    let message = '';
-    
-    // use this log in for guest account 
-    if (req.body.username === 'hello' && req.body.password === 'world') {
-        successful = true;
-        req.session.username = req.body.username; 
-        res.json({
-            successful: successful,
-            message: message
-        });
-    } 
-    
     // check database if username and password are correct 
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',

@@ -65,7 +65,9 @@
                 "password": "world"
             }),
             success: function(result, status) {
+                console.log("Im in result..."); 
                 if (result.successful) {
+                    console.log("we went to map!"); 
                     window.location.href = '/map'; // This will navigate to wherever i say...
                 }
             },
