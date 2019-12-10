@@ -22,14 +22,6 @@
     </div>
 </div><br><br>
 
-<<<<<<< HEAD
-<script>$(document).ready(function() {
-    $('#loginButton').on('click', function(e) {
-        e.preventDefault(); // Do not submit until I am ready
-
-        console.log($("#login").val());
-
-=======
 <script>
     $(document).ready(function() {
         $('#loginButton').on('click', function(e) {
@@ -63,14 +55,12 @@
     });
     
     $('#continue').on('click', function(e) {
->>>>>>> 58bb47ccb0379720e8af6f375efe87ce93df5cad
         $.ajax({
             type: "POST",
             url: "/",
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
-<<<<<<< HEAD
                 "username": $("#login").val(),
                 "password": $("#password").val()
             }),
@@ -111,24 +101,6 @@ $('#continue').on('click', function(e) {
         },
     });
 });
-=======
-                "username": "hello",
-                "password": "world"
-            }),
-            success: function(result, status) {
-                console.log("Im in result..."); 
-                if (result.successful) {
-                    console.log("we went to map!"); 
-                    window.location.href = '/map'; // This will navigate to wherever i say...
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log("error: ", xhr.responseText);
-            },
-        });
-    });
-
->>>>>>> 58bb47ccb0379720e8af6f375efe87ce93df5cad
 </script>
 
 <% include partials/footer %>
