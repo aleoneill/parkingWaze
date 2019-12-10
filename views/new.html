@@ -10,18 +10,6 @@
                 <!-- FULL NAME SECTION -->
                 <label for="email">Email</label>
                 <input type="text" id="email" class="fadeIn third" name="email" required><br>
-                
-                <!-- ID SECTION -->
-                <label for="schoolID">School ID</label>
-                <input type="text" id="schoolID" class="fadeIn second" name="schoolID" required>
-                <div id="idMessage" style="display:none; color:green;">
-                    ID must be 7 digits long<br><br>
-                </div>
-                <!-- ID ERROR MESSAGE -->
-                <!--<div id="idErrorMessage" style="display:none;">-->
-                <!--    <h3>ID must be:</h3>-->
-                <!--    <p id="idlength" class="invalid"><b>7</b> characters long</p>-->
-                <!--</div>-->
 
                 <!-- FULL NAME SECTION -->
                 <label for="fullName">Full Name</label>
@@ -47,39 +35,14 @@
                 <!-- SUBMIT BUTTON -->
                 <input type="submit" id="createAccountButton" class="button fadeIn sixth" value="Create Account"><br><br>
                 <span id="errorMessage"></span>
-            </form>
-        </div>
+            </form><br>
+        </div><br>
     </div>
 
     <script>
-        var id = document.getElementById("schoolID");
         var password = document.getElementById("newPassword");
         var letter = document.getElementById("letter");
         var number = document.getElementById("number");
-
-        // When the user clicks on the id field, show the message box
-        id.onfocus = function() {
-            document.getElementById("idMessage").style.display = "block";
-        }
-
-        // When the user clicks outside of the id field, hide the message box
-        id.onblur = function() {
-            document.getElementById("idMessage").style.display = "none";
-        }
-
-        // When the user starts to type something inside the password field
-        // id.onkeyup = function() {
-        //     // Validate numbers
-        //     var number = /[0-9]/g;
-        //     if (id.value.match(number)) {
-        //         number.classList.remove("invalid");
-        //         number.classList.add("valid");
-        //     }
-        //     else {
-        //         number.classList.remove("valid");
-        //         number.classList.add("invalid");
-        //     }
-        // }
 
         // When the user clicks on the password field, show the message box
         password.onfocus = function() {
@@ -119,18 +82,13 @@
         $("#createAccountButton").on("click", function(e) {
             e.preventDefault(); // Do not submit until I am ready
             let email = $("#email").val(); 
-            let idNumber = $("#schoolID").val();
             let fullName = $("#fullName").val();
             let username = $("#newUsername").val();
             let password = $("#newPassword").val();
 
-            if(email == "" || idNumber.length != 7 || fullName == "" || username == "" || !password.length >= 8) {
+            if(email == "" || fullName == "" || username == "" || !password.length >= 8) {
                 if(email == "") {
                     $("#errorMessage").html("Email is required").css("color", "red"); 
-                }
-                if (idNumber.length != 7) {
-                    $("#idMessage").css("display", "block");
-                    $("#idMessage").css("color", "red");
                 }
                 if (fullName == "") {
                     $("#errorMessage").html("Name is required").css("color", "red");
@@ -150,7 +108,6 @@
                     contentType: "application/json",
                     data: JSON.stringify({
                         "email": email, 
-                        "idNumber": idNumber, 
                         "fullName": fullName, 
                         "username": username, 
                         "password": password
