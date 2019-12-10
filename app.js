@@ -25,20 +25,50 @@ app.post('/', function(req, res, next) {
     let successful = false;
     let message = '';
     
+    // use this log in for guest account 
     if (req.body.username === 'hello' && req.body.password === 'world') {
         successful = true;
         req.session.username = req.body.username; 
-    } else {
-        // delete the user as punishment!
-        delete req.session.username;
-        message = 'Wrong username or password'
-    }
+        res.json({
+            successful: successful,
+            message: message
+        });
+    } 
     
-    // Return success or failure
-    res.json({
-        successful: successful,
-        message: message
+    // check database if username and password are correct 
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
     });
+    
+    connection.connect();
+    
+    connection.query(
+        `SELECT username, password FROM users
+         WHERE username = '${req.body.username}' and password = '${req.body.password}' `, 
+        function(error, results, fields) {
+            if (error) throw error;
+            
+            // if there are no results, username and password are incorrect 
+            if(!results.length) {
+                connection.end(); 
+                delete req.session.username;
+                res.json({
+                    successful: false,
+                    message: 'Wrong username or password'
+                });
+            } else {
+                connection.end(); 
+                req.session.username = req.body.username;
+                res.json({
+                    successful: true,
+                    message: ''
+                });
+            }
+        }
+    ); 
 });
 
 app.get('/map', function(req, res, next) {
@@ -81,6 +111,9 @@ app.post('/user', function(req, res, next) {
         function(error, results, fields) {
             if (error) throw error;
             
+            // if there are no results it means there are no accounts with 
+            // the username or email in the database
+            // insert new users 
             if(!results.length) {
                 connection.query(
                     `INSERT INTO users
@@ -99,6 +132,7 @@ app.post('/user', function(req, res, next) {
                     }   
                 );
             } else {
+                // this means that there is already a user with the same username or email 
                 connection.end(); 
                 res.json({
                     successful: false,
