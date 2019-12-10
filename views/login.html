@@ -16,7 +16,7 @@
         <!-- Remind Password -->
         <div id="formFooter">
             <a class="underlineHover" href="#">Forgot Password?</a><br>
-            <a id="newUser" class="underlineHover" href="/user">Create an Account</a> or
+            <a id="newUser" class="underlineHover" href="/new">Create an Account</a> or
             <a id="continue" class="underlineHover" href="/gmap">Continue as Guest</a><br>
         </div>
     </div>
@@ -38,8 +38,7 @@
                 }),
                 success: function(result, status) {
                     if (result.successful) {
-                        // NEED TO CHANGE LOCATION TO NEW HTML FOR USERS 
-                        window.location.href = '/map'; // This will navigate to wherever i say...
+                        window.location.href = '/user'; // This will navigate to wherever i say...
                     }
                     else {
                         // Show an error message or something and stay here
@@ -61,8 +60,8 @@
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
-                "username": $("#login").val(),
-                "password": $("#password").val()
+                "username": "hello",
+                "password": "world"
             }),
             success: function(result, status) {
                 if (result.successful) {
@@ -79,27 +78,6 @@
             }
         });
     });
-
-$('#continue').on('click', function(e) {
-    $.ajax({
-        type: "POST",
-        url: "/",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify({
-            "username": "hello",
-            "password": "world"
-        }),
-        success: function(result, status) {
-            if (result.successful) {
-                window.location.href = '/map'; // This will navigate to wherever i say...
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log("error: ", xhr.responseText);
-        },
-    });
-});
 </script>
 
 <% include partials/footer %>
