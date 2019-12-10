@@ -76,16 +76,16 @@ app.post('/user', function(req, res, next) {
     connection.connect();
     
     connection.query(
-        `SELECT id, username, email FROM users
-        WHERE id = '${req.body.idNumber}' or username = '${req.body.username}' or email = '${req.body.email}' `, 
+        `SELECT username, email FROM users
+        WHERE username = '${req.body.username}' or email = '${req.body.email}' `, 
         function(error, results, fields) {
             if (error) throw error;
             
             if(!results.length) {
                 connection.query(
                     `INSERT INTO users
-                    (username, id, email, password, fullname)
-                    VALUES ('${req.body.username}', '${req.body.idNumber}', '${req.body.email}', 
+                    (username, email, password, fullname)
+                    VALUES ('${req.body.username}', '${req.body.email}', 
                     '${req.body.password}', '${req.body.fullName}')`, 
                     function(error, results, fields) {
                         if (error) throw error;
