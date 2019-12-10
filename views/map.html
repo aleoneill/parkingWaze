@@ -1,7 +1,9 @@
 <% include partials/header %>
 
     <div class="backButton">
-        <a id="backButton" href="/"><p>Back</p></a>
+        <a id="backButton" href="/">
+            <p>Back</p>
+        </a>
     </div>
     <div class="header1">
         <h1>Parking Waze</h1>
@@ -9,13 +11,13 @@
 
     <h2>Time of Arrival on Campus?</h2>
     <form id="arrival">
-        <input type="text" class="timepicker" name="time" />
+        <input type="text" class="timepicker" name="time" id="timeofarrival" />
     </form>
     <br><br>
     <h2>Location of Next Class:</h2>
     <div class="buildings">
         <div class="select">
-            <select>
+            <select id="buildingchoice">
                 <option value="">Select One</option>
                 <option value="bit">Business and Information Technology (BIT)</option>
                 <option value="library">Library</option>
@@ -37,7 +39,7 @@
     <h2>How Long Are You Planning on Staying?</h2>
     <div class="length">
         <div class="select">
-            <select>
+            <select id="lengthofstay">
                 <option value = "">Select One</option>
                 <option value = "30">30 min.</option>
                 <option value = "45">45 min.</option>
@@ -48,7 +50,8 @@
         </div>
     </div><br>
     <br>
-    <button class="button1"><span>Continue</span></button>
+    <button class="button1" onclick="getLocation()" id="displayMap"><span>Continue</span></button>
+    <p id="demo"></p>
     <br><br>
     <script>
         $(document).ready(function() {
@@ -66,6 +69,29 @@
             dropdown: true,
             scrollbar: true
         });
+        
+        $("#displayMap").on("click", function (){
+            console.log($("#buildingchoice").val());
+            console.log($("#timeofarrival").val());
+            console.log($("#lengthofstay").val());
+            
+        }); 
+
+        var x = document.getElementById("demo");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+            else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+        }
         
     </script>
 
