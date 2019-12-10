@@ -57,7 +57,7 @@
             let username = $("#newUsername").val();
             let password = $("#newPassword").val();
 
-            if(email == "" || fullName == "" || username == "" || !password.length >= 8) {
+            if(email == "" || fullName == "" || username == "" || !checkPassword(password)) {
                 if(email == "") {
                     $("#errorMessage").html("Email is required").css("color", "red"); 
                 }
@@ -67,7 +67,7 @@
                 if (username == "") {
                     $("#errorMessage").html("Username is required").css("color", "red");
                 }
-                if (!password.length >= 8) {
+                if (!checkPassword(password)) {
                     $("#passwordMessage").css("display", "block");
                     $("#passwordMessage").css("color", "red");
                 }
@@ -99,6 +99,24 @@
                 });
             }
         });
+        
+        function checkPassword(str) {
+            if (str.length < 8) {
+                // shorter than 8 characters 
+                return false; 
+            } else if (str.search(/\d/) == -1) {
+                // no number 
+                return false; 
+            } else if (str.search(/[a-z]/) == -1) {
+                // no lowercase letters 
+                return false; 
+            } else if (str.search(/[A-Z]/) == -1) {
+                // no uppercase letters 
+                return false; 
+            } else {
+                return true; 
+            }
+        }
     </script>
 
     <% include partials/footer %>
