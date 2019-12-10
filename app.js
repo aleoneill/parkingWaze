@@ -22,24 +22,6 @@ app.get('/', function(req, res, next) {
 });
 
 app.post('/', function(req, res, next) {
-
-    let successful = false;
-    let message = '';
-    
-    if (req.body.username === 'hello' && req.body.password === 'world') {
-        successful = true;
-        req.session.username = req.body.username; 
-    } else {
-        // delete the user as punishment!
-        delete req.session.username;
-        message = 'Wrong username or password!'
-    }
-    
-    // Return success or failure
-    res.json({
-        successful: successful,
-        message: message
-
     // check database if username and password are correct
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -177,7 +159,6 @@ app.post('/new', function(req, res, next) {
             }
         }
     );
-});
 
 app.get('/user', function(req, res) {
     res.render("user.html");
