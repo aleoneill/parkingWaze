@@ -77,7 +77,7 @@ app.post('/', function(req, res, next) {
     );
 });
 
-app.get('/map', function(req, res, next) {
+app.get('/gmap', function(req, res, next) {
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -89,7 +89,7 @@ app.get('/map', function(req, res, next) {
     connection.end();
 
     if (req.session && req.session.username && req.session.username.length) {
-        res.render('map.html');
+        res.render('guestmap.html');
     }
     else {
         delete req.session.username;
@@ -97,11 +97,26 @@ app.get('/map', function(req, res, next) {
     }
 });
 
-app.get('/user', function(req, res) {
+// app.post('/gmap', function(req, res, next) {
+//     const connection = mysql.createConnection({
+//         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+//         user: 'zzrbbsj5791xsnwf',
+//         password: 'l4kg72cf660m8hya',
+//         database: 'l2gh8fug1cqr96dc'
+//     });
+//     connection.connect();
+//
+//     connection.query(
+//         `SELECT number FROM buildings
+//     WHERE number = '${req.body.buildingnum}'`
+//     )
+// });
+
+app.get('/new', function(req, res) {
     res.render("new.html");
 });
 
-app.post('/user', function(req, res, next) {
+app.post('/new', function(req, res, next) {
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -164,12 +179,15 @@ app.post('/user', function(req, res, next) {
     );
 });
 
-// test locally
-// app.listen("5000", "0.0.0.0", function() {
-//     console.log("Express Server is Running...")
-// });
-
-// server listener - heroku ready
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Running Express Server...");
+app.get('/user', function(req, res) {
+    res.render("user.html");
 });
+
+app.listen("5000", "0.0.0.0", function() {
+        console.log("Express Server is Running...")
+});
+
+// // server listener - heroku ready
+// app.listen(process.env.PORT, process.env.IP, function() {
+//     console.log("Running Express Server...");
+// });
