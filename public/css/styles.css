@@ -152,12 +152,13 @@ body {
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 50px;
     text-decoration: underline;
 }
 
 .header {
     padding: 40px;
+    padding-bottom: 5px;
     color: white;
 }
 
