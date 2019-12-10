@@ -1,97 +1,141 @@
 <% include partials/header %>
-<div class="header">
-    <h1>Welcome to Parking Waze!</h1>
-</div>
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Login Form -->
-        <form action="/user" method="post">
-            <br>
-            <label for="id">School ID</label>
-            <input type="text" id="id" class="fadeIn second" name="id" required>
-            <div id="idMessage">
-                <h3>ID must be:</h3>
-                <p id="idlength" class="invalid"><b>7</b> characters long</p>
-            </div>
-            <script>
-                var id = document.getElementById("id");
 
-                // When the user clicks on the password field, show the message box
-                id.onfocus = function() {
-                    document.getElementById("idMessage").style.display = "block";
-                }
-
-                // When the user clicks outside of the password field, hide the message box
-                id.onblur = function() {
-                    document.getElementById("idMessage").style.display = "none";
-                }
-                // When the user starts to type something inside the password field
-                id.onkeyup = function() {
-                    // Validate numbers
-                    var numbers = /[0-9]/g;
-                    if (password.value.match(numbers)) {
-                        number.classList.remove("invalid");
-                        number.classList.add("valid");
-                    } else {
-                        number.classList.remove("valid");
-                        number.classList.add("invalid");
-                    }
-                }
-            </script>
-            <label for="name">Full Name</label>
-            <input type="text" id="name" class="fadeIn third" name="name" required><br>
-            <label for="username">Username</label>
-            <input type="text" id="username" class="fadeIn fourth" name="username" required>
-            <label for="password">Password</label>
-            <input type="password" id="password" class="fadeIn fifth" name="password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-<!--            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"-->
-            <script>
-                var password = document.getElementById("password");
-                var letter = document.getElementById("letter");
-                var number = document.getElementById("number");
-
-                // When the user clicks on the password field, show the message box
-                password.onfocus = function() {
-                    document.getElementById("passwordMessage").style.display = "block";
-                }
-
-                // When the user clicks outside of the password field, hide the message box
-                password.onblur = function() {
-                    document.getElementById("passwordMessage").style.display = "none";
-                }
-
-                // When the user starts to type something inside the password field
-                password.onkeyup = function() {
-                    // Validate lowercase letters
-                    var lowerCaseLetters = /[a-z]/g;
-                    if (password.value.match(lowerCaseLetters)) {
-                        letter.classList.remove("invalid");
-                        letter.classList.add("valid");
-                    } else {
-                        letter.classList.remove("valid");
-                        letter.classList.add("invalid");
-                    }
-
-                    // Validate numbers
-                    var numbers = /[0-9]/g;
-                    if (password.value.match(numbers)) {
-                        number.classList.remove("invalid");
-                        number.classList.add("valid");
-                    } else {
-                        number.classList.remove("valid");
-                        number.classList.add("invalid");
-                    }
-                }
-            </script>
-            <div id="passwordMessage">
-                <h3>Password must contain the following:</h3>
-                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                <p id="number" class="invalid">A <b>number</b></p>
-            </div>
-            <br>
-            <input type="submit" id="loginButton" class="button fadeIn sixth" value="Create Account">
-        </form>
+    <div class="backButton">
+        <a id="backButton" href="/"><p>Back</p></a>
     </div>
-</div>
-<% include partials/footer %>
+    
+    <div class="header1">
+        <h1>Create New Account</h1>
+    </div>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Login Form -->
+            <form><br>
+                <!-- EMAIL SECTION -->
+                <label for="email">Email</label>
+                <input type="text" id="email" class="fadeIn third" name="email" required><br>
+                
+                <!-- ID SECTION -->
+                <label for="schoolID">School ID</label>
+                <input type="text" id="schoolID" class="fadeIn second" name="schoolID" required>
+                <div id="idMessage" style="display:none; color:red">
+                    ID must be 7 digits long<br><br>
+                </div>
 
+                <!-- FULL NAME SECTION -->
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="fadeIn third" name="fullName" required><br>
+
+                <!-- USERNAME SECTION -->
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" class="fadeIn fourth" name="newUsername" required>
+
+                <!-- PASSWORD SECTION -->
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" class="fadeIn fifth" name="newPassword" required>
+                <div id="passwordMessage" style="display:none; color:red">
+                    Must contain at least one number, one uppercase letter,<br> one lowercase letter, and must be at least 8 character long<br><br>
+                </div><br><br>
+
+                <!-- SUBMIT BUTTON -->
+                <input type="submit" id="createAccountButton" class="button fadeIn sixth" value="Create Account"><br><br>
+                <span id="errorMessage"></span>
+            </form><br>
+        </div><br>
+    </div>
+
+    <script>
+        var password = document.getElementById("newPassword");
+        var letter = document.getElementById("letter");
+        var number = document.getElementById("number");
+
+        // When the user clicks on the id field, show the message box
+        id.onfocus = function() {
+            document.getElementById("idMessage").style.display = "block";
+        }
+
+        // When the user clicks outside of the id field, hide the message box
+        id.onblur = function() {
+            document.getElementById("idMessage").style.display = "none";
+        }
+
+        // When the user clicks on the password field, show the message box
+        password.onfocus = function() {
+            document.getElementById("passwordMessage").style.display = "block";
+        }
+
+        // When the user clicks outside of the password field, hide the message box
+        password.onblur = function() {
+            document.getElementById("passwordMessage").style.display = "none";
+        }
+
+        $("#createAccountButton").on("click", function(e) {
+            e.preventDefault(); // Do not submit until I am ready
+            let email = $("#email").val(); 
+            let fullName = $("#fullName").val();
+            let username = $("#newUsername").val();
+            let password = $("#newPassword").val();
+
+            if(email == "" || fullName == "" || username == "" || !checkPassword(password)) {
+                if(email == "") {
+                    $("#errorMessage").html("Email is required").css("color", "red"); 
+                }
+                if (fullName == "") {
+                    $("#errorMessage").html("Name is required").css("color", "red");
+                }
+                if (username == "") {
+                    $("#errorMessage").html("Username is required").css("color", "red");
+                }
+                if (!checkPassword(password)) {
+                    $("#passwordMessage").css("display", "block");
+                    $("#passwordMessage").css("color", "red");
+                }
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/user",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "email": email, 
+                        "fullName": fullName, 
+                        "username": username, 
+                        "password": password
+                    }),
+                    success: function(result, status) {
+                        if (result.successful) {
+                            window.location.href = '/map'; // This will navigate to wherever i say...
+                        }
+                        else {
+                            // Show an error message or something and stay here
+                            $('#errorMessage').html(result.message).css("color", "red");
+                            $('#errorMessage').show();
+                        }
+                    },
+                    error: function(xhr, status, message) {
+                        console.log("error: ", xhr.responseText);
+                    }
+                });
+            }
+        });
+        
+        function checkPassword(str) {
+            if (str.length < 8) {
+                // shorter than 8 characters 
+                return false; 
+            } else if (str.search(/\d/) == -1) {
+                // no number 
+                return false; 
+            } else if (str.search(/[a-z]/) == -1) {
+                // no lowercase letters 
+                return false; 
+            } else if (str.search(/[A-Z]/) == -1) {
+                // no uppercase letters 
+                return false; 
+            } else {
+                return true; 
+            }
+        }
+    </script>
+
+    <% include partials/footer %>
