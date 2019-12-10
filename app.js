@@ -78,6 +78,21 @@ app.get('/gmap', function(req, res, next) {
     }
 });
 
+app.post('/map', function(req, res, next) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+}); 
+
+    connection.connect();
+    
+    connection.query(
+    `SELECT number FROM buildings
+    WHERE number = '${req.body.buildingnum}'`  
+    )
+
 app.get('/user', function(req, res) {
     res.render("new.html");
 });
