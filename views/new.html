@@ -14,14 +14,9 @@
                 <!-- ID SECTION -->
                 <label for="schoolID">School ID</label>
                 <input type="text" id="schoolID" class="fadeIn second" name="schoolID" required>
-                <div id="idMessage" style="display:none; color:green;">
+                <div id="idMessage" style="display:none; color:red">
                     ID must be 7 digits long<br><br>
                 </div>
-                <!-- ID ERROR MESSAGE -->
-                <!--<div id="idErrorMessage" style="display:none;">-->
-                <!--    <h3>ID must be:</h3>-->
-                <!--    <p id="idlength" class="invalid"><b>7</b> characters long</p>-->
-                <!--</div>-->
 
                 <!-- FULL NAME SECTION -->
                 <label for="fullName">Full Name</label>
@@ -34,15 +29,9 @@
                 <!-- PASSWORD SECTION -->
                 <label for="newPassword">Password</label>
                 <input type="password" id="newPassword" class="fadeIn fifth" name="newPassword" required>
-                <div id="passwordMessage" style="display:none; color:green;">
+                <div id="passwordMessage" style="display:none; color:red">
                     Must contain at least one number, one uppercase letter,<br> one lowercase letter, and must be at least 8 character long<br><br>
                 </div><br><br>
-                <!-- PASSWORD ERROR MESSAGE -->
-                <!--<div id="passwordMessage" style="display:none;">-->
-                <!--    <h3>Password must contain the following:</h3>-->
-                <!--    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>-->
-                <!--    <p id="number" class="invalid">A <b>number</b></p>-->
-                <!--</div>-->
 
                 <!-- SUBMIT BUTTON -->
                 <input type="submit" id="createAccountButton" class="button fadeIn sixth" value="Create Account"><br><br>
@@ -67,20 +56,6 @@
             document.getElementById("idMessage").style.display = "none";
         }
 
-        // When the user starts to type something inside the password field
-        // id.onkeyup = function() {
-        //     // Validate numbers
-        //     var number = /[0-9]/g;
-        //     if (id.value.match(number)) {
-        //         number.classList.remove("invalid");
-        //         number.classList.add("valid");
-        //     }
-        //     else {
-        //         number.classList.remove("valid");
-        //         number.classList.add("invalid");
-        //     }
-        // }
-
         // When the user clicks on the password field, show the message box
         password.onfocus = function() {
             document.getElementById("passwordMessage").style.display = "block";
@@ -90,31 +65,6 @@
         password.onblur = function() {
             document.getElementById("passwordMessage").style.display = "none";
         }
-
-        // When the user starts to type something inside the password field
-        // password.onkeyup = function() {
-        //     // Validate lowercase letters
-        //     var lowerCaseLetters = /[a-z]/g;
-        //     if (password.value.match(lowerCaseLetters)) {
-        //         letter.classList.remove("invalid");
-        //         letter.classList.add("valid");
-        //     }
-        //     else {
-        //         letter.classList.remove("valid");
-        //         letter.classList.add("invalid");
-        //     }
-
-        //     // Validate numbers
-        //     var numbers = /[0-9]/g;
-        //     if (password.value.match(numbers)) {
-        //         number.classList.remove("invalid");
-        //         number.classList.add("valid");
-        //     }
-        //     else {
-        //         number.classList.remove("valid");
-        //         number.classList.add("invalid");
-        //     }
-        // }
 
         $("#createAccountButton").on("click", function(e) {
             e.preventDefault(); // Do not submit until I am ready
