@@ -7,26 +7,40 @@ body {
 
 .header {
     font-size: 40px;
+    padding: 40px;
+    padding-bottom: 5px;
     color: white;
+    margin-top: 0px;
 }
 
 .header1 {
     font-size: 40px;
     color: white;
-    margin-top: 75px;
+    margin-top: 0px;
+}
+
+h1 {
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+a {
+    color: #92badd;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .buildings {
 
-  height: 150px;
-  font-size: 13px;
-  border-radius: 6px;
-  width: 50%;
-  margin: auto;
-  border-style: solid;
-  border-width: thin;
-  border-radius: 8px;
-  padding: 10px;
+    height: 150px;
+    font-size: 13px;
+    border-radius: 6px;
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 8px;
+    padding: 10px;
 
     height: 100px;
     font-size: 13px;
@@ -34,35 +48,37 @@ body {
     /*overflow: hidden;*/
     /*position: relative;*/
 }
+
 .buildings .select {
     width: 100%;
     background-position: 50% center;
 }
 
-.buildings .select select{
-  background: white;
-  line-height: 1;
-  height: 50px;
-  border: 0;
-  padding: 0;
-  border-radius: 0;
-  width: 50%;
-  position: relative;
-  z-index: 10;
-  font-size: 1em;
+.buildings .select select {
+    background: white;
+    line-height: 1;
+    height: 50px;
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+    width: 50%;
+    position: relative;
+    z-index: 10;
+    font-size: 1em;
 }
 
-.length{
-  height: 150px;
-  font-size: 13px;
-  border-radius: 6px;
-  width: 50%;
-  margin: auto;
-  border-style: solid;
-  border-width: thin;
-  border-radius: 8px;
-  padding: 10px;
+.length {
+    height: 150px;
+    font-size: 13px;
+    border-radius: 6px;
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 8px;
+    padding: 10px;
 }
+
 .buildings .select select {
     background: white;
     line-height: 1;
@@ -88,18 +104,19 @@ body {
     background-position: 50% center;
 }
 
-.length .select select{
-  background: white;
-  line-height: 1;
-  height: 50px;
-  border: 0;
-  padding: 0;
-  border-radius: 0;
-  width: 50%;
-  position: relative;
-  z-index: 10;
-  font-size: 1em;
+.length .select select {
+    background: white;
+    line-height: 1;
+    height: 50px;
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+    width: 50%;
+    position: relative;
+    z-index: 10;
+    font-size: 1em;
 }
+
 .length .select select {
     background: white;
     line-height: 1;
@@ -149,23 +166,6 @@ body {
 .button1:hover span:after {
     opacity: 1;
     right: 0;
-}
-
-h1 {
-    font-size: 50px;
-    text-decoration: underline;
-}
-
-.header {
-    padding: 40px;
-    padding-bottom: 5px;
-    color: white;
-}
-
-a {
-    color: #92badd;
-    display: inline-block;
-    text-decoration: none;
 }
 
 /* START OF FORM SECTION */
@@ -363,7 +363,7 @@ input[type=text]:placeholder {
     width: 50%;
 }
 
-#arrival{
+#arrival {
     height: 120px;
     width: 50%;
     margin: auto;
@@ -391,4 +391,12 @@ input[type=text]:placeholder {
 
 footer {
     font-size: 14px;
+}
+
+.backButton,
+#backButton {
+    text-align: left;
+    color: black;
+    margin-bottom: 0px;
+    margin-left: 10px;
 }
