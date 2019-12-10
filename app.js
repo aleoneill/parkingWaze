@@ -146,11 +146,21 @@ app.post('/new', function(req, res, next) {
 });
 
 app.get('/user', function(req, res) {
-    res.render("user.html");
+    if (req.session && req.session.username && req.session.username.length) {
+        res.render('user.html');
+    }
+    else {
+        delete req.session.username;
+        res.redirect('/');
+    }
 });
 
 // app.listen("5000", "0.0.0.0", function() {
+<<<<<<< HEAD
 //         console.log("Express Server is Running...")
+=======
+        // console.log("Express Server is Running...")
+>>>>>>> 1596956398e02576a28e44c460574f9c53a5f477
 // });
 
 // server listener - heroku ready
