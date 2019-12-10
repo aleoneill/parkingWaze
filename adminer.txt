@@ -4,3 +4,5 @@ host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 user: 'zzrbbsj5791xsnwf',
 password: 'l4kg72cf660m8hya',
 database: 'l2gh8fug1cqr96dc'
+
+API: AIzaSyBlTwtQNj8R2vVwh9BLgtBP7TerG0LclaY

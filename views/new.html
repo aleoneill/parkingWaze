@@ -1,15 +1,20 @@
 <% include partials/header %>
 
-    <div class="header">
+    <div class="backButton">
+        <a id="backButton" href="/"><p>Back</p></a>
+    </div>
+    
+    <div class="header1">
         <h1>Create New Account</h1>
     </div>
     <div class="wrapper fadeInDown">
         <div id="formContent">
             <!-- Login Form -->
             <form><br>
-                <!-- FULL NAME SECTION -->
+                <!-- EMAIL SECTION -->
                 <label for="email">Email</label>
                 <input type="text" id="email" class="fadeIn third" name="email" required><br>
+<<<<<<< HEAD
                 
                 <!-- ID SECTION -->
                 <label for="schoolID">School ID</label>
@@ -17,6 +22,8 @@
                 <div id="idMessage" style="display:none; color:red">
                     ID must be 7 digits long<br><br>
                 </div>
+=======
+>>>>>>> 58bb47ccb0379720e8af6f375efe87ce93df5cad
 
                 <!-- FULL NAME SECTION -->
                 <label for="fullName">Full Name</label>
@@ -36,13 +43,13 @@
                 <!-- SUBMIT BUTTON -->
                 <input type="submit" id="createAccountButton" class="button fadeIn sixth" value="Create Account"><br><br>
                 <span id="errorMessage"></span>
-            </form>
-        </div>
+            </form><br>
+        </div><br>
     </div>
 
     <script>
-        var id = document.getElementById("schoolID");
         var password = document.getElementById("newPassword");
+<<<<<<< HEAD
         var letter = document.getElementById("letter");
         var number = document.getElementById("number");
 
@@ -55,6 +62,8 @@
         id.onblur = function() {
             document.getElementById("idMessage").style.display = "none";
         }
+=======
+>>>>>>> 58bb47ccb0379720e8af6f375efe87ce93df5cad
 
         // When the user clicks on the password field, show the message box
         password.onfocus = function() {
@@ -69,18 +78,13 @@
         $("#createAccountButton").on("click", function(e) {
             e.preventDefault(); // Do not submit until I am ready
             let email = $("#email").val(); 
-            let idNumber = $("#schoolID").val();
             let fullName = $("#fullName").val();
             let username = $("#newUsername").val();
             let password = $("#newPassword").val();
 
-            if(email == "" || idNumber.length != 7 || fullName == "" || username == "" || !password.length >= 8) {
+            if(email == "" || fullName == "" || username == "" || !checkPassword(password)) {
                 if(email == "") {
                     $("#errorMessage").html("Email is required").css("color", "red"); 
-                }
-                if (idNumber.length != 7) {
-                    $("#idMessage").css("display", "block");
-                    $("#idMessage").css("color", "red");
                 }
                 if (fullName == "") {
                     $("#errorMessage").html("Name is required").css("color", "red");
@@ -88,7 +92,7 @@
                 if (username == "") {
                     $("#errorMessage").html("Username is required").css("color", "red");
                 }
-                if (!password.length >= 8) {
+                if (!checkPassword(password)) {
                     $("#passwordMessage").css("display", "block");
                     $("#passwordMessage").css("color", "red");
                 }
@@ -100,7 +104,6 @@
                     contentType: "application/json",
                     data: JSON.stringify({
                         "email": email, 
-                        "idNumber": idNumber, 
                         "fullName": fullName, 
                         "username": username, 
                         "password": password
@@ -121,6 +124,24 @@
                 });
             }
         });
+        
+        function checkPassword(str) {
+            if (str.length < 8) {
+                // shorter than 8 characters 
+                return false; 
+            } else if (str.search(/\d/) == -1) {
+                // no number 
+                return false; 
+            } else if (str.search(/[a-z]/) == -1) {
+                // no lowercase letters 
+                return false; 
+            } else if (str.search(/[A-Z]/) == -1) {
+                // no uppercase letters 
+                return false; 
+            } else {
+                return true; 
+            }
+        }
     </script>
 
     <% include partials/footer %>
