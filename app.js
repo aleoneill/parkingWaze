@@ -58,7 +58,7 @@ app.post('/', function(req, res, next) {
     );
 });
 
-app.get('/map', function(req, res, next) {
+app.get('/gmap', function(req, res, next) {
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -70,7 +70,7 @@ app.get('/map', function(req, res, next) {
     connection.end();
 
     if (req.session && req.session.username && req.session.username.length) {
-        res.render('map.html');
+        res.render('gmap.html');
     }
     else {
         delete req.session.username;
@@ -130,12 +130,11 @@ app.post('/user', function(req, res, next) {
     );
 });
 
-// test locally
-// app.listen("5000", "0.0.0.0", function() {
-//     console.log("Express Server is Running...")
-// });
-
-// server listener - heroku ready
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Running Express Server...");
+app.listen("5000", "0.0.0.0", function() {
+    console.log("Express Server is Running...")
 });
+
+// // server listener - heroku ready
+// app.listen(process.env.PORT, process.env.IP, function() {
+//     console.log("Running Express Server...");
+// });
