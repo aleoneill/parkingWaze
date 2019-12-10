@@ -1,131 +1,67 @@
 <% include partials/header %>
 
-<<<<<<< HEAD
-<div class="header">
-    <h1>Parking Waze</h1>
-</div>
-
-<h2>Time of Arrival on Campus?</h2>
-<form id="arrival">
-    <input type="text" class="timepicker" name="time" /> 
-</form>
-<br><br>
-<h2>Location of Next Class:</h2>
-<div class="buildings">
-      <div class="select">
-<select>
-    <option value="">Select One</option>
-    <option value="bit">Business and Information Technology (BIT)</option>
-    <option value="library">Library</option>
-    <option value="cahss">College of Arts, Humanities, and Social Sciences (CAHSS)</option>
-    <option value="gym">Otter Sports Center (Gym)</option>
-    <option value="vpa">Visual and Public Arts (VPA)</option>
-    <option value="valley">Valley Hall</option>
-    <option value="ocean">Ocean Hall</option>
-    <option value="chapman">Chapman</option>
-    <option value="harbor-coast-pacific">Harbor Hall/Coast Hall/Pacific Hall</option>
-    <option value="music">Music Hall</option>
-    <option value="language">World Languages North/South</option>
-    <option value="oak">Oaks Hall</option>
-    <option value="cart">Cinematic Arts & Technology</option>
-</select>
-</div>
-</div>
-<br><br>
-<h2>How Long Are You Planning on Staying?</h2>
-<div class="length">
-    <div class="select">
-<select>
-    <option value = "">Select One</option>
-    <option value = "30">30 min.</option>
-    <option value = "45">45 min.</option>
-    <option value = "1">1 hr.</option>
-    <option value = "2">2 hrs.</option>
-    <option value = "3">3+ hrs.</option>
-</select><br>
-</div>
-</div>
-<br> 
-
-<button class="button1"><span>Continue</span></button>
-
-<% include partials/footer %>
-<!--=======-->
-<!--    <div class="header1">-->
-<!--        <h1>Parking Waze</h1>-->
-<!--    </div>-->
-=======
-    <div class="header1">
+    <div class="header">
         <h1>Parking Waze</h1>
     </div>
->>>>>>> b4d3cdeda7ff5badfb30c91068acf88a6c3dc2ed
 
-    <!-- TIME ARRIVAL SECTION -->
-<!--    <h2>Time of Arrival on Campus?</h2>-->
-<!--    <form id="arrival">-->
-<!--        <input type="text" class="timepicker" name="time" />-->
-<!--    </form>-->
+    <h2>Time of Arrival on Campus?</h2>
+    <form id="arrival">
+        <input type="text" class="timepicker" name="time" />
+    </form>
+    <br><br>
+    <h2>Location of Next Class:</h2>
+    <div class="buildings">
+        <div class="select">
+            <select>
+                <option value="">Select One</option>
+                <option value="bit">Business and Information Technology (BIT)</option>
+                <option value="library">Library</option>
+                <option value="cahss">College of Arts, Humanities, and Social Sciences (CAHSS)</option>
+                <option value="gym">Otter Sports Center (Gym)</option>
+                <option value="vpa">Visual and Public Arts (VPA)</option>
+                <option value="valley">Valley Hall</option>
+                <option value="ocean">Ocean Hall</option>
+                <option value="chapman">Chapman</option>
+                <option value="harbor-coast-pacific">Harbor Hall/Coast Hall/Pacific Hall</option>
+                <option value="music">Music Hall</option>
+                <option value="language">World Languages North/South</option>
+                <option value="oak">Oaks Hall</option>
+                <option value="cart">Cinematic Arts & Technology</option>
+            </select>
+        </div>
+    </div>
+    <br><br>
+    <h2>How Long Are You Planning on Staying?</h2>
+    <div class="length">
+        <div class="select">
+            <select>
+                <option value = "">Select One</option>
+                <option value = "30">30 min.</option>
+                <option value = "45">45 min.</option>
+                <option value = "1">1 hr.</option>
+                <option value = "2">2 hrs.</option>
+                <option value = "3">3+ hrs.</option>
+            </select><br>
+        </div>
+    </div><br>
+    <button class="button1"><span>Continue</span></button>
 
-    <!-- LOCATION SECTION -->
-<!--    <h2>Location of Next Class:</h2>-->
-<!--    <div class="buildings">-->
-<!--        <div class="select">-->
-<!--            <select>-->
-<!--                <option value="">Select One</option>-->
-<!--                <option value="bit">Business and Information Technology (BIT)</option>-->
-<!--                <option value="library">Library</option>-->
-<!--                <option value="cahss">College of Arts, Humanities, and Social Sciences (CAHSS)</option>-->
-<!--                <option value="gym">Otter Sports Center (Gym)</option>-->
-<!--                <option value="vpa">Visual and Public Arts (VPA)</option>-->
-<!--                <option value="valley">Valley Hall</option>-->
-<!--                <option value="ocean">Ocean Hall</option>-->
-<!--                <option value="chapman">Chapman</option>-->
-<!--                <option value="harbor-coast-pacific">Harbor Hall/Coast Hall/Pacific Hall</option>-->
-<!--                <option value="music">Music Hall</option>-->
-<!--                <option value="language">World Languages North/South</option>-->
-<!--                <option value="oak">Oaks Hall</option>-->
-<!--                <option value="cart">Cinematic Arts & Technology</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--    </div>-->
+    <script>
+        $(document).ready(function() {
+            $('input.timepicker').timepicker({});
+        });
 
-    <!-- LENGTH OF STAY SECTION -->
-<!--    <div class="length">-->
-<!--        <div class="select">-->
-<!--            <h2>How Long Are You Planning on Staying?</h2>-->
-<!--            <select>-->
-<!--                <option value = "">Select One</option>-->
-<!--                <option value = "30">30 min.</option>-->
-<!--                <option value = "45">45 min.</option>-->
-<!--                <option value = "1">1 hr.</option>-->
-<!--                <option value = "2">2 hrs.</option>-->
-<!--                <option value = "3">3+ hrs.</option>-->
-<!--            </select><br>-->
-<!--        </div>-->
-<!--    </div><br>-->
+        $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 15,
+            minTime: '0',
+            maxTime: '10:00pm',
+            defaultTime: '11',
+            startTime: '0:00',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+    </script>
 
-<!--    <button class="button1" id="submitInfo"><span>Continue</span></button><br><br>-->
-
-<!--    <script>-->
-<!--        $(document).ready(function() {-->
-<!--            $('input.timepicker').timepicker({});-->
-<!--        });-->
-
-<!--        $('.timepicker').timepicker({-->
-<!--            timeFormat: 'h:mm p',-->
-<!--            interval: 15,-->
-<!--            minTime: '0',-->
-<!--            maxTime: '10:00pm',-->
-<!--            defaultTime: '11',-->
-<!--            startTime: '0:00',-->
-<!--            dynamic: false,-->
-<!--            dropdown: true,-->
-<!--            scrollbar: true-->
-<!--        });-->
-<!--    </script>-->
-
-<<<<<<< HEAD
-<!--    <% include partials/footer %>-->
-=======
     <% include partials/footer %>
->>>>>>> b4d3cdeda7ff5badfb30c91068acf88a6c3dc2ed
