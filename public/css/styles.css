@@ -17,7 +17,7 @@ body {
 }
 
 .buildings {
-<<<<<<< HEAD
+
   height: 150px;
   font-size: 13px;
   border-radius: 6px;
@@ -27,21 +27,18 @@ body {
   border-width: thin;
   border-radius: 8px;
   padding: 10px;
-=======
+
     height: 100px;
     font-size: 13px;
     border-radius: 6px;
     /*overflow: hidden;*/
     /*position: relative;*/
->>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
 }
-
 .buildings .select {
     width: 100%;
     background-position: 50% center;
 }
 
-<<<<<<< HEAD
 .buildings .select select{
   background: white;
   line-height: 1;
@@ -65,7 +62,7 @@ body {
   border-width: thin;
   border-radius: 8px;
   padding: 10px;
-=======
+}
 .buildings .select select {
     background: white;
     line-height: 1;
@@ -84,7 +81,6 @@ body {
     border-radius: 6px;
     /*overflow: hidden;*/
     /*position: relative;*/
->>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
 }
 
 .length .select {
@@ -92,7 +88,6 @@ body {
     background-position: 50% center;
 }
 
-<<<<<<< HEAD
 .length .select select{
   background: white;
   line-height: 1;
@@ -104,7 +99,7 @@ body {
   position: relative;
   z-index: 10;
   font-size: 1em;
-=======
+}
 .length .select select {
     background: white;
     line-height: 1;
@@ -115,7 +110,7 @@ body {
     position: relative;
     z-index: 10;
     font-size: 1em;
->>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
+
 }
 
 .button1 {
@@ -367,13 +362,8 @@ input[type=text]:placeholder {
     width: 50%;
 }
 
-<<<<<<< HEAD
 #arrival{
     height: 120px;
-=======
-#arrival {
-    height: 100px;
->>>>>>> 9f90a3662fe53637d22cd139e156d7b1560eea67
     width: 50%;
     margin: auto;
     border-style: solid;
