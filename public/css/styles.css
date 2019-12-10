@@ -168,6 +168,25 @@ a {
     right: 0;
 }
 
+<<<<<<< HEAD
+h1 {
+    font-size: 40px;
+    /*text-decoration: underline;*/
+}
+
+.header {
+    padding: 40px;
+    color: white;
+}
+
+a {
+    color: #92badd;
+    display: inline-block;
+    text-decoration: none;
+}
+
+=======
+>>>>>>> 58bb47ccb0379720e8af6f375efe87ce93df5cad
 /* START OF FORM SECTION */
 
 /* STRUCTURE */

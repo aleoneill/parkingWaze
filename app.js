@@ -15,39 +15,39 @@ app.use(express.static("public"));
 app.set('trust proxy', 1); // trust first proxy
 app.use(session({
     secret: 'password'
-})); 
+}));
 
 app.get('/', function(req, res, next) {
     res.render("login.html");
 });
 
 app.post('/', function(req, res, next) {
-    // check database if username and password are correct 
+    // check database if username and password are correct
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
         password: 'l4kg72cf660m8hya',
         database: 'l2gh8fug1cqr96dc'
     });
-    
+
     connection.connect();
-    
+
     connection.query(
         `SELECT username, password FROM users
-         WHERE username = '${req.body.username}' and password = '${req.body.password}' `, 
+         WHERE username = '${req.body.username}' and password = '${req.body.password}' `,
         function(error, results, fields) {
             if (error) throw error;
-            
-            // if there are no results, username and password are incorrect 
+
+            // if there are no results, username and password are incorrect
             if(!results.length) {
-                connection.end(); 
+                connection.end();
                 delete req.session.username;
                 res.json({
                     successful: false,
                     message: 'Wrong username or password'
                 });
             } else {
-                connection.end(); 
+                connection.end();
                 req.session.username = req.body.username;
                 res.json({
                     successful: true,
@@ -55,7 +55,7 @@ app.post('/', function(req, res, next) {
                 });
             }
         }
-    ); 
+    );
 });
 
 app.get('/map', function(req, res, next) {
@@ -65,10 +65,10 @@ app.get('/map', function(req, res, next) {
         password: 'l4kg72cf660m8hya',
         database: 'l2gh8fug1cqr96dc'
     });
-    
+
     connection.connect();
-    connection.end(); 
-    
+    connection.end();
+
     if (req.session && req.session.username && req.session.username.length) {
         res.render('map.html');
     }
@@ -106,36 +106,36 @@ app.post('/user', function(req, res, next) {
     });
 
     connection.connect();
-    
+
     connection.query(
         `SELECT username, email FROM users
-        WHERE username = '${req.body.username}' or email = '${req.body.email}' `, 
+        WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
         function(error, results, fields) {
             if (error) throw error;
-            
-            // if there are no results it means there are no accounts with 
+
+            // if there are no results it means there are no accounts with
             // the username or email in the database
-            // insert new users 
+            // insert new users
             if(!results.length) {
                 connection.query(
                     `INSERT INTO users
                     (username, email, password, fullname)
                     VALUES ('${req.body.username}', '${req.body.email}', 
-                    '${req.body.password}', '${req.body.fullName}')`, 
+                    '${req.body.password}', '${req.body.fullName}')`,
                     function(error, results, fields) {
                         if (error) throw error;
-                        else connection.end(); 
-                        
-                        req.session.username = req.body.username; 
+                        else connection.end();
+
+                        req.session.username = req.body.username;
                         res.json({
                             successful: true,
                             message: ''
                         });
-                    }   
+                    }
                 );
             } else {
-                // this means that there is already a user with the same username or email 
-                connection.end(); 
+                // this means that there is already a user with the same username or email
+                connection.end();
                 res.json({
                     successful: false,
                     message: 'Invalid: username, or email already in use'

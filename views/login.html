@@ -17,7 +17,7 @@
         <div id="formFooter">
             <a class="underlineHover" href="#">Forgot Password?</a><br>
             <a id="newUser" class="underlineHover" href="/user">Create an Account</a> or
-            <a id="continue" class="underlineHover" href="/map">Continue as Guest</a><br>
+            <a id="continue" class="underlineHover" href="/gmap">Continue as Guest</a><br>
         </div>
     </div>
 </div><br><br>
@@ -61,22 +61,46 @@
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
-                "username": "hello",
-                "password": "world"
+                "username": $("#login").val(),
+                "password": $("#password").val()
             }),
             success: function(result, status) {
-                console.log("Im in result..."); 
                 if (result.successful) {
-                    console.log("we went to map!"); 
-                    window.location.href = '/map'; // This will navigate to wherever i say...
+                    window.location.href = '/gmap'; // This will navigate to wherever i say...
+                }
+                else {
+                    // Show an error message or something and stay here
+                    $('#message').html(result.message).css("color", "red");
+                    $('#message').show();
                 }
             },
-            error: function(xhr, status, error) {
+            error: function(xhr, status, message) {
                 console.log("error: ", xhr.responseText);
-            },
+            }
         });
     });
+});
 
+$('#continue').on('click', function(e) {
+    $.ajax({
+        type: "POST",
+        url: "/",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "username": "hello",
+            "password": "world"
+        }),
+        success: function(result, status) {
+            if (result.successful) {
+                window.location.href = '/map'; // This will navigate to wherever i say...
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("error: ", xhr.responseText);
+        },
+    });
+});
 </script>
 
 <% include partials/footer %>

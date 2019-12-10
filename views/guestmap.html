@@ -17,7 +17,11 @@
     <h2>Location of Next Class:</h2>
     <div class="buildings">
         <div class="select">
+
+            <select id="location">
+
             <select id="buildingchoice">
+
                 <option value="">Select One</option>
                 <option value="506">Business and Information Technology (BIT)</option>
                 <option value="508">Library</option>
@@ -44,7 +48,12 @@
     <h2>How Long Are You Planning on Staying?</h2>
     <div class="length">
         <div class="select">
+
+            <h2>How Long Are You Planning on Staying?</h2>
+            <select id="stay">
+
             <select id="lengthofstay">
+
                 <option value = "">Select One</option>
                 <option value = "30">30 min.</option>
                 <option value = "45">45 min.</option>
@@ -74,6 +83,11 @@
             dropdown: true,
             scrollbar: true
         });
+
+        var arrival = document.getElementById("arrival");
+        var location = document.getElementById("location");
+        var stay = document.getElementById("stay");
+        var currtime = Date.now();
         
         $("#displayMap").on("click", function (){
             console.log($("#buildingchoice").val());
@@ -93,8 +107,16 @@
             }
         }
 
+<<<<<<< HEAD:views/map.html
         
         
+=======
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+        }
+
+>>>>>>> 7c9d488f90ce0ad6571934b10f13b9d7b3bbcdb5:views/guestmap.html
     </script>
 
     <% include partials/footer %>

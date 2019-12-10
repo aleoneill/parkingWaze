@@ -14,6 +14,13 @@
                 <!-- EMAIL SECTION -->
                 <label for="email">Email</label>
                 <input type="text" id="email" class="fadeIn third" name="email" required><br>
+                
+                <!-- ID SECTION -->
+                <label for="schoolID">School ID</label>
+                <input type="text" id="schoolID" class="fadeIn second" name="schoolID" required>
+                <div id="idMessage" style="display:none; color:red">
+                    ID must be 7 digits long<br><br>
+                </div>
 
                 <!-- FULL NAME SECTION -->
                 <label for="fullName">Full Name</label>
@@ -26,7 +33,7 @@
                 <!-- PASSWORD SECTION -->
                 <label for="newPassword">Password</label>
                 <input type="password" id="newPassword" class="fadeIn fifth" name="newPassword" required>
-                <div id="passwordMessage" style="display:none; color:green;">
+                <div id="passwordMessage" style="display:none; color:red">
                     Must contain at least one number, one uppercase letter,<br> one lowercase letter, and must be at least 8 character long<br><br>
                 </div><br><br>
 
@@ -39,6 +46,18 @@
 
     <script>
         var password = document.getElementById("newPassword");
+        var letter = document.getElementById("letter");
+        var number = document.getElementById("number");
+
+        // When the user clicks on the id field, show the message box
+        id.onfocus = function() {
+            document.getElementById("idMessage").style.display = "block";
+        }
+
+        // When the user clicks outside of the id field, hide the message box
+        id.onblur = function() {
+            document.getElementById("idMessage").style.display = "none";
+        }
 
         // When the user clicks on the password field, show the message box
         password.onfocus = function() {
