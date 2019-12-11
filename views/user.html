@@ -7,39 +7,36 @@
         <!-- Login Form -->
         <form>
             <br>
-            <label for="id">School ID</label>
+            <label for="id">School ID</label><br>
             <input type="text" id="id" class="fadeIn second" name="id" required>
-            <div class="buildings">
-                <div class="select">
-                    <label for="buildingchoice">Location of Class:</label>
-                    <select id="buildingchoice">
-                        <option value="">Select One</option>
-                        <option value="506">Business and Information Technology (BIT)</option>
-                        <option value="508">Library</option>
-                        <option value="504">College of Arts, Humanities, and Social Sciences (CAHSS)</option>
-                        <option value="90">Otter Sports Center (Gym)</option>
-                        <option value="71">Visual and Public Arts (East)</option>
-                        <option value="72">Visual and Public Arts (Center)</option>
-                        <option value="73">Visual and Public Arts (West)</option>
-                        <option value="82">Valley Hall</option>
-                        <option value="86">Ocean Hall</option>
-                        <option value="53">Chapman</option>
-                        <option value="46">Harbor Hall</option>
-                        <option value="45">Coast Hall</option>
-                        <option value="44">Pacific Hall</option>
-                        <option value="30">Music Hall</option>
-                        <option value="49">World Languages North</option>
-                        <option value="48">World Languages South</option>
-                        <option value="490">Oaks Hall</option>
-                        <option value="27">Cinematic Arts & Technology</option>
-                    </select>
-                </div>
-            </div>
-            <label for="name">Class Title</label>
-            <input type="text" id="name" class="fadeIn second" name="id" required>
-            <form id="arrival">
-                <input type="text" class="timepicker" name="time" id="time" />
-            </form>
+            <label for="location">Location of Class:</label><br>
+            <select id="location" class="fadeIn third">
+                <option value="">Select One</option>
+                <option value="506">Business and Information Technology (BIT)</option>
+                <option value="508">Library</option>
+                <option value="504">College of Arts, Humanities, and Social Sciences (CAHSS)</option>
+                <option value="90">Otter Sports Center (Gym)</option>
+                <option value="71">Visual and Public Arts (East)</option>
+                <option value="72">Visual and Public Arts (Center)</option>
+                <option value="73">Visual and Public Arts (West)</option>
+                <option value="82">Valley Hall</option>
+                <option value="86">Ocean Hall</option>
+                <option value="53">Chapman</option>
+                <option value="46">Harbor Hall</option>
+                <option value="45">Coast Hall</option>
+                <option value="44">Pacific Hall</option>
+                <option value="30">Music Hall</option>
+                <option value="49">World Languages North</option>
+                <option value="48">World Languages South</option>
+                <option value="490">Oaks Hall</option>
+                <option value="27">Cinematic Arts & Technology</option>
+            </select><br>
+            <label for="name">Class Title</label><br>
+            <input type="text" id="name" class="fadeIn fourth" name="id" required>
+            <label for="time">Time</label><br>
+            <input type="text" class="timepicker" name="time" id="time" />
+            <input type="submit" id="addClass" class="button fadeIn sixth" value="Add Class">
+            <span id="errorMessage"></span>
         </form>
     </div>
 </div>
@@ -59,5 +56,54 @@
         dynamic: false,
         dropdown: true,
         scrollbar: true
+    });
+
+    $("#addClass").on("click", function(e) {
+        e.preventDefault(); // Do not submit until I am ready
+        let id = $("#id").val();
+        let location = $("#location").val();
+        let name = $("#name").val();
+        let time = $("#time").val();
+
+        if(id == "" || location == "" || name == "" || time == "") {
+            if(id == "") {
+                $("#errorMessage").html("ID is required").css("color", "red");
+            }
+            if (location == "") {
+                $("#errorMessage").html("Location is required").css("color", "red");
+            }
+            if (name == "") {
+                $("#errorMessage").html("Class title is required").css("color", "red");
+            }
+            if (time == "") {
+                $("#errorMessage").html("Class time is required").css("color", "red");
+            }else {
+                $.ajax({
+                    type: "POST",
+                    url: "/gmap",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "id": id,
+                        "location": location,
+                        "name": name,
+                        "time": time
+                    }),
+                    success: function(result, status) {
+                        if (result.successful) {
+                            window.location.href = '/gmap'; // This will navigate to wherever i say...
+                        }
+                        else {
+                            // Show an error message or something and stay here
+                            $('#errorMessage').html(result.message).css("color", "red");
+                            $('#errorMessage').show();
+                        }
+                    },
+                    error: function(xhr, status, message) {
+                        console.log("error: ", xhr.responseText);
+                    }
+                });
+            }
+        }
     });
 </script>

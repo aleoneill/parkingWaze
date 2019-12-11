@@ -181,6 +181,7 @@ a {
     padding: 30px;
     padding: 0px;
     box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    max-width: 500px;
 }
 
 #formFooter {
@@ -202,7 +203,7 @@ input {
     display: inline-block;
     font-size: 16px;
     margin: 5px;
-    width: 85%;
+    width: 75%;
     border: 2px solid #f6f6f6;
     transition: all 0.5s ease-in-out;
     border-radius: 5px 5px 5px 5px;
