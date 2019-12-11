@@ -178,12 +178,13 @@ app.get('/user', function(req, res) {
         database: 'l2gh8fug1cqr96dc'
     });
     connection.connect();
-
-    connection.query(`SELECT * from schedule`,
+    console.log(req.session.username);
+    connection.query(`SELECT * from schedule WHERE userid = '${req.session.username}'`,
         function (error, results, fields) {
             if (error) throw error;
+            console.log(results);
             res.render('user.hbs', {
-                user: results
+                class: results
             });
             connection.end();
         });
@@ -197,17 +198,22 @@ app.post('/user', function(req, res) {
         database: 'l2gh8fug1cqr96dc'
     });
     connection.connect();
-    connection.query(`INSERT INTO schedule VALUES (${req.body.id}, '${req.body.location}', '${req.body.name}', '${req.body.time}')`,
+
+
+    console.log(req.body.name);
+    connection.query(`INSERT INTO schedule VALUES ('${req.session.username}', '${req.body.time}', '${req.body.name}', '${req.body.location}')`,
         function(error, results) {
             if (error) throw error;
-            console.log(body);
-            res.render('user.hbs');
+            console.log(req.body);
+            res.render('user.hbs', {
+                class: results
+            });
         });
     connection.end();
 });
 
 app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...")
+        console.log("Express Server is Running...");
 });
 
 // server listener - heroku ready
