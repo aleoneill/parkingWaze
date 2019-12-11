@@ -1,18 +1,42 @@
 <% include partials/header %>
 <div class="header">
+    <h1>Schedule</h1>
 </div>
 <div class="wrapper fadeInDown">
-    <h2>Please fill out your schedule!</h2>
     <div id="formContent">
         <!-- Login Form -->
         <form>
             <br>
             <label for="id">School ID</label>
             <input type="text" id="id" class="fadeIn second" name="id" required>
-            <div id="idMessage">
-                <h3>ID must be:</h3>
-                <p id="idlength" class="invalid"><b>7</b> characters long</p>
+            <div class="buildings">
+                <div class="select">
+                    <label for="buildingchoice">Location of Class:</label>
+                    <select id="buildingchoice">
+                        <option value="">Select One</option>
+                        <option value="506">Business and Information Technology (BIT)</option>
+                        <option value="508">Library</option>
+                        <option value="504">College of Arts, Humanities, and Social Sciences (CAHSS)</option>
+                        <option value="90">Otter Sports Center (Gym)</option>
+                        <option value="71">Visual and Public Arts (East)</option>
+                        <option value="72">Visual and Public Arts (Center)</option>
+                        <option value="73">Visual and Public Arts (West)</option>
+                        <option value="82">Valley Hall</option>
+                        <option value="86">Ocean Hall</option>
+                        <option value="53">Chapman</option>
+                        <option value="46">Harbor Hall</option>
+                        <option value="45">Coast Hall</option>
+                        <option value="44">Pacific Hall</option>
+                        <option value="30">Music Hall</option>
+                        <option value="49">World Languages North</option>
+                        <option value="48">World Languages South</option>
+                        <option value="490">Oaks Hall</option>
+                        <option value="27">Cinematic Arts & Technology</option>
+                    </select>
+                </div>
             </div>
+            <label for="name">Class Title</label>
+            <input type="text" id="name" class="fadeIn second" name="id" required>
         </form>
     </div>
 </div>

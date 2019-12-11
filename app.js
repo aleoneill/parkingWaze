@@ -98,6 +98,7 @@ app.post('/gmap', function(req, res, next) {
         password: 'l4kg72cf660m8hya',
         database: 'l2gh8fug1cqr96dc'
     });
+    
     connection.connect();
     
     connection.query(
@@ -177,7 +178,7 @@ app.get('/user', function(req, res) {
 
 // app.listen("5000", "0.0.0.0", function() {
 //         console.log("Express Server is Running...")
-        // console.log("Express Server is Running...")
+// console.log("Express Server is Running...")
 // });
 
 // server listener - heroku ready
