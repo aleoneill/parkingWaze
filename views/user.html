@@ -37,6 +37,27 @@
             </div>
             <label for="name">Class Title</label>
             <input type="text" id="name" class="fadeIn second" name="id" required>
+            <form id="arrival">
+                <input type="text" class="timepicker" name="time" id="time" />
+            </form>
         </form>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('input.timepicker').timepicker({});
+    });
+
+    $('.timepicker').timepicker({
+        timeFormat: 'h:mm p',
+        interval: 15,
+        minTime: '0',
+        maxTime: '10:00pm',
+        defaultTime: '11',
+        startTime: '0:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+</script>
