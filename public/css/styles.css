@@ -295,6 +295,7 @@ input[type=text]:placeholder {
 
 .underlineHover:hover {
     color: #0d0d0d;
+    cursor: pointer;
 }
 
 .underlineHover:hover:after {

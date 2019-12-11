@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const mysql = require('mysql');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -9,6 +10,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static("public"));
 
@@ -44,7 +47,7 @@ app.post('/', function(req, res, next) {
                 delete req.session.username;
                 res.json({
                     successful: false,
-                    message: 'Wrong username or password'
+                    message: 'Wrong username/password or account does not exist'
                 });
             } else {
                 connection.end();
@@ -67,15 +70,25 @@ app.get('/gmap', function(req, res, next) {
     });
 
     connection.connect();
-    connection.end();
-
+    
     if (req.session && req.session.username && req.session.username.length) {
-        res.render('guestmap.html');
-    }
-    else {
+        connection.query(
+            `SELECT number, name FROM buildings 
+            ORDER BY name`, 
+            function(error, results, fields) {
+                if (error) throw error;
+                
+                res.render('guestmap.hbs', {
+                    results: results
+                });
+            }    
+        ); 
+    } else {
         delete req.session.username;
         res.redirect('/');
     }
+    
+    connection.end(); 
 });
 
 app.post('/gmap', function(req, res, next) {
@@ -85,14 +98,21 @@ app.post('/gmap', function(req, res, next) {
         password: 'l4kg72cf660m8hya',
         database: 'l2gh8fug1cqr96dc'
     });
+    
     connection.connect();
-
+    
     connection.query(
-        `SELECT closest_lot, 2nd_closest, 3rd_closest FROM buildings
-         WHERE number = '${req.body.building}'`
+        `SELECT lot1, lot2, lot3 FROM buildings
+         WHERE number = '${req.body.building}' `,
+        function(error, results, fields) {
+            if (error) throw error;
 
+            
+        }
     );
-});
+
+    connection.end(); 
+}); 
 
 app.get('/new', function(req, res) {
     res.render("new.html");
