@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const mysql = require('mysql');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -9,6 +10,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.set('view engine', 'hbs');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static("public"));
 
@@ -45,7 +49,7 @@ app.post('/', function(req, res, next) {
                 delete req.session.username;
                 res.json({
                     successful: false,
-                    message: 'Wrong username or password'
+                    message: 'Wrong username/password or account does not exist'
                 });
             } else {
                 connection.end();
@@ -68,31 +72,52 @@ app.get('/gmap', function(req, res, next) {
     });
 
     connection.connect();
-    connection.end();
-
+    
     if (req.session && req.session.username && req.session.username.length) {
-        res.render('guestmap.html');
-    }
-    else {
+        connection.query(
+            `SELECT number, name FROM buildings 
+            ORDER BY name`, 
+            function(error, results, fields) {
+                if (error) throw error;
+                
+                res.render('guestmap.hbs', {
+                    results: results
+                });
+            }    
+        ); 
+    } else {
         delete req.session.username;
         res.redirect('/');
     }
+    
+    connection.end(); 
 });
 
-// app.post('/gmap', function(req, res, next) {
-//     const connection = mysql.createConnection({
-//         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-//         user: 'zzrbbsj5791xsnwf',
-//         password: 'l4kg72cf660m8hya',
-//         database: 'l2gh8fug1cqr96dc'
-//     });
-//     connection.connect();
-//
-//     connection.query(
-//         `SELECT number FROM buildings
-//     WHERE number = '${req.body.buildingnum}'`
-//     )
-// });
+app.post('/gmap', function(req, res, next) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+    
+    connection.connect();
+    
+    connection.query(
+        `SELECT lot1, lot2, lot3 FROM buildings
+         WHERE number = '${req.body.building}' `,
+        function(error, results, fields) {
+        if (error) throw error;
+                
+                res.json({
+                    successful: true,
+                    lots: results
+                });  
+        }
+    );
+
+    connection.end(); 
+}); 
 
 app.get('/new', function(req, res) {
     res.render("new.html");
@@ -161,14 +186,52 @@ app.post('/new', function(req, res, next) {
     );
 
 app.get('/user', function(req, res) {
-    res.render("user.html");
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+    connection.connect();
+    console.log(req.session.username);
+    connection.query(`SELECT * from schedule WHERE userid = '${req.session.username}'`,
+        function (error, results, fields) {
+            if (error) throw error;
+            console.log(results);
+            res.render('user.hbs', {
+                class: results
+            });
+            connection.end();
+        });
+});
+
+app.post('/user', function(req, res) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+    connection.connect();
+
+
+    console.log(req.body.name);
+    connection.query(`INSERT INTO schedule VALUES ('${req.session.username}', '${req.body.time}', '${req.body.name}', '${req.body.location}')`,
+        function(error, results) {
+            if (error) throw error;
+            console.log(req.body);
+            res.render('user.hbs', {
+                class: results
+            });
+        });
+    connection.end();
 });
 
 app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...")
+        console.log("Express Server is Running...");
 });
 
-// // server listener - heroku ready
+// server listener - heroku ready
 // app.listen(process.env.PORT, process.env.IP, function() {
 //     console.log("Running Express Server...");
 // });

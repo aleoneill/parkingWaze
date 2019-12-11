@@ -10,16 +10,16 @@
             <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username">
             <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password"><br>
             <input type="submit" id="loginButton" class="button fadeIn fourth" value="Log In">
-            <div id="message" class="alert alert-danger hidden m-2" role="alert"></div>
         </form>
 
         <!-- Remind Password -->
         <div id="formFooter">
             <a class="underlineHover" href="#">Forgot Password?</a><br>
             <a id="newUser" class="underlineHover" href="/new">Create an Account</a> or
-            <a id="continue" class="underlineHover" href="/gmap">Continue as Guest</a><br>
+            <a id="continue" class="underlineHover">Continue as Guest</a><br>
         </div>
     </div>
+    <span id="message"></span>
 </div><br><br>
 
 <script>
@@ -38,7 +38,6 @@
                 }),
                 success: function(result, status) {
                     if (result.successful) {
-                        // NEED TO CHANGE LOCATION TO NEW HTML FOR USERS 
                         window.location.href = '/user'; // This will navigate to wherever i say...
                     }
                     else {
@@ -61,8 +60,8 @@
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
-                "username": "hello",
-                "password": "world"
+                "username": "guest",
+                "password": "guest123"
             }),
             success: function(result, status) {
                 if (result.successful) {

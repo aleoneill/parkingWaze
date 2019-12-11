@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parking Waze</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+</head>
+<div class="header">
+    <h1>Schedule</h1>
+</div>
+<table>
+    {{#each class}}
+    <tr>
+        <td>{{this.location}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.time}}</td>
+        <td><button id="delete">Delete Class</button></td>
+    </tr>
+    {{/each}}
+    <div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Login Form -->
+        <form action="/user" method="post">
+            <br>
+            <label for="location">Location of Class:</label><br>
+            <select id="location" class="fadeIn third">
+                <option value="">Select One</option>
+                <option value="Business and Information Technology">Business and Information Technology (BIT)</option>
+                <option value="Library">Library</option>
+                <option value="College of Arts, Humanities, and Social Sciences">College of Arts, Humanities, and Social Sciences (CAHSS)</option>
+                <option value="Otter Sports Center">Otter Sports Center (Gym)</option>
+                <option value="Visual and Public Arts (East)">Visual and Public Arts (East)</option>
+                <option value="Visual and Public Arts (Center)">Visual and Public Arts (Center)</option>
+                <option value="Visual and Public Arts (West)">Visual and Public Arts (West)</option>
+                <option value="Valley Hall">Valley Hall</option>
+                <option value="Ocean Hall">Ocean Hall</option>
+                <option value="Chapman">Chapman</option>
+                <option value="Harbor Hall">Harbor Hall</option>
+                <option value="Coast Hall">Coast Hall</option>
+                <option value="Pacific Hall">Pacific Hall</option>
+                <option value="Music Hall">Music Hall</option>
+                <option value="World Languages North">World Languages North</option>
+                <option value="World Languages South">World Languages South</option>
+                <option value="Oaks Hall">Oaks Hall</option>
+                <option value="Cinematic Arts & Technology">Cinematic Arts & Technology</option>
+            </select><br>
+            <label for="name">Class Title</label><br>
+            <input type="text" id="name" class="fadeIn fourth" name="id" required>
+            <label for="time">Time</label><br>
+            <input type="text" class="timepicker" name="time" id="time" />
+            <input type="submit" id="addClass" class="button fadeIn sixth" value="Add Class">
+            <span id="errorMessage"></span>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('input.timepicker').timepicker({});
+    });
+
+    $('.timepicker').timepicker({
+        timeFormat: 'h:mm p',
+        interval: 60,
+        minTime: '0',
+        maxTime: '10:00pm',
+        defaultTime: '11',
+        startTime: '0:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+    $("#addClass").on("click", function(e) {
+        e.preventDefault(); // Do not submit until I am ready
+        let location = $("#location").val();
+        let name = $("#name").val();
+        let time = $("#time").val();
+        $.ajax({
+            type: "POST",
+            url: "/user",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "location": location,
+                "name": name,
+                "time": time
+            }),
+            success: function(result, status) {
+                if (result.successful) {
+                    window.location.href = '/user'; // This will navigate to wherever i say...
+                }
+                else {
+                    // Show an error message or something and stay here
+                    $('#errorMessage').html(result.message).css("color", "red");
+                    $('#errorMessage').show();
+                }
+            },
+            error: function(xhr, status, message) {
+                console.log("error: ", xhr.responseText);
+            }
+        });
+    });
+</script>
