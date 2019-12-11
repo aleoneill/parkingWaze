@@ -12,6 +12,7 @@ app.use(cookieParser());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('view engine', 'hbs');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static("public"));
 
@@ -105,9 +106,12 @@ app.post('/gmap', function(req, res, next) {
         `SELECT lot1, lot2, lot3 FROM buildings
          WHERE number = '${req.body.building}' `,
         function(error, results, fields) {
-            if (error) throw error;
-
-            
+        if (error) throw error;
+                
+                res.json({
+                    successful: true,
+                    lots: results
+                });  
         }
     );
 
@@ -200,11 +204,11 @@ app.post('/user', function(req, res) {
     connection.end();
 })
 
-app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...")
-});
-
-// // server listener - heroku ready
-// app.listen(process.env.PORT, process.env.IP, function() {
-//     console.log("Running Express Server...");
+// app.listen("5000", "0.0.0.0", function() {
+//         console.log("Express Server is Running...")
 // });
+
+// server listener - heroku ready
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log("Running Express Server...");
+});

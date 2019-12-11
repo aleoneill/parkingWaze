@@ -37,11 +37,20 @@ a {
     width: 50%;
     margin: auto;
     padding: 10px;
-
     height: 100px;
     font-size: 13px;
-    /*overflow: hidden;*/
-    /*position: relative;*/
+}
+
+.buildings {
+    height: 150px;
+    font-size: 13px;
+    border-radius: 6px;
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .buildings .select {
@@ -72,27 +81,6 @@ a {
     border-radius: 8px;
     padding: 10px;
 }
-
-.buildings .select select {
-    background: white;
-    line-height: 1;
-    border: 0;
-    padding: 0;
-    border-radius: 0;
-    width: 50%;
-    position: relative;
-    z-index: 10;
-    font-size: 1em;
-}
-
-.length {
-    height: 100px;
-    font-size: 13px;
-    border-radius: 6px;
-    /*overflow: hidden;*/
-    /*position: relative;*/
-}
-
 .length .select {
     width: 100%;
     background-position: 50% center;
@@ -109,19 +97,6 @@ a {
     position: relative;
     z-index: 10;
     font-size: 1em;
-}
-
-.length .select select {
-    background: white;
-    line-height: 1;
-    border: 0;
-    padding: 0;
-    border-radius: 0;
-    width: 50%;
-    position: relative;
-    z-index: 10;
-    font-size: 1em;
-
 }
 
 .button1 {
@@ -395,3 +370,4 @@ footer {
     margin-bottom: 0px;
     margin-left: 10px;
 }
+

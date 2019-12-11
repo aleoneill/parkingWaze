@@ -52,6 +52,15 @@
     <span id="buttonWasClicked"></span>
     <p id="demo"></p><br><br>
     
+    <div class="mapouter">
+        <div class="gmap_canvas">
+            <p style="text-align: center;">
+            <iframe width="695" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=csumb%20parking%20lot%201%20&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+            </iframe>
+            <a href="https://www.bitgeeks.net/divi-discount-elegant-themes-coupon/"></a>
+            </div>
+            <style>.mapouter{position:relative;text-align:right;height:500px;width:695px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:695px;}</style>
+            </div>
     <hr><br>
     <footer>
         CST336: Internet Programming<br> &copy; 2019. Parking Waze<br> Disclaimer: The information in this page might be inaccurate.<br> It is used for academic purposes only.<br><br>
@@ -110,11 +119,11 @@
                         success: function(result, status) {
                             if (result.successful) {
                                 // window.location.href = '/'; // This will navigate to wherever i say...
-                                $("#buttonWasClicked").html("Success!"); 
+                            showMap(result.lots); 
                             }
                             else {
                                 // Show an error message or something and stay here
-                                $('#message').html(result.message).css("color", "red");
+                                $('#message').html("error").css("color", "red");
                                 $('#message').show();
                             }
                         },
@@ -124,6 +133,33 @@
                     });
                 }
             });
+            
+            function showMap (results) {
+            $.ajax({
+                        type: "POST",
+                        url: "/gmap",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            "building": $("#buildingChoice").val(), 
+                        }),
+                        success: function(result, status) {
+                            if (result.successful) {
+                                // window.location.href = '/'; // This will navigate to wherever i say...
+                            showMap(result.lots); 
+                            }
+                            else {
+                                // Show an error message or something and stay here
+                                $('#message').html("error").css("color", "red");
+                                $('#message').show();
+                            }
+                        },
+                        error: function(xhr, status, message) {
+                            console.log("error: ", xhr.responseText);
+                        }
+                    });
+            }
+           
         </script>
     </body>
 </html>
