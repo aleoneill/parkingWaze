@@ -94,14 +94,38 @@
         }
 
         // DISPLAY MAP BUTTON ON CLICK 
-        $("#displayMap").on("click", function() {
+        $("#displayMap").on("click", function(e) {
+             e.preventDefault();
             // CHECK IF USER INPUTED ALL VALUES 
             if($("#timeOfArrival").val() == "" || $("#buildingChoice").val() == "" || $("#lengthOfStay").val() == "") {
                 $("#buttonWasClicked").html("Error, missing selection above").css("color", "red"); 
             } else {
                 $("#buttonWasClicked").html("One second....").css("color", "green"); 
                 getLocation(); 
+                $.ajax({
+                type: "POST",
+                url: "/gmap",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "building": $("#buildingChoice").val(), 
+                }),
+                success: function(result, status) {
+                    if (result.successful) {
+                        window.location.href = '/'; // This will navigate to wherever i say...
+                    }
+                    else {
+                        // Show an error message or something and stay here
+                        $('#message').html(result.message).css("color", "red");
+                        $('#message').show();
+                    }
+                },
+                error: function(xhr, status, message) {
+                    console.log("error: ", xhr.responseText);
+                }
+            });
             }
+            
         });
     </script>
 
