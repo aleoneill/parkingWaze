@@ -146,14 +146,52 @@ app.post('/new', function(req, res, next) {
 });
 
 app.get('/user', function(req, res) {
-    res.render("user.html");
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+
+    connection.connect();
+
+    connection.query(`SELECT * from schedule`,
+        function(error, results, fields) {
+            if (error) throw error;
+            res.render('user.html', {
+                user: results
+            });
+        });
+
+    connection.end();
 });
 
-// app.listen("5000", "0.0.0.0", function() {
-        // console.log("Express Server is Running...")
+app.post('/user', function(req, res) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+
+    connection.connect();
+
+    connection.query(`INSERT INTO schedule VALUES (${req.body.id}, '${req.body.location}', '${req.body.name}', '${req.body.time}')`,
+        function(error, results) {
+            if (error) throw error;
+
+            console.log(body);
+            res.render('user.html');
+        });
+
+    connection.end();
+})
+
+app.listen("5000", "0.0.0.0", function() {
+        console.log("Express Server is Running...")
+});
+
+// // server listener - heroku ready
+// app.listen(process.env.PORT, process.env.IP, function() {
+//     console.log("Running Express Server...");
 // });
-
-// server listener - heroku ready
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Running Express Server...");
-});
