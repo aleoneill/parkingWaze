@@ -178,15 +178,17 @@ app.get('/user', function(req, res) {
         database: 'l2gh8fug1cqr96dc'
     });
     connection.connect();
+
     connection.query(`SELECT * from schedule`,
-        function(error, results, fields) {
+        function (error, results, fields) {
             if (error) throw error;
-            res.render('user.html', {
+            res.render('user.hbs', {
                 user: results
             });
+            connection.end();
         });
-    connection.end();
 });
+
 app.post('/user', function(req, res) {
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -199,16 +201,16 @@ app.post('/user', function(req, res) {
         function(error, results) {
             if (error) throw error;
             console.log(body);
-            res.render('user.html');
+            res.render('user.hbs');
         });
     connection.end();
-})
+});
 
-// app.listen("5000", "0.0.0.0", function() {
-//         console.log("Express Server is Running...")
-// });
+app.listen("5000", "0.0.0.0", function() {
+        console.log("Express Server is Running...")
+});
 
 // server listener - heroku ready
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Running Express Server...");
-});
+// app.listen(process.env.PORT, process.env.IP, function() {
+//     console.log("Running Express Server...");
+// });
