@@ -266,6 +266,10 @@ app.post('/edit', function(req, res) {
 });
 
 app.get('/umap', function(req, res) {
+    var today = new Date();
+
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -274,11 +278,15 @@ app.get('/umap', function(req, res) {
     });
     connection.connect();
 
-    connection.query(`SELECT `,
-        function(error, results) {
+    // connection.query(`select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
+
+    connection.query(`select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '11:00:00' order by s.time limit 1;`,
+        function (error, results) {
             if (error) throw error;
-            res.render('edit.hbs'), {
-                user: results
+            console.log(results);
+            console.log(req.session.username);
+            res.render('umap.hbs'), {
+                nextClass: results
             }
         });
 });
