@@ -372,3 +372,21 @@ footer {
     margin-left: 10px;
 }
 
+#logout {
+    position: absolute;
+    right: 25px;
+    opacity: 0;
+    animation: fadeIn ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
+#edit {
+    position: absolute;
+    right: 100px;
+    opacity: 0;
+    animation: fadeIn ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
