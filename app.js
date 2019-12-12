@@ -321,6 +321,7 @@ app.get('/umap', function(req, res, next) {
     if (req.session && req.session.username && req.session.username.length) {
     var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    console.log("the time is.....", time); 
 
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -338,6 +339,8 @@ app.get('/umap', function(req, res, next) {
             if (error) throw error;
             connection.end();
             
+            console.log(results); 
+            console.log(req.session.username); 
             res.render('umap.hbs', {
                 nextClass: results
             });
