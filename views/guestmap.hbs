@@ -18,10 +18,10 @@
         </div>
         
         {{!-- TIME ARRIVAL SECTION--}}
-        <h2>Time of Arrival on Campus?</h2>
-        <form id="arrival">
-            <input type="text" class="timepicker" name="time" id="timeOfArrival" />
-        </form><br><br>
+        {{!--<h2>Time of Arrival on Campus?</h2>--}}
+        {{!--<form id="arrival">--}}
+        {{!--    <input type="text" class="timepicker" name="time" id="timeOfArrival" />--}}
+        {{!--</form><br><br>--}}
         
         {{!-- LOCATION OF NEXT CLASS SECTION --}}
         <h2>Location of Next Class:</h2>
@@ -37,19 +37,19 @@
         </div><br><br>
         
         {{!-- LENGTH OF STAY SECTION --}}
-        <h2>How Long Are You Planning on Staying?</h2>
-        <div class="length">
-            <div class="select">
-                <select id="lengthOfStay">
-                    <option value = "">Select One</option>
-                    <option value = "30">30 min.</option>
-                    <option value = "45">45 min.</option>
-                    <option value = "1">1 hr.</option>
-                    <option value = "2">2 hrs.</option>
-                    <option value = "3">3+ hrs.</option>
-                </select><br>
-            </div>
-        </div><br><br>
+        {{!--<h2>How Long Are You Planning on Staying?</h2>--}}
+        {{!--<div class="length">--}}
+        {{!--    <div class="select">--}}
+        {{!--        <select id="lengthOfStay">--}}
+        {{!--            <option value = "">Select One</option>--}}
+        {{!--            <option value = "30">30 min.</option>--}}
+        {{!--            <option value = "45">45 min.</option>--}}
+        {{!--            <option value = "1">1 hr.</option>--}}
+        {{!--            <option value = "2">2 hrs.</option>--}}
+        {{!--            <option value = "3">3+ hrs.</option>--}}
+        {{!--        </select><br>--}}
+        {{!--    </div>--}}
+        {{!--</div><br><br>--}}
         
         {{!-- CONTINUE BUTTON --}}
         <button class="button1" id="displayMap">Continue</button><br><br>
@@ -106,7 +106,7 @@
             // DISPLAY MAP BUTTON ON CLICK 
             $("#displayMap").on("click", function(e) {
                 // CHECK IF USER INPUTED ALL VALUES 
-                if($("#timeOfArrival").val() == "" || $("#buildingChoice").val() == "" || $("#lengthOfStay").val() == "") {
+                if($("#buildingChoice").val() == "") {
                     $("#buttonWasClicked").html("Error, missing selection above").css("color", "red"); 
                 } else {
                     $("#buttonWasClicked").html("One second....<br><br>").css("color", "green"); 
