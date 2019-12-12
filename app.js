@@ -112,7 +112,7 @@ app.post('/gmap', function(req, res, next) {
     
     // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS 
     connection.query(
-    `SELECT lot1, lot2, lot3 FROM buildings
+    `SELECT buildingname, lot1, lot2, lot3 FROM buildings
     WHERE number = '${req.body.buildingNumber}'` , 
     function(error, results, fields) {
         if (error) throw error;
