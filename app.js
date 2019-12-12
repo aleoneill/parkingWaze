@@ -22,6 +22,7 @@ app.use(session({
 }));
 
 app.get('/', function(req, res, next) {
+    delete req.session.username;
     res.render("login.html");
 });
 
@@ -148,7 +149,6 @@ app.post('/new', function(req, res, next) {
             // IF THERE ARE NO RESULTS, USERNAME/EMAIL AREN'T IN THE DATABASE
             // CREATE A NEW USER
             if(!results.length) {
-
                 connection.query(
                     `INSERT INTO users
                     (username, email, password, fullname)
@@ -184,17 +184,32 @@ app.get('/user', function(req, res) {
         password: 'l4kg72cf660m8hya',
         database: 'l2gh8fug1cqr96dc'
     });
+    
     connection.connect();
-    //console.log(req.session.username);
-    connection.query(`SELECT * from schedule WHERE userid = '${req.session.username}'`,
-        function (error, results, fields) {
+    
+    // TO DISPLAY USER'S CURRENT SCHEDULE 
+    if (req.session && req.session.username && req.session.username.length) {
+        connection.query(
+        `SELECT * from schedule 
+        WHERE userid = '${req.session.username}'`, function (error, results, fields) {
             if (error) throw error;
-            //console.log(results);
-            res.render('user.hbs', {
-                class: results
-            });
-            connection.end();
+            
+            connection.query( 
+            `SELECT number, name FROM buildings 
+            ORDER BY name`, function (error, results2, fields) {
+                if (error) throw error;
+                connection.end();
+            
+                res.render('user.hbs', {
+                    class: results, 
+                    buildings: results2
+                });
+            }); 
         });
+    } else {
+        delete req.session.username;
+        res.redirect('/');
+    }
 });
 
 app.post('/user', function(req, res) {
@@ -206,17 +221,18 @@ app.post('/user', function(req, res) {
     });
     connection.connect();
 
-
-    //console.log(req.body.name);
-    connection.query(`INSERT INTO schedule VALUES ('${req.session.username}', '${req.body.time}', '${req.body.name}', '${req.body.location}')`,
-        function(error, results) {
-            if (error) throw error;
-            //console.log(req.body);
-            res.render('user.hbs', {
-                class: results
-            });
+    connection.query(
+    `INSERT INTO schedule
+    (userid, time, name, location)
+    VALUES ('${req.session.username}', '${req.body.time}', 
+    '${req.body.name}', '${req.body.location}')`, function(error, results) {
+        if (error) throw error;
+        connection.end(); 
+        
+        res.json({
+            successful: true
         });
-    connection.end();
+    });
 });
 
 app.get('/edit', function(req, res) {
@@ -265,8 +281,6 @@ app.post('/edit', function(req, res) {
     }
 });
 
-
-
 app.get('/umap', function(req, res) {
     var today = new Date();
 
@@ -294,11 +308,11 @@ app.get('/umap', function(req, res) {
         });
 });
 
-app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...");
-});
+// app.listen("5000", "0.0.0.0", function() {
+//         console.log("Express Server is Running...");
+// });
 
 //server listener - heroku ready
-// app.listen(process.env.PORT, process.env.IP, function() {
-//     console.log("Running Express Server...");
-// });
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log("Running Express Server...");
+});
