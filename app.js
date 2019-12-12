@@ -107,11 +107,10 @@ app.post('/gmap', function(req, res, next) {
          WHERE number = '${req.body.building}' `,
         function(error, results, fields) {
         if (error) throw error;
-                
-                res.json({
-                    successful: true,
-                    lots: results
-                });  
+            res.json({
+                successful: true,
+                lots: results
+            });  
         }
     );
 
@@ -137,7 +136,7 @@ app.post('/new', function(req, res, next) {
         WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
         function(error, results, fields) {
             if (error) throw error;
-
+            
             // if there are no results it means there are no accounts with
             // the username or email in the database
             // insert new users
@@ -149,8 +148,8 @@ app.post('/new', function(req, res, next) {
                     '${req.body.password}', '${req.body.fullName}')`,
                     function(error, results, fields) {
                         if (error) throw error;
-                        else connection.end();
-
+                        
+                        connection.end();
                         req.session.username = req.body.username;
                         res.json({
                             successful: true,
@@ -178,11 +177,11 @@ app.get('/user', function(req, res) {
         database: 'l2gh8fug1cqr96dc'
     });
     connection.connect();
-    console.log(req.session.username);
+    //console.log(req.session.username);
     connection.query(`SELECT * from schedule WHERE userid = '${req.session.username}'`,
         function (error, results, fields) {
             if (error) throw error;
-            console.log(results);
+            //console.log(results);
             res.render('user.hbs', {
                 class: results
             });
@@ -200,11 +199,11 @@ app.post('/user', function(req, res) {
     connection.connect();
 
 
-    console.log(req.body.name);
+    //console.log(req.body.name);
     connection.query(`INSERT INTO schedule VALUES ('${req.session.username}', '${req.body.time}', '${req.body.name}', '${req.body.location}')`,
         function(error, results) {
             if (error) throw error;
-            console.log(req.body);
+            //console.log(req.body);
             res.render('user.hbs', {
                 class: results
             });
@@ -212,11 +211,11 @@ app.post('/user', function(req, res) {
     connection.end();
 });
 
-app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...");
-});
+// app.listen("5000", "0.0.0.0", function() {
+//         console.log("Express Server is Running...");
+// });
 
 // // server listener - heroku ready
-// app.listen(process.env.PORT, process.env.IP, function() {
-//     console.log("Running Express Server...");
-// });
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log("Running Express Server...");
+});
