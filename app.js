@@ -117,11 +117,20 @@ app.post('/gmap', function(req, res, next) {
     function(error, results, fields) {
         if (error) throw error;
         
-        connection.end(); 
-        res.json({
-            successful: true, 
-            user: req.session.username,
-            results: results 
+        connection.query(
+        `SELECT latitude, longitude from parking_lots
+        WHERE number = '${results[0].lot1}'`, function(error, results2) {
+            if (error) throw error; 
+            
+            console.log(results2); 
+            
+            connection.end(); 
+            res.json({
+                successful: true, 
+                user: req.session.username,
+                results: results, 
+                coordinates: results2
+            }); 
         }); 
     }); 
 }); 
