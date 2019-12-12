@@ -81,8 +81,8 @@ app.get('/gmap', function(req, res, next) {
     if (req.session && req.session.username && req.session.username.length) {
         // GETTING A LIST OF THE BUILDINGS FROM THE DATABASE TO PRELOAD A DROP DOWN 
         connection.query(
-            `SELECT number, name FROM buildings 
-            ORDER BY name`, 
+            `SELECT number, buildingname FROM buildings 
+            ORDER BY buildingname`, 
             function(error, results, fields) {
                 if (error) throw error;
                 connection.end(); 
@@ -190,13 +190,16 @@ app.get('/user', function(req, res) {
     // TO DISPLAY USER'S CURRENT SCHEDULE 
     if (req.session && req.session.username && req.session.username.length) {
         connection.query(
-        `SELECT * from schedule 
-        WHERE userid = '${req.session.username}'`, function (error, results, fields) {
+        `SELECT schedule.time, schedule.name, buildings.buildingname 
+        FROM schedule 
+        INNER JOIN buildings
+        ON schedule.location=buildings.number
+        WHERE schedule.userid = '${req.session.username}'`, function (error, results, fields) {
             if (error) throw error;
             
             connection.query( 
-            `SELECT number, name FROM buildings 
-            ORDER BY name`, function (error, results2, fields) {
+            `SELECT number, buildingname FROM buildings 
+            ORDER BY buildingname`, function (error, results2, fields) {
                 if (error) throw error;
                 connection.end();
             
@@ -220,19 +223,44 @@ app.post('/user', function(req, res) {
         database: 'l2gh8fug1cqr96dc'
     });
     connection.connect();
-
-    connection.query(
-    `INSERT INTO schedule
-    (userid, time, name, location)
-    VALUES ('${req.session.username}', '${req.body.time}', 
-    '${req.body.name}', '${req.body.location}')`, function(error, results) {
-        if (error) throw error;
-        connection.end(); 
-        
-        res.json({
-            successful: true
+    
+    // IS USER WANTS TO DELETE A CLASS 
+    if(req.body.deleteClass) {
+        connection.query(
+        `DELETE FROM schedule
+        WHERE userid = '${req.session.username}' and name = '${req.body.deleteClass}'`, function(error, results) {
+            // IF NO ROWS WERE AFFECTED, CLASS DOES NOT EXIST TO USERNAME  
+            if(results.affectedRows == 0){
+                connection.end(); 
+                
+                res.json({
+                    successful: false, 
+                    message: "Incorrect class name"
+                });
+            } else {
+                // CLASS EXISTS AND WAS DELETED 
+                connection.end(); 
+                
+                res.json({
+                    successful: true
+                });
+            }
+        }); 
+    } else {
+        // WE ARE ADDING A NEW CLASS TO THE SCHEDULE 
+        connection.query(
+        `INSERT INTO schedule
+        (userid, time, name, location)
+        VALUES ('${req.session.username}', '${req.body.time}', 
+        '${req.body.name}', '${req.body.location}')`, function(error, results) {
+            if (error) throw error;
+            connection.end(); 
+            
+            res.json({
+                successful: true
+            });
         });
-    });
+    }
 });
 
 app.get('/edit', function(req, res) {
