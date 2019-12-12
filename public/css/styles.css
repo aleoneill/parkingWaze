@@ -390,3 +390,7 @@ footer {
     animation-duration: 1s;
 }
 
+#cancelButton{
+    width: 100px;
+}
+

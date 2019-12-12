@@ -142,18 +142,19 @@ app.post('/new', function(req, res, next) {
     connection.query(
         `SELECT username, email FROM users
         WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
-        function(error, results, fields) {
+        function (error, results, fields) {
             if (error) throw error;
 
             // IF THERE ARE NO RESULTS, USERNAME/EMAIL AREN'T IN THE DATABASE
             // CREATE A NEW USER
             if(!results.length) {
+
                 connection.query(
                     `INSERT INTO users
                     (username, email, password, fullname)
                     VALUES ('${req.body.username}', '${req.body.email}', 
                     '${req.body.password}', '${req.body.fullName}')`,
-                    function(error, results, fields) {
+                    function (error, results, fields) {
                         if (error) throw error;
 
                         connection.end();
@@ -264,6 +265,8 @@ app.post('/edit', function(req, res) {
     }
 });
 
+
+
 app.get('/umap', function(req, res) {
     var today = new Date();
 
@@ -279,7 +282,8 @@ app.get('/umap', function(req, res) {
 
     // connection.query(`select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
 
-    connection.query(`select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '11:00:00' order by s.time limit 1;`,
+    connection.query(
+        `select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '11:00:00' order by s.time limit 1;`,
         function (error, results) {
             if (error) throw error;
             console.log(results);
