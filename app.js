@@ -265,52 +265,7 @@ app.post('/edit', function(req, res) {
     }
 });
 
-app.get('/delete', function(req, res) {
 
-    if(!req.query.user)
-
-    const connection = mysql.createConnection({
-        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'zzrbbsj5791xsnwf',
-        password: 'l4kg72cf660m8hya',
-        database: 'l2gh8fug1cqr96dc'
-    });
-    connection.connect();
-
-    connection.query(`SELECT password FROM users WHERE username = '${req.session.username}'`,
-        function(error, results) {
-            if (error) throw error;
-            res.render('edit.hbs'), {
-                user: results
-            }
-        });
-});
-
-app.delete('/delete', function(req, res, next) {
-
-    if (!req.body.username || req.body.username.length == 0) {
-        return next(new Error("There is a problem."));
-    }
-
-    const connection = mysql.createConnection({
-        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'zzrbbsj5791xsnwf',
-        password: 'l4kg72cf660m8hya',
-        database: 'l2gh8fug1cqr96dc'
-    });
-    connection.connect();
-
-    connection.query(`DELETE users WHERE username = '${req.session.username}'`,
-        function(error, results) {
-            if (error) throw error;
-            res.json({
-                message: 'Password changed!'
-            });
-            res.render('user.hbs');
-        });
-
-    connection.end();
-});
 
 app.get('/umap', function(req, res) {
     var today = new Date();
