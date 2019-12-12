@@ -364,14 +364,6 @@ footer {
     font-size: 14px;
 }
 
-.backButton,
-#backButton {
-    text-align: left;
-    color: black;
-    margin-bottom: 0px;
-    margin-left: 10px;
-}
-
 #cancelButton{
     width: 100px;
 }
@@ -402,4 +394,8 @@ footer {
     border-radius: 4px;
     height: 34px;
     -webkit-appearance: none;
+}
+
+#backButton{
+    float: left;
 }
