@@ -325,7 +325,7 @@ app.get('/umap', function(req, res) {
     // connection.query(`select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
 
     connection.query(
-        `select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '11:00:00' order by s.time limit 1;`,
+        `select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
         function (error, results) {
             if (error) throw error;
             console.log(results);
@@ -336,11 +336,11 @@ app.get('/umap', function(req, res) {
         });
 });
 
-// app.listen("5000", "0.0.0.0", function() {
-//         console.log("Express Server is Running...");
-// });
+app.listen("5000", "0.0.0.0", function() {
+        console.log("Express Server is Running...");
+});
 
 //server listener - heroku ready
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Running Express Server...");
-});
+// app.listen(process.env.PORT, process.env.IP, function() {
+//     console.log("Running Express Server...");
+// });
