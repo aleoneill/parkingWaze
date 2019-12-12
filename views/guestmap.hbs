@@ -54,10 +54,7 @@
         
         {{!-- THIS IS THE MAP --}}
         <div class="mapouter" id="popUpMap" style="display:none;">
-            <img width="600" height="300"
-            src="https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA&zoom=14&scale=1
-            &size=600x300&maptype=roadmap&key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true" 
-            alt="Google Map CSUMB">
+            <img width="600" height="300" id="mapImage" >
         </div>
         
         {{!-- FOOTER --}}
@@ -109,11 +106,13 @@
                                 $("#helloMessage").html(`<h3>Hello ${result.user}, 
                                 according to your input, building ${result.results[0].buildingname}, <br>the closest lots to you are 
                                 lot ${result.results[0].lot1}, lot ${result.results[0].lot2}, and lot ${result.results[0].lot3}</h3><br><br>`);
+                                
+                                // DISPLAY MAP
+                                document.getElementById("mapImage").src = `https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
+                                &zoom=14&scale=1&size=600x300&maptype=roadmap
+                                &markers=color:blue%7Clabel:S%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}
+                                &key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true`;
                                 document.getElementById("popUpMap").style.display = "block";
-                                document.getElementById("popUpMap").src = `https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
-                                &zoom=14&scale=1&size=600x300&maptype=roadmap&key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo
-                                &format=png&visual_refresh=true
-                                &markers=color:blue%7Clabel:S%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}`;
                             }
                             else {
                                 // Show an error message or something and stay here
