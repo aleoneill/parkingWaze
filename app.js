@@ -144,18 +144,11 @@ app.post('/new', function(req, res, next) {
         WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
         function (error, results, fields) {
             if (error) throw error;
-<<<<<<< HEAD
-
-            // if there are no results it means there are no accounts with
-            // the username or email in the database
-            // insert new users
-            if (!results.length) {
-=======
             
             // IF THERE ARE NO RESULTS, USERNAME/EMAIL AREN'T IN THE DATABASE 
             // CREATE A NEW USER 
             if(!results.length) {
->>>>>>> 690c9e1f4000a6f6d903090d43ab9714faee2c58
+
                 connection.query(
                     `INSERT INTO users
                     (username, email, password, fullname)
