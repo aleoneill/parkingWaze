@@ -32,7 +32,6 @@ app.post('/', function(req, res, next) {
         user: 'zzrbbsj5791xsnwf',
         password: 'l4kg72cf660m8hya',
         database: 'l2gh8fug1cqr96dc'
-
     });
 
     connection.connect();
@@ -133,37 +132,22 @@ app.post('/new', function(req, res, next) {
 
     connection.connect();
 
-    var body = req.body;
-
-    // connection.query(`INSERT INTO author VALUES (${body.id}, '${body.FirstName}', '${body.LastName}', '${body.dob}', '${body.dod}')`,
-        // function(error, results) {
-        //     if (error) throw error;
-        //
-        //     console.log(body);
-        //     res.render('new.html', {
-        //         title: 'Parking Waze',
-        //         unique_id: parseInt(body.id, 10) + 1
-        //     });
-        // });
-    res.render("new.html");
-});
-
     connection.query(
         `SELECT username, email FROM users
         WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
-        function(error, results, fields) {
+        function (error, results, fields) {
             if (error) throw error;
 
             // if there are no results it means there are no accounts with
             // the username or email in the database
             // insert new users
-            if(!results.length) {
+            if (!results.length) {
                 connection.query(
                     `INSERT INTO users
                     (username, email, password, fullname)
                     VALUES ('${req.body.username}', '${req.body.email}', 
                     '${req.body.password}', '${req.body.fullName}')`,
-                    function(error, results, fields) {
+                    function (error, results, fields) {
                         if (error) throw error;
                         else connection.end();
 
@@ -184,6 +168,7 @@ app.post('/new', function(req, res, next) {
             }
         }
     );
+});
 
 app.get('/user', function(req, res) {
     const connection = mysql.createConnection({
