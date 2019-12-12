@@ -138,15 +138,15 @@ app.post('/new', function(req, res, next) {
 
     connection.connect();
 
-    // CHECKING IF USERNAME OR EMAIL ALREADY EXISTS 
+    // CHECKING IF USERNAME OR EMAIL ALREADY EXISTS
     connection.query(
         `SELECT username, email FROM users
         WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
         function (error, results, fields) {
             if (error) throw error;
-            
-            // IF THERE ARE NO RESULTS, USERNAME/EMAIL AREN'T IN THE DATABASE 
-            // CREATE A NEW USER 
+
+            // IF THERE ARE NO RESULTS, USERNAME/EMAIL AREN'T IN THE DATABASE
+            // CREATE A NEW USER
             if(!results.length) {
 
                 connection.query(
@@ -156,7 +156,7 @@ app.post('/new', function(req, res, next) {
                     '${req.body.password}', '${req.body.fullName}')`,
                     function (error, results, fields) {
                         if (error) throw error;
-                        
+
                         connection.end();
                         req.session.username = req.body.username;
                         res.json({
@@ -166,7 +166,7 @@ app.post('/new', function(req, res, next) {
                     }
                 );
             } else {
-                // USERNAME OR PASSWORD ALREADY EXISTS IN DATABASE 
+                // USERNAME OR PASSWORD ALREADY EXISTS IN DATABASE
                 connection.end();
                 res.json({
                     successful: false,
@@ -219,11 +219,75 @@ app.post('/user', function(req, res) {
     connection.end();
 });
 
-// app.listen("5000", "0.0.0.0", function() {
-//         console.log("Express Server is Running...");
-// });
+app.get('/edit', function(req, res) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+    connection.connect();
 
-// // server listener - heroku ready
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Running Express Server...");
+    connection.query(`SELECT password FROM users WHERE username = '${req.session.username}'`,
+        function(error, results) {
+            if (error) throw error;
+            res.render('edit.hbs'), {
+                user: results
+            }
+        });
 });
+
+app.post('/edit', function(req, res) {
+    let message = '';
+
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+    connection.connect();
+
+    if (req.body.oldPassword != req.body.newPassword) {
+        connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE username = '${req.session.username}'`,
+            function(error, results) {
+                if (error) throw error;
+                res.json({
+                    message: 'Password changed!'
+                });
+                res.render('user.hbs');
+            });
+    } else {
+        connection.end();
+        res.json({
+            message: 'Passwords are the same!'
+        })
+    }
+});
+
+app.get('/umap', function(req, res) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+    connection.connect();
+
+    connection.query(`SELECT `,
+        function(error, results) {
+            if (error) throw error;
+            res.render('edit.hbs'), {
+                user: results
+            }
+        });
+});
+
+app.listen("5000", "0.0.0.0", function() {
+        console.log("Express Server is Running...");
+});
+
+// // // server listener - heroku ready
+// app.listen(process.env.PORT, process.env.IP, function() {
+//     console.log("Running Express Server...");
+// });
