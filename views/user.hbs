@@ -10,9 +10,9 @@
     
     <body>
         {{!-- BUTTONS ON TOP --}}
-        <a class="userButtons" href="/umap"><button>Continue</button></a>
-        <a class="userButtons" href="/edit"><button>Edit Password</button></a>
-        <a class="userButtons" href="/"><button>Log Out</button></a>
+        <a class="button fadeIn fourth" href="/umap" style="color:black;">Continue</a>
+        <a class="button fadeIn fourth" href="/edit" style="color:black;">Edit Password</a>
+        <a class="button fadeIn fourth" href="/" style="color:black;">Log Out</a>
         
         {{!-- DISPLAYS CURRENT CLASSES --}}
         <div class="wrapper fadeInDown">
@@ -33,7 +33,7 @@
         {{!-- OPTION TO DELETE CLASSES --}}
         <label for="deleteClass" style="color:white;"class="fadeIn second">Enter course name of class to delete: </label>
         <input type="text" id="deleteClass" class="fadeIn second" style="width:6%;height:10px;" name="deleteClass">
-        <button id="deleteButton" class="fadeIn second">Delete Class</button><br><br>
+        <button id="deleteButton" class="button fadeIn fourth">Delete Class</button><br><br>
         <span id="deleteButtonError"></span>
         
         {{!-- ADD A CLASS --}}
