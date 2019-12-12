@@ -318,7 +318,7 @@ app.post('/edit', function(req, res) {
     }); 
 });
 
-app.get('/umap', function(req, res) {
+app.get('/umap', function(req, res, next) {
     var today = new Date();
 
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -331,10 +331,10 @@ app.get('/umap', function(req, res) {
     });
     connection.connect();
 
-    // connection.query(`select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
+    // connection.query(`SELECT * FROM schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
 
     connection.query(
-        `select * from schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
+        ` SELECT * FROM schedule WHERE location = '${req.body.location}'`,
         function (error, results) {
             if (error) throw error;
             console.log(results);
@@ -342,6 +342,31 @@ app.get('/umap', function(req, res) {
             res.render('umap.hbs'), {
                 nextClass: results
             }
+        });
+});
+
+app.post('/umap', function(req, res, next) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+
+    connection.connect();
+
+    // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS
+    connection.query(
+        `SELECT lot1, lot2, lot3 FROM buildings
+    WHERE number = '${req.body.buildingNumber}'` ,
+        function(error, results, fields) {
+            if (error) throw error;
+
+            connection.end();
+            res.json({
+                successful: true,
+                results: results
+            });
         });
 });
 
