@@ -26,7 +26,6 @@ app.get('/', function(req, res, next) {
 });
 
 app.post('/', function(req, res, next) {
-    // check database if username and password are correct
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -36,16 +35,19 @@ app.post('/', function(req, res, next) {
 
     connection.connect();
 
+    // CHECKING IS USERNAME AND PASSWORD ARE CORRECT 
     connection.query(
         `SELECT username, password FROM users
          WHERE username = '${req.body.username}' and password = '${req.body.password}' `,
         function(error, results, fields) {
             if (error) throw error;
 
-            // if there are no results, username and password are incorrect
+            // IF THERE ARE NO RESULTS, EITHER WRONG USERNAME/PASSWORD OR DOESNT EXIST
             if(!results.length) {
                 connection.end();
                 delete req.session.username;
+                
+                // RETURN BACK RESULTS - FALSE 
                 res.json({
                     successful: false,
                     message: 'Wrong username/password or account does not exist'
@@ -53,6 +55,8 @@ app.post('/', function(req, res, next) {
             } else {
                 connection.end();
                 req.session.username = req.body.username;
+                
+                // RETURN BACK RESULTS - TRUE
                 res.json({
                     successful: true,
                     message: ''
@@ -72,19 +76,23 @@ app.get('/gmap', function(req, res, next) {
 
     connection.connect();
     
+    // IF SESSION IS VALID 
     if (req.session && req.session.username && req.session.username.length) {
+        // GETTING A LIST OF THE BUILDINGS FROM THE DATABASE TO PRELOAD A DROP DOWN 
         connection.query(
             `SELECT number, name FROM buildings 
             ORDER BY name`, 
             function(error, results, fields) {
                 if (error) throw error;
                 
+                // RENDERING HBS WITH RESULTS SENT TO FILE 
                 res.render('guestmap.hbs', {
                     results: results
                 });
             }    
         ); 
     } else {
+        // THIS MEANS THEY TRIED TYING IN THE URL /GMAP WITHOUT GOING TO LOG IN 
         delete req.session.username;
         res.redirect('/');
     }
@@ -102,6 +110,7 @@ app.post('/gmap', function(req, res, next) {
     
     connection.connect();
     
+    // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS 
     connection.query(
         `SELECT lot1, lot2, lot3 FROM buildings
          WHERE number = '${req.body.building}' `,
@@ -131,15 +140,15 @@ app.post('/new', function(req, res, next) {
 
     connection.connect();
 
+    // CHECKING IF USERNAME OR EMAIL ALREADY EXISTS 
     connection.query(
         `SELECT username, email FROM users
         WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
         function(error, results, fields) {
             if (error) throw error;
             
-            // if there are no results it means there are no accounts with
-            // the username or email in the database
-            // insert new users
+            // IF THERE ARE NO RESULTS, USERNAME/EMAIL AREN'T IN THE DATABASE 
+            // CREATE A NEW USER 
             if(!results.length) {
                 connection.query(
                     `INSERT INTO users
@@ -158,7 +167,7 @@ app.post('/new', function(req, res, next) {
                     }
                 );
             } else {
-                // this means that there is already a user with the same username or email
+                // USERNAME OR PASSWORD ALREADY EXISTS IN DATABASE 
                 connection.end();
                 res.json({
                     successful: false,

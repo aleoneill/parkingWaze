@@ -58,6 +58,7 @@
             let username = $("#newUsername").val();
             let password = $("#newPassword").val();
 
+            // IF THE VALUES ARE BLANK DON'T SUBMIT 
             if(email == "" || fullName == "" || username == "" || !checkPassword(password)) {
                 if(email == "") {
                     $("#errorMessage").html("Email is required").css("color", "red"); 
@@ -73,6 +74,9 @@
                     $("#passwordMessage").css("color", "red");
                 }
             } else {
+                // AJAX CALL TO CREATE A NEW USER 
+                // IF TRUE SHOULD GO TO /USER
+                // IF FALSE SHOULD REDIRECT HERE 
                 $.ajax({
                     type: "POST",
                     url: "/new",
@@ -101,6 +105,7 @@
             }
         });
         
+        // FUNCTION TO CHECK IF PASSWORD MEETS REQUIREMENTS 
         function checkPassword(str) {
             if (str.length < 8) {
                 // shorter than 8 characters 
