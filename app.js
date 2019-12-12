@@ -120,6 +120,7 @@ app.post('/gmap', function(req, res, next) {
         connection.end(); 
         res.json({
             successful: true, 
+            user: req.session.username,
             results: results 
         }); 
     }); 
