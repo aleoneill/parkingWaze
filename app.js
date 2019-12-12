@@ -84,7 +84,8 @@ app.get('/gmap', function(req, res, next) {
             ORDER BY name`, 
             function(error, results, fields) {
                 if (error) throw error;
-                
+                connection.end(); 
+
                 // RENDERING HBS WITH RESULTS SENT TO FILE 
                 res.render('guestmap.hbs', {
                     results: results
@@ -96,8 +97,6 @@ app.get('/gmap', function(req, res, next) {
         delete req.session.username;
         res.redirect('/');
     }
-    
-    connection.end(); 
 });
 
 app.post('/gmap', function(req, res, next) {
@@ -112,18 +111,17 @@ app.post('/gmap', function(req, res, next) {
     
     // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS 
     connection.query(
-        `SELECT lot1, lot2, lot3 FROM buildings
-         WHERE number = '${req.body.building}' `,
-        function(error, results, fields) {
+    `SELECT lot1, lot2, lot3 FROM buildings
+    WHERE number = '${req.body.buildingNumber}'` , 
+    function(error, results, fields) {
         if (error) throw error;
-            res.json({
-                successful: true,
-                lots: results
-            });  
-        }
-    );
-
-    connection.end(); 
+        
+        connection.end(); 
+        res.json({
+            successful: true, 
+            results: results 
+        }); 
+    }); 
 }); 
 
 app.get('/new', function(req, res) {
