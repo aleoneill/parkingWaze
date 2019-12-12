@@ -264,49 +264,58 @@ app.post('/user', function(req, res) {
 });
 
 app.get('/edit', function(req, res) {
-    const connection = mysql.createConnection({
-        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'zzrbbsj5791xsnwf',
-        password: 'l4kg72cf660m8hya',
-        database: 'l2gh8fug1cqr96dc'
-    });
-    connection.connect();
-
-    connection.query(`SELECT password FROM users WHERE username = '${req.session.username}'`,
-        function(error, results) {
-            if (error) throw error;
-            res.render('edit.hbs'), {
-                user: results
-            }
-        });
+    if (req.session && req.session.username && req.session.username.length) {
+        res.render('edit.hbs'); 
+    } else {
+        delete req.session.username;
+        res.redirect('/');
+    }
 });
 
 app.post('/edit', function(req, res) {
-    let message = '';
-
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
         password: 'l4kg72cf660m8hya',
         database: 'l2gh8fug1cqr96dc'
     });
+    
     connection.connect();
-
-    if (req.body.oldPassword != req.body.newPassword) {
-        connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE username = '${req.session.username}'`,
-            function(error, results) {
-                if (error) throw error;
-                res.json({
-                    message: 'Password changed!'
-                });
-                res.render('user.hbs');
+    
+    connection.query(
+    `SELECT password FROM users
+    WHERE username = '${req.session.username}'`, function(error, result) {
+        if(error) throw error; 
+        
+        if(result[0].password != req.body.oldPassword) {
+            connection.end(); 
+            
+            res.json({
+                successful: false, 
+                message: "<br><br>Incorrect old password"
+            }); 
+        } else if(result[0].password == req.body.newPassword) {
+            connection.end(); 
+            
+            res.json({
+                successful: false, 
+                message: "<br><br>New password is the same as old password"
             });
-    } else {
-        connection.end();
-        res.json({
-            message: 'Passwords are the same!'
-        })
-    }
+        } else {
+            connection.query(
+            `UPDATE users 
+            SET password = '${req.body.newPassword}'
+            WHERE username = '${req.session.username}'`, function(error, results) {
+                if (error) throw error; 
+                connection.end();
+                
+                res.json({
+                    successful: true
+                });
+            }); 
+            
+        }
+    }); 
 });
 
 app.get('/umap', function(req, res) {

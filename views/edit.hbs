@@ -22,44 +22,90 @@
                     <label for="newPassword">New Password</label>
                     <input type="password" id="newPassword" class="fadeIn second" name="newPassword" required>
                     <div id="passwordMessage" style="display:none; color:green">
-                        Must contain at least one number, one uppercase letter,<br> one lowercase letter, and must be at least 8 character long<br><br>
+                        Must contain at least one number,<br>one uppercase letter, one lowercase letter,<br> and must be at least 8 character long
                     </div><br><br>
-                    <input type="submit" id="save" class="button fadeIn third" value="Save Changes" onclick="window.location.href='/user'">
+                    
+                    {{!-- VERIFY PASSWORD --}}
+                    <label for="verifyPassword">Verify Password</label>
+                    <input type="password" id="verifyPassword" class="fadeIn second" name="verifyPassword" required><br><br>
+                    
+                    <input type="submit" id="save" class="button fadeIn third" value="Save Changes">
                     <span id="errorMessage"></span>
-                    <span id="successMessage"></span>
                 </form>
             </div>
         </div>
         
         <script>
+            var password = document.getElementById("newPassword");
+    
+            // When the user clicks on the password field, show the message box
+            password.onfocus = function() {
+                document.getElementById("passwordMessage").style.display = "block";
+            };
+    
+            // When the user clicks outside of the password field, hide the message box
+            password.onblur = function() {
+                document.getElementById("passwordMessage").style.display = "none";
+            };
+            
+            // FUNCTION TO CHECK IF PASSWORD MEETS REQUIREMENTS 
+            function checkPassword(str) {
+                if (str.length < 8) {
+                    // shorter than 8 characters 
+                    return false; 
+                } else if (str.search(/\d/) == -1) {
+                    // no number 
+                    return false; 
+                } else if (str.search(/[a-z]/) == -1) {
+                    // no lowercase letters 
+                    return false; 
+                } else if (str.search(/[A-Z]/) == -1) {
+                    // no uppercase letters 
+                    return false; 
+                } else {
+                    return true; 
+                }
+            }
+            
             $("#save").on("click", function(e) {
                 e.preventDefault(); // Do not submit until I am ready
+                
                 let oldPassword = $("#oldPassword").val();
                 let newPassword = $("#newPassword").val();
-                $.ajax({
-                    type: "POST",
-                    url: "/edit",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        "oldPassword": oldPassword,
-                        "newPassword": newPassword
-                    }),
-                    success: function(result, status) {
-                        if (result.successful) {
-                            window.location.href = '/user'; // This will navigate to wherever i say...
-                            alert("Password updated");
+                let verifyPassword = $("#verifyPassword").val(); 
+                
+                if(oldPassword == "" || newPassword == "") {
+                    $("#errorMessage").html("<br><br>Error, missing section above").css("color", "red"); 
+                } else if(newPassword != verifyPassword) {
+                    $("#errorMessage").html("<br><br>New password and verify password<br> does not match").css("color", "red"); 
+                } else if(!checkPassword(newPassword)) {
+                    $("#passwordMessage").css("display", "block").css("color", "red"); 
+                } 
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/edit",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            "oldPassword": oldPassword,
+                            "newPassword": newPassword
+                        }),
+                        success: function(result, status) {
+                            if (result.successful) {
+                                window.location.href = '/user'; // This will navigate to wherever i say...
+                            }
+                            else {
+                                // Show an error message or something and stay here
+                                $('#errorMessage').html(result.message).css("color", "red");
+                                $('#errorMessage').show();
+                            }
+                        },
+                        error: function(xhr, status, message) {
+                            console.log("error: ", xhr.responseText);
                         }
-                        else {
-                            // Show an error message or something and stay here
-                            $('#errorMessage').html(result.message).css("color", "red");
-                            $('#errorMessage').show();
-                        }
-                    },
-                    error: function(xhr, status, message) {
-                        console.log("error: ", xhr.responseText);
-                    }
-                });
+                    });
+                }
             });
         </script>
     </body>
