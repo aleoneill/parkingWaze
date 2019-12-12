@@ -26,7 +26,6 @@ app.get('/', function(req, res, next) {
 });
 
 app.post('/', function(req, res, next) {
-    // check database if username and password are correct
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         user: 'zzrbbsj5791xsnwf',
@@ -36,16 +35,19 @@ app.post('/', function(req, res, next) {
 
     connection.connect();
 
+    // CHECKING IS USERNAME AND PASSWORD ARE CORRECT 
     connection.query(
         `SELECT username, password FROM users
          WHERE username = '${req.body.username}' and password = '${req.body.password}' `,
         function(error, results, fields) {
             if (error) throw error;
 
-            // if there are no results, username and password are incorrect
+            // IF THERE ARE NO RESULTS, EITHER WRONG USERNAME/PASSWORD OR DOESNT EXIST
             if(!results.length) {
                 connection.end();
                 delete req.session.username;
+                
+                // RETURN BACK RESULTS - FALSE 
                 res.json({
                     successful: false,
                     message: 'Wrong username/password or account does not exist'
@@ -53,6 +55,8 @@ app.post('/', function(req, res, next) {
             } else {
                 connection.end();
                 req.session.username = req.body.username;
+                
+                // RETURN BACK RESULTS - TRUE
                 res.json({
                     successful: true,
                     message: ''
@@ -72,24 +76,27 @@ app.get('/gmap', function(req, res, next) {
 
     connection.connect();
     
+    // IF SESSION IS VALID 
     if (req.session && req.session.username && req.session.username.length) {
+        // GETTING A LIST OF THE BUILDINGS FROM THE DATABASE TO PRELOAD A DROP DOWN 
         connection.query(
             `SELECT number, name FROM buildings 
             ORDER BY name`, 
             function(error, results, fields) {
                 if (error) throw error;
-                
+                connection.end(); 
+
+                // RENDERING HBS WITH RESULTS SENT TO FILE 
                 res.render('guestmap.hbs', {
                     results: results
                 });
             }    
         ); 
     } else {
+        // THIS MEANS THEY TRIED TYING IN THE URL /GMAP WITHOUT GOING TO LOG IN 
         delete req.session.username;
         res.redirect('/');
     }
-    
-    connection.end(); 
 });
 
 app.post('/gmap', function(req, res, next) {
@@ -102,20 +109,19 @@ app.post('/gmap', function(req, res, next) {
     
     connection.connect();
     
+    // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS 
     connection.query(
-        `SELECT lot1, lot2, lot3 FROM buildings
-         WHERE number = '${req.body.building}' `,
-        function(error, results, fields) {
+    `SELECT lot1, lot2, lot3 FROM buildings
+    WHERE number = '${req.body.buildingNumber}'` , 
+    function(error, results, fields) {
         if (error) throw error;
-                
-                res.json({
-                    successful: true,
-                    lots: results
-                });  
-        }
-    );
-
-    connection.end(); 
+        
+        connection.end(); 
+        res.json({
+            successful: true, 
+            results: results 
+        }); 
+    }); 
 }); 
 
 app.get('/new', function(req, res) {
@@ -132,16 +138,24 @@ app.post('/new', function(req, res, next) {
 
     connection.connect();
 
+    // CHECKING IF USERNAME OR EMAIL ALREADY EXISTS 
     connection.query(
         `SELECT username, email FROM users
         WHERE username = '${req.body.username}' or email = '${req.body.email}' `,
         function (error, results, fields) {
             if (error) throw error;
+<<<<<<< HEAD
 
             // if there are no results it means there are no accounts with
             // the username or email in the database
             // insert new users
             if (!results.length) {
+=======
+            
+            // IF THERE ARE NO RESULTS, USERNAME/EMAIL AREN'T IN THE DATABASE 
+            // CREATE A NEW USER 
+            if(!results.length) {
+>>>>>>> 690c9e1f4000a6f6d903090d43ab9714faee2c58
                 connection.query(
                     `INSERT INTO users
                     (username, email, password, fullname)
@@ -149,8 +163,8 @@ app.post('/new', function(req, res, next) {
                     '${req.body.password}', '${req.body.fullName}')`,
                     function (error, results, fields) {
                         if (error) throw error;
-                        else connection.end();
-
+                        
+                        connection.end();
                         req.session.username = req.body.username;
                         res.json({
                             successful: true,
@@ -159,7 +173,7 @@ app.post('/new', function(req, res, next) {
                     }
                 );
             } else {
-                // this means that there is already a user with the same username or email
+                // USERNAME OR PASSWORD ALREADY EXISTS IN DATABASE 
                 connection.end();
                 res.json({
                     successful: false,
@@ -178,11 +192,11 @@ app.get('/user', function(req, res) {
         database: 'l2gh8fug1cqr96dc'
     });
     connection.connect();
-    console.log(req.session.username);
+    //console.log(req.session.username);
     connection.query(`SELECT * from schedule WHERE userid = '${req.session.username}'`,
         function (error, results, fields) {
             if (error) throw error;
-            console.log(results);
+            //console.log(results);
             res.render('user.hbs', {
                 class: results
             });
@@ -200,11 +214,11 @@ app.post('/user', function(req, res) {
     connection.connect();
 
 
-    console.log(req.body.name);
+    //console.log(req.body.name);
     connection.query(`INSERT INTO schedule VALUES ('${req.session.username}', '${req.body.time}', '${req.body.name}', '${req.body.location}')`,
         function(error, results) {
             if (error) throw error;
-            console.log(req.body);
+            //console.log(req.body);
             res.render('user.hbs', {
                 class: results
             });
@@ -212,11 +226,11 @@ app.post('/user', function(req, res) {
     connection.end();
 });
 
-app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...");
-});
-
-// server listener - heroku ready
-// app.listen(process.env.PORT, process.env.IP, function() {
-//     console.log("Running Express Server...");
+// app.listen("5000", "0.0.0.0", function() {
+//         console.log("Express Server is Running...");
 // });
+
+// // server listener - heroku ready
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log("Running Express Server...");
+});

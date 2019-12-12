@@ -14,7 +14,6 @@
 
         <!-- Remind Password -->
         <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a><br>
             <a id="newUser" class="underlineHover" href="/new">Create an Account</a> or
             <a id="continue" class="underlineHover">Continue as Guest</a><br>
         </div>
@@ -27,6 +26,7 @@
         $('#loginButton').on('click', function(e) {
             e.preventDefault(); // Do not submit until I am ready
     
+            // CREATE AN AJAX CALL TO VERIFY USERNAME AND PASSWORD 
             $.ajax({
                 type: "POST",
                 url: "/",
@@ -53,6 +53,7 @@
         });
     });
     
+    // IF THEY WANT TO CONTINUE AS GUEST USER 
     $('#continue').on('click', function(e) {
         $.ajax({
             type: "POST",

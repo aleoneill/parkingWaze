@@ -14,13 +14,6 @@
                 <!-- EMAIL SECTION -->
                 <label for="email">Email</label><br>
                 <input type="text" id="email" class="fadeIn third" name="email" required><br>
-                
-                <!-- ID SECTION -->
-                <label for="schoolID">School ID</label>
-                <input type="text" id="schoolID" class="fadeIn second" name="schoolID" required><br>
-                <div id="idMessage" style="display:none; color:red">
-                    ID must be 7 digits long<br><br>
-                </div>
 
                 <!-- FULL NAME SECTION -->
                 <label for="fullName">Full Name</label><br>
@@ -33,7 +26,7 @@
                 <!-- PASSWORD SECTION -->
                 <label for="newPassword">Password</label>
                 <input type="password" id="newPassword" class="fadeIn fifth" name="newPassword" required>
-                <div id="passwordMessage" style="display:none; color:red">
+                <div id="passwordMessage" style="display:none; color:green">
                     Must contain at least one number, one uppercase letter,<br> one lowercase letter, and must be at least 8 character long<br><br>
                 </div><br><br>
 
@@ -46,18 +39,6 @@
 
     <script>
         var password = document.getElementById("newPassword");
-        var letter = document.getElementById("letter");
-        var number = document.getElementById("number");
-
-        // When the user clicks on the id field, show the message box
-        id.onfocus = function() {
-            document.getElementById("idMessage").style.display = "block";
-        }
-
-        // When the user clicks outside of the id field, hide the message box
-        id.onblur = function() {
-            document.getElementById("idMessage").style.display = "none";
-        }
 
         // When the user clicks on the password field, show the message box
         password.onfocus = function() {
@@ -71,11 +52,13 @@
 
         $("#createAccountButton").on("click", function(e) {
             e.preventDefault(); // Do not submit until I am ready
+            
             let email = $("#email").val(); 
             let fullName = $("#fullName").val();
             let username = $("#newUsername").val();
             let password = $("#newPassword").val();
 
+            // IF THE VALUES ARE BLANK DON'T SUBMIT 
             if(email == "" || fullName == "" || username == "" || !checkPassword(password)) {
                 if(email == "") {
                     $("#errorMessage").html("Email is required").css("color", "red"); 
@@ -91,9 +74,12 @@
                     $("#passwordMessage").css("color", "red");
                 }
             } else {
+                // AJAX CALL TO CREATE A NEW USER 
+                // IF TRUE SHOULD GO TO /USER
+                // IF FALSE SHOULD REDIRECT HERE 
                 $.ajax({
                     type: "POST",
-                    url: "/user",
+                    url: "/new",
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify({
@@ -119,6 +105,7 @@
             }
         });
         
+        // FUNCTION TO CHECK IF PASSWORD MEETS REQUIREMENTS 
         function checkPassword(str) {
             if (str.length < 8) {
                 // shorter than 8 characters 
