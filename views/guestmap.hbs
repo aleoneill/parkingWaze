@@ -56,11 +56,9 @@
         <div class="mapouter" id="popUpMap" style="display:none;">
             <img width="600" height="300"
             src="https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA&zoom=14&scale=1
-            &markers=color:blue%7Clabel:S%7C36.655880,-121.794783
             &size=600x300&maptype=roadmap&key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true" 
             alt="Google Map CSUMB">
         </div>
-        {{!-- &markers=color:blue%7Clabel:S%7C40.702147,-74.015794 --}}
         
         {{!-- FOOTER --}}
         <hr><br>
@@ -112,6 +110,10 @@
                                 according to your input, building ${result.results[0].buildingname}, <br>the closest lots to you are 
                                 lot ${result.results[0].lot1}, lot ${result.results[0].lot2}, and lot ${result.results[0].lot3}</h3><br><br>`);
                                 document.getElementById("popUpMap").style.display = "block";
+                                document.getElementById("popUpMap").src = `https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
+                                &zoom=14&scale=1&size=600x300&maptype=roadmap&key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo
+                                &format=png&visual_refresh=true
+                                &markers=color:blue%7Clabel:S%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}`;
                             }
                             else {
                                 // Show an error message or something and stay here
