@@ -14,12 +14,8 @@
 <button id="logout" onclick="window.location.href='/'">Log Out</button>
 <div class="wrapper fadeInDown">
     <div id="formContent">
-        <form>
-            <label for="building">Enter the Building Number for your next class:</label>
-            <input type="number" id="location" class="fadeIn second" name="location">
-        </form>
         {{#each nextClass}}
-            <h2>Welcome {{this.userid}}, our records show that your next class is {{this.name}} in {{this.location}} at {{this.time}}</h2>
+            <h2>Welcome {{this.userid}}, our records show that your next class is {{this.buildingname}} in {{this.location}} at {{this.time}}</h2>
             <h2>We recommend parking at {{this.lot1}}, {{this.lot2}}, or {{this.lot3}}. These lots are the closest to {{this.location}}</h2>
             <h3>Happy sharking!</h3>
         {{/each}}

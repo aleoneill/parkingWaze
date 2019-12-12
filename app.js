@@ -322,6 +322,7 @@ app.get('/umap', function(req, res, next) {
     var today = new Date();
 
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    console.log(time);
 
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -331,44 +332,41 @@ app.get('/umap', function(req, res, next) {
     });
     connection.connect();
 
-    // connection.query(`SELECT * FROM schedule as s left join buildings as b on s.location = b.name where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1;`,
-
-    connection.query(
-        ` SELECT * FROM schedule WHERE location = '${req.body.location}'`,
+    connection.query(`SELECT * FROM schedule as s left join buildings as b on s.location = b.number where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1`,
         function (error, results) {
             if (error) throw error;
             console.log(results);
             console.log(req.session.username);
-            res.render('umap.hbs'), {
+            res.render('umap.hbs', {
                 nextClass: results
-            }
-        });
-});
-
-app.post('/umap', function(req, res, next) {
-    const connection = mysql.createConnection({
-        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'zzrbbsj5791xsnwf',
-        password: 'l4kg72cf660m8hya',
-        database: 'l2gh8fug1cqr96dc'
-    });
-
-    connection.connect();
-
-    // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS
-    connection.query(
-        `SELECT lot1, lot2, lot3 FROM buildings
-    WHERE number = '${req.body.buildingNumber}'` ,
-        function(error, results, fields) {
-            if (error) throw error;
-
-            connection.end();
-            res.json({
-                successful: true,
-                results: results
             });
         });
 });
+
+// app.post('/umap', function(req, res, next) {
+//     const connection = mysql.createConnection({
+//         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+//         user: 'zzrbbsj5791xsnwf',
+//         password: 'l4kg72cf660m8hya',
+//         database: 'l2gh8fug1cqr96dc'
+//     });
+//
+//     connection.connect();
+//
+//     // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS
+//     connection.query(
+//         `SELECT lot1, lot2, lot3 FROM buildings
+//     WHERE number = '${req.body.buildingNumber}'` ,
+//         function(error, results, fields) {
+//             if (error) throw error;
+//
+//             connection.end();
+//             res.json({
+//                 successful: true,
+//                 results: results
+//             });
+//         });
+// });
 
 app.listen("5000", "0.0.0.0", function() {
         console.log("Express Server is Running...");
