@@ -372,13 +372,6 @@ footer {
     margin-left: 10px;
 }
 
-.userButtons {
-    opacity: 0;
-    animation: fadeIn ease-in 1;
-    animation-fill-mode: forwards;
-    animation-duration: 1s;
-}
-
 #cancelButton{
     width: 100px;
 }
