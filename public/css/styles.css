@@ -376,3 +376,30 @@ footer {
     width: 100px;
 }
 
+#className{
+    width: 150px;
+}
+
+#location{
+    background: whitesmoke;
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 4px;
+    height: 34px;
+    -webkit-appearance: none;
+}
+
+#buildingChoice{
+    background: whitesmoke;
+    width: 300px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 4px;
+    height: 34px;
+    -webkit-appearance: none;
+}
