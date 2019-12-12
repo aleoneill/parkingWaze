@@ -313,16 +313,15 @@ app.post('/edit', function(req, res) {
                     successful: true
                 });
             }); 
-            
         }
     }); 
 });
 
 app.get('/umap', function(req, res, next) {
+    if (req.session && req.session.username && req.session.username.length) {
     var today = new Date();
-
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    console.log(time);
+    console.log("the time is.....", time); 
 
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -332,15 +331,24 @@ app.get('/umap', function(req, res, next) {
     });
     connection.connect();
 
-    connection.query(`SELECT * FROM schedule as s left join buildings as b on s.location = b.number where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1`,
+    connection.query(
+    `SELECT * FROM schedule as s 
+    left join buildings as b on s.location = b.number 
+    where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1`,
         function (error, results) {
             if (error) throw error;
-            console.log(results);
-            console.log(req.session.username);
+            connection.end();
+            
+            console.log(results); 
+            console.log(req.session.username); 
             res.render('umap.hbs', {
                 nextClass: results
             });
         });
+    } else {
+        delete req.session.username;
+        res.redirect('/');
+    }
 });
 
 // app.post('/umap', function(req, res, next) {
@@ -368,11 +376,11 @@ app.get('/umap', function(req, res, next) {
 //         });
 // });
 
-app.listen("5000", "0.0.0.0", function() {
-        console.log("Express Server is Running...");
-});
+// app.listen("5000", "0.0.0.0", function() {
+//         console.log("Express Server is Running...");
+// });
 
 // server listener - heroku ready
-// app.listen(process.env.PORT, process.env.IP, function() {
-//     console.log("Running Express Server...");
-// });
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log("Running Express Server...");
+});
