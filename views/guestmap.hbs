@@ -56,9 +56,7 @@
         <div class="mapouter" id="popUpMap">
             <div class="gmap_canvas">
                 <iframe width="600" height="500" id="gmap_canvas" 
-                src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed" 
-                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
+                src= "https://maps.googleapis.com/maps/api/staticmap?center=40.714%2c%20-73.998&zoom=12&size=400x400&key=AIzaSyBlTwtQNj8R2vVwh9BLgtBP7TerG0LclaY" ></iframe>
             </div><br>
             <style>
                 .mapouter{position:relative;text-align:right;height:500px;width:600px;margin:auto;display:none}
@@ -92,12 +90,19 @@
             });
             
             function showMap (results) {
-                let lot1 = `csumb%20parking%20lot%20${results[0].lot1}`; 
-                // let lot2 = `csumb%20parking%20lot%20${results[0].lot2}`; 
-                // let lot3 = `csumb%20parking%20lot%20${results[0].lot3}`; 
-                let url = `https://maps.google.com/maps?q=${lot1}&t=&z=13&ie=UTF8&iwloc=&output=embed`; 
+                //let newUrl = ""; 
+                
+                //let lot1 = `csumb%20parking%20lot%20${results[0].lot1}`; 
+                //let url = `https://maps.google.com/maps?q=${lot1}&t=&z=13&ie=UTF8&iwloc=&output=embed`; 
                 document.getElementById("popUpMap").style.display = "block";
-                document.getElementById('gmap_canvas').src=`${url}`; 
+                //document.getElementById('gmap_canvas').src=`${url}`; 
+                
+                /*
+                https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap
+                &markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318
+                &markers=color:red%7Clabel:C%7C40.718217,-73.998284
+                &key=AIzaSyBlTwtQNj8R2vVwh9BLgtBP7TerG0LclaY
+                */
             }
     
             // DISPLAY MAP BUTTON ON CLICK 
@@ -123,7 +128,8 @@
                                 // PRINT RESULTS 
                                 $("#helloMessage").html(`<h3>Hello ${result.user}, 
                                 according to your input, building ${result.results[0].buildingname}, <br>the closest lots to you are 
-                                lot ${result.results[0].lot1}, lot ${result.results[0].lot2}, and lot ${result.results[0].lot3}</h3><br><br>`); 
+                                lot ${result.results[0].lot1}, lot ${result.results[0].lot2}, and lot ${result.results[0].lot3}</h3><br><br>`);
+                                showMap(result); 
                             }
                             else {
                                 // Show an error message or something and stay here
