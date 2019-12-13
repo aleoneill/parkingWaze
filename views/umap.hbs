@@ -30,11 +30,13 @@
         </div><br>
         
         {{!-- THIS IS THE MAP --}}
-        <div class="mapouter" id="popUpMap" style="display:none;">
-            <img width="600" height="300" id="mapImage" src="https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
-            &zoom=15&scale=1&size=600x300&maptype=roadmap
-            &markers=color:blue%7Clabel:L%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}
-            &key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true"><br><br>
+        <div class="mapouter" id="popUpMap">
+            {{#each location}}
+                <img width="600" height="300" id="mapImage" src="https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
+                &zoom=15&scale=1&size=600x300&maptype=roadmap
+                &markers=color:blue%7Clabel:L%7C{{this.latitude}},{{this.longitude}}
+                &key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true"><br><br>
+            {{/each}}
         </div>
         
         {{!-- FOOTER --}}

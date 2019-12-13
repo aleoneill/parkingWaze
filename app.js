@@ -327,37 +327,45 @@ app.post('/edit', function(req, res) {
 
 app.get('/umap', function(req, res, next) {
     if (req.session && req.session.username && req.session.username.length) {
-    var today = new Date();
-    var time; 
+        var today = new Date();
+        var time; 
+        
+        // DATE IS CODED IN UTC.. OFFSET OF 8 HRS.. 
+        if(today.getHours() >= 8) {
+            time = today.getHours()-8 + ":" + today.getMinutes() + ":" + today.getSeconds();
+        } else {
+            var hour = today.getHours() - 8;  
+            var realHour = 24 + hour; 
+            time = realHour + ":" + today.getMinutes() + ":" + today.getSeconds();
+        }
     
-    // DATE IS CODED IN UTC.. OFFSET OF 8 HRS.. 
-    if(today.getHours() >= 8) {
-        time = today.getHours()-8 + ":" + today.getMinutes() + ":" + today.getSeconds();
-    } else {
-        var hour = today.getHours() - 8;  
-        var realHour = 24 + hour; 
-        time = realHour + ":" + today.getMinutes() + ":" + today.getSeconds();
-    }
-
-    const connection = mysql.createConnection({
-        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'zzrbbsj5791xsnwf',
-        password: 'l4kg72cf660m8hya',
-        database: 'l2gh8fug1cqr96dc'
-    });
-    connection.connect();
-
-    connection.query(
-    `SELECT * FROM schedule as s 
-    left join buildings as b on s.location = b.number 
-    where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1`,
-        function (error, results) {
-            if (error) throw error;
-            connection.end();
-            
-            res.render('umap.hbs', {
-                nextClass: results
-            });
+        const connection = mysql.createConnection({
+            host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+            user: 'zzrbbsj5791xsnwf',
+            password: 'l4kg72cf660m8hya',
+            database: 'l2gh8fug1cqr96dc'
+        });
+        connection.connect();
+    
+        connection.query(
+        `SELECT * FROM schedule as s 
+        left join buildings as b on s.location = b.number 
+        where s.userId = '${req.session.username}' and s.time > '${time}' order by s.time limit 1`,
+            function (error, results) {
+                if (error) throw error;
+                
+                connection.query(
+                `SELECT latitude, longitude from parking_lots
+                WHERE number = '${results[0].lot1}'`,
+                    function (error, results2) {
+                        if (error) throw error;
+                        connection.end();
+                        
+                        res.render('umap.hbs', {
+                            nextClass: results, 
+                            location: results2
+                        });
+                });
         });
     } else {
         delete req.session.username;
