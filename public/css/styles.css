@@ -5,23 +5,40 @@ body {
     background-color: #5DBCD2;
 }
 
-.header {
-    font-size: 40px;
-    padding: 40px;
-    padding-bottom: 5px;
-    color: white;
-    margin-top: 0px;
-}
-
-.header1 {
-    font-size: 40px;
-    color: white;
-    margin-top: 0px;
-}
-
 h1 {
     font-size: 50px;
+    color: white;
+    padding: 40px;
     text-decoration: underline;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 50px;
+    color: white;
+    padding: 40px;
+    text-decoration: underline;
+    margin: 0px;
+}
+
+h3 {
+    font-size: 40px;
+    color: white;
+    padding: 20px;
+    margin: 0px;
+}
+
+h4 {
+    font-size: 30px;
+    color: white;
+    padding: 20px;
+    margin: 0px;
+}
+
+h5 {
+    font-size: 20px;
+    padding: 20px;
+    margin: 0px;
 }
 
 a {
@@ -31,116 +48,109 @@ a {
 }
 
 .buildings {
-
-    height: 150px;
     font-size: 13px;
-    width: 50%;
-    margin: auto;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
     padding: 10px;
-    height: 100px;
     font-size: 13px;
 }
 
-.buildings {
-    height: 150px;
-    font-size: 13px;
-    border-radius: 6px;
-    width: 50%;
-    margin: auto;
-    border-style: solid;
-    border-width: thin;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.buildings .select {
-    width: 100%;
-    background-position: 50% center;
-}
-
-.buildings .select select {
-    background: white;
-    height: 50px;
-    border: 0;
-    padding: 0;
-    border-radius: 0;
-    width: 50%;
-    position: relative;
-    z-index: 10;
-    font-size: 1em;
-}
-
-.length {
-    height: 150px;
-    font-size: 13px;
-    border-radius: 6px;
-    width: 50%;
-    margin: auto;
-    border-style: solid;
-    border-width: thin;
-    border-radius: 8px;
-    padding: 10px;
-}
-.length .select {
-    width: 100%;
-    background-position: 50% center;
-}
-
-.length .select select {
-    background: white;
-    line-height: 1;
-    height: 50px;
-    border: 0;
-    padding: 0;
-    border-radius: 0;
-    width: 50%;
-    position: relative;
-    z-index: 10;
-    font-size: 1em;
-}
-
-.button1 {
-    background-color: white;
-    border: groove;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.5s;
-    cursor: pointer;
+#buildingChoice{
+    background: whitesmoke;
+    width: 500px;
+    padding: 5px;
     font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 4px;
+    height: 34px;
+    -webkit-appearance: none;
 }
 
-.button1 span {
-    cursor: pointer;
-    display: inline-block;
+.timepicker {
+    width: 50%;
+}
+
+/* The message box is shown when the user clicks on the password/id field */
+#message {
+    display: none;
+    background: #f1f1f1;
+    color: #000;
     position: relative;
-    transition: 0.5s;
+    padding: 20px;
+    margin-top: 10px;
 }
 
-.button1 span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
+#message p {
+    padding: 10px 35px;
+    font-size: 18px;
 }
 
-.button1:hover span {
-    padding-right: 25px;
+#arrival {
+    height: 120px;
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 8px;
+    padding: 10px;
 }
 
-.button1:hover span:after {
-    opacity: 1;
-    right: 0;
+.button {
+    padding: 8px 20px;
+    margin: 5px;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    background-color: #f6f6f6;
+    border: 2px solid #008CBA;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+footer {
+    font-size: 14px;
+}
+
+#cancelButton{
+    width: 100px;
+}
+
+#className {
+    width: 180px;
+    height: 20px;
+}
+
+#location {
+    background: whitesmoke;
+    width: 250px;
+    margin: 5px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 4px;
+    height: 50px;
+    -webkit-appearance: none;
+}
+
+#backButton{
+    float: left;
+}
+
+#logoutButton {
+    float: right;
+    margin-right: 20px;
 }
 
 /* START OF FORM SECTION */
-
 /* STRUCTURE */
-
 .wrapper {
     display: flex;
     align-items: center;
@@ -167,7 +177,6 @@ a {
 }
 
 /* FORM TYPOGRAPHY*/
-
 input {
     background-color: #f6f6f6;
     border: none;
@@ -194,9 +203,6 @@ input[type=text]::placeholder {
 }
 
 /* ANIMATIONS */
-
-/* Simple CSS3 Fade-in-down Animation */
-
 .fadeInDown {
     animation-name: fadeInDown;
     animation-duration: 1s;
@@ -215,7 +221,6 @@ input[type=text]::placeholder {
 }
 
 /* Simple CSS3 Fade-in Animation */
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -257,7 +262,6 @@ input[type=text]::placeholder {
 }
 
 /* Simple CSS3 Fade-in Animation */
-
 .underlineHover:after {
     display: block;
     left: 0;
@@ -278,124 +282,6 @@ input[type=text]::placeholder {
     width: 100%;
 }
 
-/* END OF FORM SECTION */
-
-/* The message box is shown when the user clicks on the password/id field */
-
-#message {
-    display: none;
-    background: #f1f1f1;
-    color: #000;
-    position: relative;
-    padding: 20px;
-    margin-top: 10px;
-}
-
-#message p {
-    padding: 10px 35px;
-    font-size: 18px;
-}
-
-/* Add a green text color and a checkmark when the requirements are right */
-
-.valid {
-    color: green;
-}
-
-.valid:before {
-    position: relative;
-    left: -35px;
-    content: "✔";
-}
-
-/* Add a red text color and an "x" when the requirements are wrong */
-
-.invalid {
-    color: red;
-}
-
-.invalid:before {
-    position: relative;
-    left: -35px;
-    content: "✖";
-}
-
-/* OTHERS */
-
 *:focus {
     outline: none;
-}
-
-.hidden {
-    display: none;
-}
-
-.timepicker {
-    width: 50%;
-}
-
-#arrival {
-    height: 120px;
-    width: 50%;
-    margin: auto;
-    border-style: solid;
-    border-width: thin;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.button {
-    padding: 8px 20px;
-    margin: 5px;
-    text-decoration: none;
-    transition-duration: 0.4s;
-    background-color: #f6f6f6;
-    border: 2px solid #008CBA;
-    border-radius: 8px;
-    font-size: 12px;
-}
-
-.button:hover {
-    background-color: #008CBA;
-    color: white;
-}
-
-footer {
-    font-size: 14px;
-}
-
-#cancelButton{
-    width: 100px;
-}
-
-#className{
-    width: 150px;
-}
-
-#location{
-    background: whitesmoke;
-    width: 200px;
-    padding: 5px;
-    font-size: 16px;
-    line-height: 1;
-    border: 0;
-    border-radius: 4px;
-    height: 34px;
-    -webkit-appearance: none;
-}
-
-#buildingChoice{
-    background: whitesmoke;
-    width: 300px;
-    padding: 5px;
-    font-size: 16px;
-    line-height: 1;
-    border: 0;
-    border-radius: 4px;
-    height: 34px;
-    -webkit-appearance: none;
-}
-
-#backButton{
-    float: left;
 }

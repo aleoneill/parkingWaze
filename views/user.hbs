@@ -10,13 +10,14 @@
     
     <body>
         {{!-- BUTTONS ON TOP --}}
-        <a class="button fadeIn fourth" href="/umap" style="color:black;">Continue</a>
-        <a class="button fadeIn fourth" href="/edit" style="color:black;">Edit Password</a>
-        <a class="button fadeIn fourth" href="/" style="color:black;">Log Out</a>
+        <a class="button fadeIn" href="" style="color:black;">Search</a>
+        <a class="button fadeIn" href="/umap" style="color:black;">Continue</a>
+        <a class="button fadeIn" href="/edit" style="color:black;">Edit Password</a>
+        <a class="button fadeIn" href="/" style="color:black;">Log Out</a>
         
         {{!-- DISPLAYS CURRENT CLASSES --}}
         <div class="wrapper fadeInDown">
-            <div class="header1">
+            <div class="header">
                 <h3>Current Schedule</h3>
             </div>
             <table id="formContent">
@@ -31,13 +32,13 @@
         </div>
         
         {{!-- OPTION TO DELETE CLASSES --}}
-        <label for="deleteClass" style="color:white;"class="fadeIn second">Enter course name of class to delete: </label>
-        <input type="text" id="deleteClass" class="fadeIn second" style="width:6%;height:10px;" name="deleteClass">
-        <button id="deleteButton" class="button fadeIn fourth">Delete Class</button><br><br>
+        <label for="deleteClass" style="color:white;" class="fadeIn">Enter course name of class to delete: </label>
+        <input type="text" id="deleteClass" class="fadeIn" style="width:6%;height:10px;" name="deleteClass">
+        <button id="deleteButton" class="button fadeIn">Delete Class</button><br><br>
         <span id="deleteButtonError"></span>
         
         {{!-- ADD A CLASS --}}
-        <div class="header1">
+        <div class="header fadeInDown">
             <h3>Add Class</h3>
         </div>
         <div class="wrapper fadeInDown">
@@ -50,7 +51,7 @@
                         {{#each buildings}}
                             <option value={{this.number}}>{{this.buildingname}}</option>
                         {{/each}} 
-                    </select><br>
+                    </select>
                     
                     {{!-- CLASS NAME --}}
                     <br><label for="className">Class Title</label><br>
@@ -59,7 +60,7 @@
                     {{!-- CLASS TIME --}}
                     <br><label for="time">Time</label><br>
                     <input type="text" class="timepicker" name="time" id="time"/>
-                    <input type="submit" id="addClass" class="button fadeIn sixth" value="Add Class">
+                    <input type="submit" id="addClass" class="button fadeIn sixth" value="Add Class"><br><br>
                     <span id="errorMessage"></span>
                 </form>
             </div>
@@ -98,7 +99,7 @@
                 
                 // CHECK IF ALL VALUES ARE FILLED 
                 if(location == "" || name == "" || time == "") {
-                    $("#errorMessage").html("<br>Missing selection above").css("color", "red"); 
+                    $("#errorMessage").html("Missing selection above<br><br>").css("color", "red"); 
                 } else { 
                     $.ajax({
                         type: "POST",

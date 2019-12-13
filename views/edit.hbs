@@ -8,14 +8,13 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
     </head>
     <body>
-        <a id="backButton" class="button fadeIn fourth" href="/user" style="color:black;">Back</a><br>
-        <div class="header1">
+        <a id="backButton" class="button fadeIn fourth" href="/user" style="color:black;">Back</a><br><br><br>
+        <div class="header">
             <h3>Edit Profile</h3>
-
         </div>
         <div class="wrapper fadeInDown">
             <div id="formContent">
-                <form>
+                <form><br>
                     {{!-- OLD PASSWORD --}}
                     <label for="oldPassword">Old Password</label>
                     <input type="password" id="oldPassword" class="fadeIn first" name="oldPassword" required><br><br>
@@ -31,12 +30,14 @@
                     <label for="verifyPassword">Verify Password</label>
                     <input type="password" id="verifyPassword" class="fadeIn second" name="verifyPassword" required><br><br>
                     
-                    <input type="submit" id="save" class="button fadeIn third" value="Save Changes">
+                    <input type="submit" id="save" class="button fadeIn third" value="Save Changes"><br><br>
                     <span id="errorMessage"></span>
                 </form>
             </div>
-        </div>
-        <hr>
+        </div><br>
+        
+        {{!-- FOOTER --}}
+        <hr><br>
         <footer>
             CST336: Internet Programming<br> &copy; 2019. Parking Waze<br> 
             Disclaimer: The information in this page might be inaccurate.<br> 
@@ -83,9 +84,9 @@
                 let verifyPassword = $("#verifyPassword").val(); 
                 
                 if(oldPassword == "" || newPassword == "") {
-                    $("#errorMessage").html("<br><br>Error, missing section above").css("color", "red"); 
+                    $("#errorMessage").html("Error, missing section above<br><br>").css("color", "red"); 
                 } else if(newPassword != verifyPassword) {
-                    $("#errorMessage").html("<br><br>New password and verify password<br> does not match").css("color", "red"); 
+                    $("#errorMessage").html("New password and verify password<br> does not match<br><br>").css("color", "red"); 
                 } else if(!checkPassword(newPassword)) {
                     $("#passwordMessage").css("display", "block").css("color", "red"); 
                 } 

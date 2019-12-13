@@ -122,8 +122,6 @@ app.post('/gmap', function(req, res, next) {
         WHERE number = '${results[0].lot1}'`, function(error, results2) {
             if (error) throw error; 
             
-            console.log(results2); 
-            
             connection.end(); 
             res.json({
                 successful: true, 
@@ -330,8 +328,7 @@ app.post('/edit', function(req, res) {
 app.get('/umap', function(req, res, next) {
     if (req.session && req.session.username && req.session.username.length) {
     var today = new Date();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    console.log("the time is.....", time); 
+    var time = today.getHours()+16 + ":" + today.getMinutes() + ":" + today.getSeconds();
 
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -349,8 +346,6 @@ app.get('/umap', function(req, res, next) {
             if (error) throw error;
             connection.end();
             
-            console.log(results); 
-            console.log(req.session.username); 
             res.render('umap.hbs', {
                 nextClass: results
             });
@@ -360,31 +355,6 @@ app.get('/umap', function(req, res, next) {
         res.redirect('/');
     }
 });
-
-// app.post('/umap', function(req, res, next) {
-//     const connection = mysql.createConnection({
-//         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-//         user: 'zzrbbsj5791xsnwf',
-//         password: 'l4kg72cf660m8hya',
-//         database: 'l2gh8fug1cqr96dc'
-//     });
-//
-//     connection.connect();
-//
-//     // GETTING THE LOTS CLOSEST TO THE BUILDING OF THEIR NEXT CLASS
-//     connection.query(
-//         `SELECT lot1, lot2, lot3 FROM buildings
-//     WHERE number = '${req.body.buildingNumber}'` ,
-//         function(error, results, fields) {
-//             if (error) throw error;
-//
-//             connection.end();
-//             res.json({
-//                 successful: true,
-//                 results: results
-//             });
-//         });
-// });
 
 app.listen("5000", "0.0.0.0", function() {
         console.log("Express Server is Running...");

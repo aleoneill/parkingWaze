@@ -8,53 +8,30 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
     </head>
     <body>
-        <a id="backButton" class="button fadeIn fourth" href="/" style="color:black;">Back</a><br>
-        <div class="header1">
-            <h1>Parking Waze</h1>
+        <a id="backButton" class="button fadeIn" href="/" style="color:black;">Back</a><br><br><br>
+    
+        <div class="header fadeIn">
+            <h2>Parking Waze</h2>
         </div>
         
         {{!-- LOCATION OF NEXT CLASS SECTION --}}
-        <h2>Location of Next Class:</h2>
-        <div class="buildings">
-            <div class="select">
-                <select id="buildingChoice">
-                    <option value="">Select One</option>
-                    {{#each results}}
-                        <option value={{this.number}}>{{this.buildingname}}</option>
-                    {{/each}} 
-                </select>
-            </div>
-        </div><br><br>
-        
-        {{!-- TIME ARRIVAL SECTION--}}
-        {{!--<h2>Time of Arrival on Campus?</h2>--}}
-        {{!--<form id="arrival">--}}
-        {{!--    <input type="text" class="timepicker" name="time" id="timeOfArrival" />--}}
-        {{!--</form><br><br>--}}
-        
-        {{!-- LENGTH OF STAY SECTION --}}
-        {{!--<h2>How Long Are You Planning on Staying?</h2>--}}
-        {{!--<div class="length">--}}
-        {{!--    <div class="select">--}}
-        {{!--        <select id="lengthOfStay">--}}
-        {{!--            <option value = "">Select One</option>--}}
-        {{!--            <option value = "30">30 min.</option>--}}
-        {{!--            <option value = "45">45 min.</option>--}}
-        {{!--            <option value = "1">1 hr.</option>--}}
-        {{!--            <option value = "2">2 hrs.</option>--}}
-        {{!--            <option value = "3">3+ hrs.</option>--}}
-        {{!--        </select><br>--}}
-        {{!--    </div>--}}
-        {{!--</div><br><br>--}}
+        <h3 class="fadeIn">Location of Next Class:</h3>
+        <div class="buildings fadeIn">
+            <select id="buildingChoice">
+                <option value="">Select One</option>
+                {{#each results}}
+                    <option value={{this.number}}>{{this.buildingname}}</option>
+                {{/each}} 
+            </select>
+        </div>
         
         {{!-- CONTINUE BUTTON --}}
-        <button class="button fadeIn fourth" id="displayMap">Continue</button><br><br>
-        <span id="helloMessage"></span>
+        <button class="button fadeIn" id="displayMap">Continue</button><br><br>
         <span id="buttonWasClicked"></span>
         
         {{!-- THIS IS THE MAP --}}
         <div class="mapouter" id="popUpMap" style="display:none;">
-            <img width="600" height="300" id="mapImage" >
+            <img width="600" height="300" id="mapImage" ><br><br>
         </div>
         
         {{!-- FOOTER --}}
@@ -64,32 +41,17 @@
             Disclaimer: The information in this page might be inaccurate.<br> 
             It is used for academic purposes only.<br><br>
         </footer>
+        
         <script>
-            // FOR TIMEPICKER  
-            $(document).ready(function() {
-                $('input.timepicker').timepicker({});
-            });
-    
-            $('.timepicker').timepicker({
-                timeFormat: 'h:mm p',
-                interval: 15,
-                minTime: '0',
-                maxTime: '10:00pm',
-                defaultTime: '11',
-                startTime: '0:00',
-                dynamic: false,
-                dropdown: true,
-                scrollbar: true
-            });
-    
             // DISPLAY MAP BUTTON ON CLICK 
             $("#displayMap").on("click", function(e) {
                 // CHECK IF USER INPUTED ALL VALUES 
                 let building = $("#buildingChoice").val(); 
-                if($("#buildingChoice").val() == "") {
-                    $("#buttonWasClicked").html("Error, missing selection above").css("color", "red"); 
+                
+                if(building == "") {
+                    $("#buttonWasClicked").html("Error, missing selection above<br><br>").css("color", "red"); 
                 } else {
-                    $("#buttonWasClicked").html("One second....<br><br>").css("color", "green"); 
+                    $("#buttonWasClicked").html(""); 
                     
                     // GET THE LOTS NEAR THE BUILDING 
                     $.ajax({
@@ -98,26 +60,26 @@
                         dataType: "json",
                         contentType: "application/json",
                         data: JSON.stringify({
-                            "buildingNumber": $("#buildingChoice").val(), 
+                            "buildingNumber": building 
                         }),
                         success: function(result, status) {
                             if (result.successful) {
                                 // PRINT RESULTS 
-                                $("#helloMessage").html(`<h3>Hello ${result.user}, 
-                                according to your input, building ${result.results[0].buildingname}, <br>the closest lots to you are 
-                                lot ${result.results[0].lot1}, lot ${result.results[0].lot2}, and lot ${result.results[0].lot3}</h3><br><br>`);
+                                $("#buttonWasClicked").html(`<h4>Hello ${result.user}, 
+                                according to your input the closest lots to you are 
+                                lot ${result.results[0].lot1}, lot ${result.results[0].lot2}, and lot ${result.results[0].lot3}</h4><br><br>`);
                                 
                                 // DISPLAY MAP
                                 document.getElementById("mapImage").src = `https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
                                 &zoom=14&scale=1&size=600x300&maptype=roadmap
-                                &markers=color:blue%7Clabel:S%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}
+                                &markers=color:blue%7Clabel:L%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}
                                 &key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true`;
                                 document.getElementById("popUpMap").style.display = "block";
                             }
                             else {
                                 // Show an error message or something and stay here
-                                $('#message').html("error").css("color", "red");
-                                $('#message').show();
+                                $('#buttonWasClicked').html("error").css("color", "red");
+                                $('#buttonWasClicked').show();
                             }
                         },
                         error: function(xhr, status, message) {
