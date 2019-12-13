@@ -328,7 +328,16 @@ app.post('/edit', function(req, res) {
 app.get('/umap', function(req, res, next) {
     if (req.session && req.session.username && req.session.username.length) {
     var today = new Date();
-    var time = today.getHours()+16 + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var time; 
+    
+    // DATE IS CODED IN UTC.. OFFSET OF 8 HRS.. 
+    if(today.getHours() >= 8) {
+        time = today.getHours()-8 + ":" + today.getMinutes() + ":" + today.getSeconds();
+    } else {
+        var hour = today.getHours() - 8;  
+        var realHour = 24 + hour; 
+        time = realHour + ":" + today.getMinutes() + ":" + today.getSeconds();
+    }
 
     const connection = mysql.createConnection({
         host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
