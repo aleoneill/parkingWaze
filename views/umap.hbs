@@ -23,11 +23,19 @@
                 {{#each nextClass}}
                     <h5>Welcome {{this.userid}}, our records show that your next class is in the
                     {{this.location}}: {{this.buildingname}} building at {{this.time}}</h5>
-                    <h5>We recommend parking at {{this.lot1}}, {{this.lot2}}, or {{this.lot3}}</h5> 
+                    <h5>We recommend parking at lots {{this.lot1}}, {{this.lot2}}, or {{this.lot3}}</h5> 
                     <h5>Happy sharking!</h5>
                 {{/each}}
             </div>
         </div><br>
+        
+        {{!-- THIS IS THE MAP --}}
+        <div class="mapouter" id="popUpMap" style="display:none;">
+            <img width="600" height="300" id="mapImage" src="https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
+            &zoom=15&scale=1&size=600x300&maptype=roadmap
+            &markers=color:blue%7Clabel:L%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}
+            &key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true"><br><br>
+        </div>
         
         {{!-- FOOTER --}}
         <hr><br>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Parking Waze</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    </head>
+    
+    <body>
+        {{!-- BUTTONS ON TOP --}}
+        <button class="button fadeIn fourth" id="backButton" onclick="window.location.href='/user'" style="color:black;">Back</button>
+        <button class="button fadeIn fourth" id="logoutButton" onclick="window.location.href='/'" style="color:black;">Log Out</button><br><br>
+        
+        <div class="header fadeInDown">
+            <h3>Search</h3>
+        </div>
+        
+        {{!-- WHAT TYPE OF SEARCH WOULD THEY LIKE TO DO --}}
+        <div class="wrapper fadeInDown">
+            <div id="searchContent">
+                <form><br>
+                    {{!-- DISPLAYS BUILDING LOCATIONS --}}
+                    <label for="searchField">What type of search would you like to do?:</label><br>
+                    <select id="searchField" class="fadeIn fourth">
+                        <option value="">Select One</option>
+                        <option value="building">Building Location</option>
+                        <option value="parking-lot">Parking Lot Location</option>
+                        <option value="building-traffic">Traffic by Building</option>
+                        <option value="parking-lot-traffic">Traffic by Parking Lot</option>
+                    </select><br>
+                </form>
+            </div>
+        </div><br>
+        
+        {{!-- BUILDING SEARCH --}}
+        <div class="wrapper fadeInDown" style="display:none" id="buildingSearchForm">
+            <div id="searchContent">
+                <form><br>
+                    {{!-- DISPLAYS BUILDING LOCATIONS --}}
+                    <label for="buildingSearch">Select building:</label><br>
+                    <select id="buildingSearch" class="fadeIn fourth">
+                        <option value="">Select One</option>
+                        {{#each buildings}}
+                            <option value={{this.number}}>{{this.buildingname}}</option>
+                        {{/each}} 
+                    </select><br>
+                </form>
+            </div>
+            <span id="buildingErrorMessage"></span>
+        </div><br>
+        
+        {{!-- PARKING LOT SEARCH --}}
+        <div class="wrapper fadeInDown" style="display:none" id="lotSearchForm">
+            <div id="searchContent">
+                <form><br>
+                    {{!-- DISPLAYS BUILDING LOCATIONS --}}
+                    <label for="lotSearch">Select parking lot:</label><br>
+                    <select id="lotSearch" class="fadeIn fourth">
+                        <option value="">Select One</option>
+                        {{#each lots}}
+                            <option value={{this.number}}>{{this.name}}</option>
+                        {{/each}}
+                    </select><br>
+                </form>
+            </div>
+            <span id="lotErrorMessage"></span>
+        </div><br>
+        
+        {{!-- THIS IS THE MAP --}}
+        <div class="mapouter" id="popUpMap" style="display:none;">
+            <img width="600" height="300" id="mapImage" ><br><br>
+        </div>
+        
+        {{!-- FOOTER --}}
+        <hr><br>
+        <footer>
+            CST336: Internet Programming<br> &copy; 2019. Parking Waze<br> 
+            Disclaimer: The information in this page might be inaccurate.<br> 
+            It is used for academic purposes only.<br><br>
+        </footer>
+        
+        <script>
+            $("#searchField").on("change", function() {
+                document.getElementById("popUpMap").style.display = "none";
+                let searchField = $("#searchField").val(); 
+                
+                if(searchField == "building" || searchField == "building-traffic") {
+                    $("#lotSearchForm").css("display", "none"); 
+                    $("#buildingSearchForm").css("display", "flex"); 
+                } else if (searchField == "parking-lot" || searchField == "parking-lot-traffic") {
+                    $("#buildingSearchForm").css("display", "none"); 
+                    $("#lotSearchForm").css("display", "flex"); 
+                } else {
+                    $("#buildingSearchForm").css("display", "none"); 
+                    $("#lotSearchForm").css("display", "none");
+                }
+            }); 
+            
+            $("#buildingSearch").on("change", function() {
+                let buildingSearch = $("#buildingSearch").val(); 
+                
+                if (buildingSearch != "") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/search",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            "searchtype": "building",
+                            "buildingSearch": buildingSearch
+                        }),
+                        success: function(result, status) {
+                            if (result.successful) {
+                                $('#buildingErrorMessage').html(""); 
+                                let name = result.address[0].buildingname; 
+                                name.replace(/ /g,"+");
+                                
+                                // DISPLAY MAP
+                                document.getElementById("mapImage").src = `https://maps.googleapis.com/maps/api/staticmap?
+                                &zoom=15&scale=1&size=600x300&maptype=roadmap
+                                &markers=color:blue%7Clabel:L%7C${name},CSUMB
+                                &key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true`;
+                                document.getElementById("popUpMap").style.display = "block";
+                            }
+                            else {
+                                // Show an error message or something and stay here
+                                $('#buildingErrorMessage').html("error").css("color", "red");
+                                $('#buildingErrorMessage').show();
+                            }
+                        },
+                        error: function(xhr, status, message) {
+                            console.log("error: ", xhr.responseText);
+                        }
+                    });
+                }
+            }); 
+            
+            $("#lotSearch").on("change", function() {
+                let lotSearch = $("#lotSearch").val(); 
+                
+                if (lotSearch != "") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/search",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            "searchtype": "parking-lot", 
+                            "lotSearch": lotSearch
+                        }),
+                        success: function(result, status) {
+                            if (result.successful) {
+                                $('#lotErrorMessage').html(""); 
+                                
+                                // DISPLAY MAP
+                                // document.getElementById("mapImage").src = `https://maps.googleapis.com/maps/api/staticmap?center=CSUMB,+CA
+                                // &zoom=15&scale=1&size=600x300&maptype=roadmap
+                                // &markers=color:blue%7Clabel:L%7C${result.coordinates[0].latitude},${result.coordinates[0].longitude}
+                                // &key=AIzaSyDlV0NWS5Wk-Ds_700VZ4EO8-S_YRJQbNo&format=png&visual_refresh=true`;
+                                // document.getElementById("popUpMap").style.display = "block";
+                            }
+                            else {
+                                // Show an error message or something and stay here
+                                $('#lotErrorMessage').html("error").css("color", "red");
+                                $('#lotErrorMessage').show();
+                            }
+                        },
+                        error: function(xhr, status, message) {
+                            console.log("error: ", xhr.responseText);
+                        }
+                    });
+                }
+            }); 
+        </script>
+    </body>
+</html>

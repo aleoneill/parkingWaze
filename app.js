@@ -365,6 +365,69 @@ app.get('/umap', function(req, res, next) {
     }
 });
 
+app.get("/search", function(req, res, next) {
+    if (req.session && req.session.username && req.session.username.length) {
+        const connection = mysql.createConnection({
+            host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+            user: 'zzrbbsj5791xsnwf',
+            password: 'l4kg72cf660m8hya',
+            database: 'l2gh8fug1cqr96dc'
+        });
+        
+        connection.connect();
+        
+        connection.query(
+        `SELECT number, buildingname FROM buildings 
+        ORDER BY buildingname`, function(error, results) {
+            if (error) throw error; 
+            
+            connection.query(
+            `SELECT number, name, spaces FROM parking_lots`, function(error, results2) {
+                if (error) throw error; 
+                connection.end(); 
+                
+                res.render('search.hbs', {
+                    buildings: results, 
+                    lots: results2
+                }); 
+            }); 
+        }); 
+    } else {
+        delete req.session.username;
+        res.redirect('/');
+    }
+});
+
+app.post("/search", function(req, res, next) {
+    const connection = mysql.createConnection({
+        host: 'mcldisu5ppkm29wf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'zzrbbsj5791xsnwf',
+        password: 'l4kg72cf660m8hya',
+        database: 'l2gh8fug1cqr96dc'
+    });
+        
+    connection.connect();
+        
+    if(req.body.searchtype == "building") {
+        connection.query(
+        `SELECT buildingname FROM buildings 
+        WHERE number = '${req.body.buildingSearch}'`, function(error, results) {
+            if (error) throw error; 
+            connection.end();
+            
+            res.json({
+                successful: true, 
+                address: results
+            })
+        });
+    }
+    
+    if(req.body.searchtype == "parking-lot") {
+        
+    }
+     
+}); 
+
 app.listen("5000", "0.0.0.0", function() {
         console.log("Express Server is Running...");
 });
